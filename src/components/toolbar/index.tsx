@@ -17,7 +17,7 @@ const Toolbar = () => {
             <DockIcon>
                 <Link href="/blogs"><BookOpenIcon className="size-5"/></Link>
             </DockIcon>
-            <Separator orientation="vertical" className="h-full" />
+            <Separator orientation="vertical" className="h-full"/>
             <DockIcon>
                 <GlobeIcon className="size-5"/>
             </DockIcon>
