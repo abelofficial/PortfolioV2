@@ -9,3 +9,16 @@ export interface Testimonial {
     workPlace: string;
     workPosition: string;
 }
+
+export interface TechStackList {
+    allTechstacks: TechStack[];
+}
+
+export interface TechStack {
+    id: string;
+    title: string;
+    name: string;
+    icon: {
+        url: string;
+    };
+}

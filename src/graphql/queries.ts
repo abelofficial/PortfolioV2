@@ -130,15 +130,16 @@ export const sectionsQuery = `
     allSections {
         id
         icon {
-            url
+            urltechStacksQuery
           }
         subtitle
         title
     }
 `;
 
-export const techstacksQuery = `
+export const techStacksQuery = `
     allTechstacks {
+        id
         icon {
         url
         }

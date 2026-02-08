@@ -25,7 +25,7 @@ const TestimonialReviewCard = ({ name, workPlace, workPosition, body }: Testimon
                 <CardDescription>{workPosition} at {workPlace}</CardDescription>
             </CardHeader>
             <CardContent>
-                <blockquote className="text-sm">{body}</blockquote>
+                <blockquote className="text-sm italic">&quot;{body}&quot;</blockquote>
             </CardContent>
         </Card>
     )

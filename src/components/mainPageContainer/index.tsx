@@ -5,7 +5,7 @@ export interface MainPageContainerProps {
 }
 
 const MainPageContainer = ({children}: MainPageContainerProps) => {
-    return <div className="md:min-h-full p-5">
+    return <div className="md:min-h-full p-5 w-full">
         {children}
     </div>
 }

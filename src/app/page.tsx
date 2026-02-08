@@ -1,7 +1,10 @@
 import MainPageContainer from "@components/mainPageContainer";
+import TechStack from "@components/techStack";
 
 const Home = () => {
-    return <MainPageContainer>Home Page</MainPageContainer>
+    return <MainPageContainer>
+        <TechStack />
+    </MainPageContainer>
 }
 
 export default Home;
