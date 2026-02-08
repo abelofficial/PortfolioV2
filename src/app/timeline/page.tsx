@@ -1,4 +1,4 @@
-import MainPageContainer from "@components/mainPageContainer";
+import {MainPageContainer} from "@components/ui/custom-container";
 
 const Timeline = () => {
     return <MainPageContainer>

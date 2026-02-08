@@ -2,9 +2,7 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Toolbar from "@components/toolbar";
-import SidebarContainer from "@components/sidebarContainer";
-import MainPageContainer from "@components/mainPageContainer";
-import MultiSectionLayout from "@components/multiSectionLayout";
+import {MainPageContainer, MultiSectionLayout, SidebarContainer} from "@components/ui/custom-container";
 import Testimonials from "@components/testimonials";
 
 const geistSans = Geist({

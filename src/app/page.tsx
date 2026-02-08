@@ -1,8 +1,10 @@
-import MainPageContainer from "@components/mainPageContainer";
+import {MainPageContainer} from "@components/ui/custom-container";
 import TechStack from "@components/techStack";
+import GithubPreview from "@components/githubPreview";
 
 const Home = () => {
     return <MainPageContainer>
+        <GithubPreview />
         <TechStack />
     </MainPageContainer>
 }
