@@ -1,7 +1,9 @@
+import MainPageContainer from "@components/mainPageContainer";
+
 const Blogs = () => {
-  return <main>
+  return <MainPageContainer>
     Blogs Page
-  </main>
+  </MainPageContainer>
 }
 
 export default Blogs;

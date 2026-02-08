@@ -1,7 +1,9 @@
+import MainPageContainer from "@components/mainPageContainer";
+
 const Timeline = () => {
-    return <main>
+    return <MainPageContainer>
         Timeline Page
-    </main>
+    </MainPageContainer>
 }
 
 export default Timeline;

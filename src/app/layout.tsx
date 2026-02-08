@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Toolbar from "@components/toolbar";
+import SidebarContainer from "@components/sidebarContainer";
+import MainPageContainer from "@components/mainPageContainer";
+import MultiSectionLayout from "@components/multiSectionLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,8 +31,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-      <Toolbar />
-        {children}
+        <MultiSectionLayout
+            sidebar={
+                <SidebarContainer>
+                    <Toolbar/>
+                </SidebarContainer>}>
+            {children}
+        </MultiSectionLayout>
       </body>
     </html>
   );
