@@ -1,16 +1,13 @@
-import {Card, CardContent, CardHeader} from "@components/ui/card";
-import {getGithubOrgs, getGithubProfile} from "@services/githubFetch";
+import {CardContent, CardHeader} from "@components/ui/card";
+import {getGithubContributions, getGithubOrgs, getGithubProfile} from "@services/githubFetch";
 import {SectionContainer} from "@components/ui/custom-container";
 import Image from "next/image";
-import {GitHubCalendar} from "react-github-calendar";
+import ContributionCalendar from "@components/githubPreview/contributionCalendar";
 
 const GithubPreview = async () => {
     const profile = await getGithubProfile();
     const orgs = await getGithubOrgs();
-    const calendarTheme = {
-        light: ['#f8f9fa', '#40c057'], // gray[0] to green[3]
-        dark: ['#adb5bd', '#2b8a3e'],  // gray[5] to green[9]
-    };
+    const contributions = await getGithubContributions("abelofficial");
     
     return <SectionContainer title="Github Account">
         <CardHeader className="flex flex-col items-center gap-2">
@@ -32,19 +29,7 @@ const GithubPreview = async () => {
                     <h3 className="text-sm font-semibold">Organizations</h3>
                 </div>
             </div>
-            <GitHubCalendar
-                username="abelofficial"
-                theme={calendarTheme}
-                blockMargin={4}
-                blockRadius={5}
-                blockSize={12}
-                labels={{
-                    legend: {
-                        less: "Le",
-                        more: "Mo",
-                    },
-                }}
-            />
+            <ContributionCalendar data={contributions} />
         </CardContent>
     </SectionContainer>
 }

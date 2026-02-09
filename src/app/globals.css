@@ -81,9 +81,9 @@
     --card-foreground: oklch(0.145 0 0);
     --popover: oklch(1 0 0);
     --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
+    --primary: oklch(0.7 0.2 45);
     --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
+    --secondary: oklch(0.99 0 0);
     --secondary-foreground: oklch(0.205 0 0);
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
@@ -109,7 +109,7 @@
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
+    --background: oklch(0.17 0.01 250);
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
@@ -155,4 +155,25 @@
 ::view-transition-old(root), ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
+}
+
+@layer utilities {
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 0.1rem;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background-color: hsl(var(--muted) / 0.5);
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: oklch(0.7 0.2 45);
+        border-radius: 1rem;
+        box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: oklch(0.7 0.2 45) transparent;
+    }
 }

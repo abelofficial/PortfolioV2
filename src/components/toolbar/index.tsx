@@ -7,7 +7,7 @@ import {AnimatedThemeToggler} from "@components/ui/animated-theme-toggler";
 
 const Toolbar = () => {
     return (
-        <Dock direction="middle">
+        <Dock direction="middle" className="w-full flex justify-around">
             <DockIcon>
                 <Link href="/"> <Birdhouse className="size-5"/></Link>
             </DockIcon>

@@ -6,6 +6,10 @@ const Home = () => {
     return <MainPageContainer>
         <GithubPreview />
         <TechStack />
+        <GithubPreview />
+        <TechStack />
+        <GithubPreview />
+        <TechStack />
     </MainPageContainer>
 }
 

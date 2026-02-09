@@ -10,7 +10,7 @@ const TechStack = async () => {
     const {allTechstacks}: TechStackList = await datoCMS({query: queryWrapper([techStacksQuery])});
     
     return (
-        <SectionContainer title="Tech stack">
+        <SectionContainer title="Tech stack" disableShine>
             <div className="flex justify-around w-full items-center overflow-x-auto">
                 {allTechstacks.map((techStack) => (
                     <div key={techStack.id} className="flex flex-col gap-2 items-center shrink-0 min-w-[60px]">

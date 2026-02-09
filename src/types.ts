@@ -47,3 +47,35 @@ export interface IGithubOrgs {
     repos_url: string;
     url: string;
 }
+
+export type ContributionLevel =
+    | "NONE"
+    | "FIRST_QUARTILE"
+    | "SECOND_QUARTILE"
+    | "THIRD_QUARTILE"
+    | "FOURTH_QUARTILE";
+
+export interface GithubGraphQLResponse {
+    data: {
+        viewer: {
+            contributionsCollection: {
+                contributionCalendar: {
+                    totalContributions: number;
+                    weeks: {
+                        contributionDays: {
+                            contributionCount: number;
+                            date: string; // YYYY-MM-DD
+                            contributionLevel: ContributionLevel;
+                        }[];
+                    }[];
+                };
+            };
+        };
+    };
+}
+
+export interface ContributionDay {
+    date: string;
+    count: number;
+    level: number; // 0-4
+}

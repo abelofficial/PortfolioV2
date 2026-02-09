@@ -9,8 +9,10 @@ export interface MainPageContainerProps {
 }
 
 export const MainPageContainer = ({children}: MainPageContainerProps) => {
-    return <div className="md:min-h-full p-5 w-full flex flex-col gap-5 px-5">
-        {children}
+    return <div className="p-4 md:p-5 w-full">
+        <div className="gap-5 md:gap-10 flex flex-col">
+            {children}
+        </div>
     </div>
 }
 
@@ -19,12 +21,17 @@ export interface MultiSectionLayoutProps {
     children: React.ReactNode;
 }
 
-export const MultiSectionLayout = ({sidebar, children}: MultiSectionLayoutProps) => {
-
-    return <main className="max-w-lvw min-h-lvh flex flex-col flex-3 md:flex-row-reverse">
-        <section className="md:min-w-fit md:justify-items-center md:flex-1/3"> {sidebar} </section>
-        <section className="md:min-w-fit md:flex-2/3 flex md:justify-items-center"> {children} </section>
-    </main>
+export const MultiSectionLayout = ({ sidebar, children }: MultiSectionLayoutProps) => {
+    return (
+        <main className="flex flex-col xl:flex-row-reverse h-screen w-screen xl:overflow-hidden">
+            <section className="w-full xl:w-1/3 h-fit xl:h-full xl:overflow-hidden">
+                {sidebar}
+            </section>
+            <section className="flex-1 h-full xl:overflow-y-auto xl:custom-scrollbar bg-secondary">
+                {children}
+            </section>
+        </main>
+    )
 }
 
 export interface SidebarContainerProps {
@@ -32,23 +39,26 @@ export interface SidebarContainerProps {
 }
 
 export const SidebarContainer = ({children}: SidebarContainerProps) => {
-    return <div className="md:min-h-full w-full relative overflow-hidden flex flex-col gap-10 px-5">
+    return <div className="md:min-h-full w-full relative flex justify-center">
         <DotPattern className={cn(
-            "[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+            "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
         )}/>
-        {children}
+        <div className="flex flex-col items-center gap-10 px-5 max-w-4xl">
+            {children}
+        </div>
     </div>
 }
 
 export interface SectionContainerProps {
     children?: React.ReactNode;
     title?: string;
+    disableShine?: boolean;
 }
 
-export const SectionContainer = ({title, children}: SectionContainerProps) => {
-  return <Card className="w-full relative gap-2 p-2 overflow-hidden">
-      <ShineBorder  shineColor={["#A78BFA", "#C4B5FD", "#A78BFA"]} />
-      <h1>{title}</h1>
+export const SectionContainer = ({title, disableShine, children}: SectionContainerProps) => {
+  return <Card className="w-full relative gap-10 p-5 overflow-hidden">
+      {disableShine || <ShineBorder shineColor={["#A78BFA", "#C4B5FD", "#A78BFA"]}/>}
+      {title && <h2 className="text-md font-bold">{title}</h2>}
       {children}
   </Card>
 }
