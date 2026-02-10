@@ -2,8 +2,9 @@
 import {
     ContributionGraph,
     ContributionGraphBlock,
-    ContributionGraphCalendar, ContributionGraphFooter
-} from "@components/kibo-ui/contribution-graph";
+    ContributionGraphCalendar,
+    ContributionGraphFooter
+} from "@components/ui/contribution-graph";
 import {cn} from "@/lib/utils";
 import {ContributionDay} from "@/types";
 
@@ -12,8 +13,8 @@ export interface ContributionCalendarProps {
 }
 
 const ContributionCalendar = ({data}: ContributionCalendarProps) => {
-    return <ContributionGraph data={data}>
-        <ContributionGraphCalendar>
+    return <ContributionGraph data={data} className="w-fit">
+        <ContributionGraphCalendar className="w-fit">
             {({activity, dayIndex, weekIndex}) => (
                 <ContributionGraphBlock
                     activity={activity}

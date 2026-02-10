@@ -3,27 +3,34 @@ import {datoCMS} from "@services/datoCMS";
 import {queryWrapper, techStacksQuery} from "@/lib/queries";
 import Image from "next/image";
 import {SectionContainer} from "@components/ui/custom-container";
+import {Marquee} from "@components/ui/marquee";
 
 const TechStack = async () => {
     const {allTechstacks}: TechStackList = await datoCMS({query: queryWrapper([techStacksQuery])});
 
     return (
         <SectionContainer title="Tech stack" disableShine>
-            <div className="flex justify-around w-full items-center overflow-x-auto">
+            <Marquee pauseOnHover className="[--duration:30s] [--gap:2rem]">
                 {allTechstacks.map((techStack) => (
-                    <div key={techStack.id} className="flex flex-col gap-2 items-center shrink-0 min-w-[60px]">
-                        <Image
-                            src={techStack.icon.url}
-                            width={25}
-                            height={25}
-                            alt={`${techStack.title} icon`}
-                        />
-                        <blockquote className="text-xs text-center whitespace-nowrap">
+                    <div
+                        key={techStack.id}
+                        className="flex flex-none flex-col items-center justify-center gap-2 w-[80px] sm:w-[100px] xl:w-[150px]"
+                    >
+                        <div className="relative h-10 w-10 flex items-center justify-center">
+                            <Image
+                                src={techStack.icon.url}
+                                fill
+                                alt={`${techStack.title} icon`}
+                                className="object-contain"
+                            />
+                        </div>
+                        <blockquote
+                            className="text-[10px] font-medium uppercase tracking-widest whitespace-nowrap">
                             {techStack.name}
                         </blockquote>
                     </div>
                 ))}
-            </div>
+            </Marquee>
         </SectionContainer>
     )
 }
