@@ -31,6 +31,8 @@ export interface IGithubProfile {
     orgs: string;
     public_repos: string;
     total_private_repos: string;
+    company: string;
+    bio: string;
 }
 
 export interface IGithubOrgs {

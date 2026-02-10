@@ -3,16 +3,18 @@ import {getGithubContributions, getGithubOrgs, getGithubProfile} from "@services
 import {SectionContainer} from "@components/ui/custom-container";
 import Image from "next/image";
 import ContributionCalendar from "@components/githubPreview/contributionCalendar";
+import React from "react";
 
 const GithubPreview = async () => {
     const profile = await getGithubProfile();
     const orgs = await getGithubOrgs();
     const contributions = await getGithubContributions("abelofficial");
 
-    return <SectionContainer title="Github Account">
+    return <SectionContainer title="Introduction">
         <CardHeader className="flex flex-col items-center gap-2">
             <Image src={profile.avatar_url} alt={profile.name} width={100} height={100} className="rounded-full"/>
-            <h2 className="text-lg font-bold">{profile.name}</h2>
+            <h2 className="text-lg font-bold">{profile.name} </h2>
+            <p className="text-xs">{profile.bio.trim()} at <span className="text-xs text-primary font-bold">{profile.company}</span></p>
         </CardHeader>
         <CardContent className="max-w-full self-center flex flex-col items-center gap-5 p-1">
             <div className="w-full flex justify-between gap-2">
