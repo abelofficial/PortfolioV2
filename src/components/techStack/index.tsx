@@ -1,14 +1,12 @@
 import {TechStackList} from "@/types";
 import {datoCMS} from "@services/datoCMS";
 import {queryWrapper, techStacksQuery} from "@/lib/queries";
-import {ShineBorder} from "@components/ui/shine-border";
-import {Card} from "@components/ui/card";
 import Image from "next/image";
 import {SectionContainer} from "@components/ui/custom-container";
 
 const TechStack = async () => {
     const {allTechstacks}: TechStackList = await datoCMS({query: queryWrapper([techStacksQuery])});
-    
+
     return (
         <SectionContainer title="Tech stack" disableShine>
             <div className="flex justify-around w-full items-center overflow-x-auto">

@@ -21,7 +21,7 @@ export interface MultiSectionLayoutProps {
     children: React.ReactNode;
 }
 
-export const MultiSectionLayout = ({ sidebar, children }: MultiSectionLayoutProps) => {
+export const MultiSectionLayout = ({sidebar, children}: MultiSectionLayoutProps) => {
     return (
         <main className="flex flex-col xl:flex-row-reverse h-screen w-screen xl:overflow-hidden">
             <section className="w-full xl:w-1/3 h-fit xl:h-full xl:overflow-hidden">
@@ -56,9 +56,9 @@ export interface SectionContainerProps {
 }
 
 export const SectionContainer = ({title, disableShine, children}: SectionContainerProps) => {
-  return <Card className="w-full relative gap-10 p-5 overflow-hidden">
-      {disableShine || <ShineBorder shineColor={["#A78BFA", "#C4B5FD", "#A78BFA"]}/>}
-      {title && <h2 className="text-md font-bold">{title}</h2>}
-      {children}
-  </Card>
+    return <Card className="w-full relative gap-10 p-5 overflow-hidden">
+        {disableShine || <ShineBorder shineColor={["#A78BFA", "#C4B5FD", "#A78BFA"]}/>}
+        {title && <h2 className="text-md font-bold">{title}</h2>}
+        {children}
+    </Card>
 }

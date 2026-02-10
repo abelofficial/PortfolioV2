@@ -10,7 +10,7 @@ async function githubFetch<T>(endpoint: string, revalidate = 3600): Promise<T> {
             Accept: "application/vnd.github+json",
             "X-GitHub-Api-Version": "2022-11-28",
         },
-        next: { revalidate },
+        next: {revalidate},
     });
     if (!response.ok) throw new Error(`GitHub REST Error: ${response.statusText}`);
     return response.json();
@@ -23,8 +23,8 @@ async function githubGraphQL<T>(query: string, variables: Record<string, any>, t
             Authorization: `Bearer ${token ?? process.env.NEXT_PUBLIC_GITHUB_KEYS}`,
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ query, variables }),
-        next: { revalidate: 86400 },
+        body: JSON.stringify({query, variables}),
+        next: {revalidate: 86400},
     });
     if (!response.ok) throw new Error(`GitHub GraphQL Error: ${response.statusText}`);
     return response.json();
@@ -61,10 +61,10 @@ export const getGithubContributions = async (username: string): Promise<Contribu
         }
     `;
 
-    const res = await githubGraphQL<GithubGraphQLResponse>(query, { login: username }, process.env.GITHUB_COMMIT_STATUES);
+    const res = await githubGraphQL<GithubGraphQLResponse>(query, {login: username}, process.env.GITHUB_COMMIT_STATUES);
 
     const weeks = res.data.viewer.contributionsCollection.contributionCalendar.weeks;
-    
+
     return weeks.flatMap((week) =>
         week.contributionDays.map((day) => ({
             date: day.date,

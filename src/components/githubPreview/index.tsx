@@ -8,10 +8,10 @@ const GithubPreview = async () => {
     const profile = await getGithubProfile();
     const orgs = await getGithubOrgs();
     const contributions = await getGithubContributions("abelofficial");
-    
+
     return <SectionContainer title="Github Account">
         <CardHeader className="flex flex-col items-center gap-2">
-            <Image src={profile.avatar_url} alt={profile.name} width={200} height={200} className="rounded-full" />
+            <Image src={profile.avatar_url} alt={profile.name} width={200} height={200} className="rounded-full"/>
             <h2 className="text-lg font-bold">{profile.name}</h2>
         </CardHeader>
         <CardContent className="w-full flex flex-col items-center gap-5">
@@ -29,7 +29,7 @@ const GithubPreview = async () => {
                     <h3 className="text-sm font-semibold">Organizations</h3>
                 </div>
             </div>
-            <ContributionCalendar data={contributions} />
+            <ContributionCalendar data={contributions}/>
         </CardContent>
     </SectionContainer>
 }

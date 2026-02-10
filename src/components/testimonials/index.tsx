@@ -6,9 +6,9 @@ import TestimonialCarousel from "@components/testimonials/testimonialCarousel";
 
 const Testimonials = async () => {
     const {allTestimonials}: TestimonialsList = await datoCMS({query: queryWrapper([testimonialsQuery])});
-    
+
     return (
-        <TestimonialCarousel allTestimonials={allTestimonials} />
+        <TestimonialCarousel allTestimonials={allTestimonials}/>
     );
 };
 
