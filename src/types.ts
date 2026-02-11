@@ -1,3 +1,51 @@
+import {Maybe} from "graphql/jsutils/Maybe";
+
+export interface EducationExperienceList {
+    allEducations: EducationExperience[];
+}
+
+export interface EducationExperience {
+    order: number;
+    title: string;
+    content: string;
+    startDate: string;
+    endDate: string;
+    place: string;
+    logo:{
+        responsiveImage: ResponsiveImageType;
+    }
+}
+
+export interface WorkExperienceList {
+    allWorks: WorkExperience[];
+}
+
+export interface WorkExperience {
+    order: number;
+    title: string;
+    content: string;
+    startDate: string;
+    endDate: string;
+    place: string;
+    logo:{
+        responsiveImage: ResponsiveImageType;
+    }
+}
+
+export declare type ResponsiveImageType = {
+    aspectRatio: number;
+    base64?: Maybe<string>;
+    height?: Maybe<number>;
+    width: number;
+    sizes?: Maybe<string>;
+    src: string;
+    srcSet?: Maybe<string>;
+    webpSrcSet?: Maybe<string>;
+    bgColor?: Maybe<string>;
+    alt?: Maybe<string>;
+    title?: Maybe<string>;
+};
+
 export interface TestimonialsList {
     allTestimonials: Testimonial[];
 }
