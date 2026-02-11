@@ -20,7 +20,7 @@ const WorkExperience = async () => {
         content: <div className="flex flex-col gap-1">
             <Image src={experience.logo.responsiveImage.src} alt={experience.title} width={50} height={50} />
             <p className="text-xs text-muted-foreground py-2">{experience.title} | <span className="text-xs text-primary">{experience.place}</span></p>
-            <p className="text-sm">{experience.content}</p>
+            {experience.content.split("*").map((content, index) => (content ? <p className="text-sm" key={experience.id + index}>-{content}</p>: null))}
         </div>
     }));
     return <SectionContainer title="Work Experience" disableShine>

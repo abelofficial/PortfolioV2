@@ -5,6 +5,7 @@ export interface EducationExperienceList {
 }
 
 export interface EducationExperience {
+    id: string;
     order: number;
     title: string;
     content: string;
@@ -21,6 +22,7 @@ export interface WorkExperienceList {
 }
 
 export interface WorkExperience {
+    id: string;
     order: number;
     title: string;
     content: string;

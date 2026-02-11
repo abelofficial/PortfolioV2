@@ -68,6 +68,7 @@ export const projectsQuery = `
 
 export const workExperienceQuery = `
     allWorks {
+        id
         order
         content
         startDate
@@ -94,6 +95,7 @@ export const workExperienceQuery = `
 
 export const educationExperienceQuery = `
     allEducations {
+        id
         order
         content
         startDate
