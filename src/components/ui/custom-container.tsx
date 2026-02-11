@@ -17,7 +17,7 @@ export const SidebarContainer = ({children}: SidebarContainerProps) => {
         <DotPattern className={cn(
             "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
         )}/>
-        <div className="flex flex-col items-center gap-5 px-5 pb-5 max-w-4xl">
+        <div className="flex flex-col items-center gap-5 px-5 pb-5 max-w-4xl  w-full">
             {children}
         </div>
     </div>
@@ -38,7 +38,7 @@ export interface MultiSectionLayoutProps {
 
 export const MultiSectionLayout = ({sidebar, children}: MultiSectionLayoutProps) => {
     return (
-        <main className="flex flex-col xl:flex-row-reverse h-screen w-screen xl:overflow-hidden">
+        <main className="flex flex-col xl:flex-row-reverse h-screen w-screen">
             <section className="w-full xl:w-1/3 h-fit xl:h-full xl:overflow-hidden">
                 {sidebar}
             </section>
@@ -56,7 +56,7 @@ export interface SectionContainerProps {
 }
 
 export const SectionContainer = ({title, disableShine, children}: SectionContainerProps) => {
-    return <Card className="w-full relative p-2 py-4 overflow-hidden">
+    return <Card className="w-full p-2 py-4 overflow-hidden">
         {disableShine || <ShineBorder
             shineColor={["var(--color-primary-light)", "oklch(0.9 0.1 60)", "var(--color-primary-light)"]}/>}
         {title && <h2 className="text-sm font-bold">{title}</h2>}

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import {Dock, DockIcon} from "@components/ui/dock";
 import {Separator} from "@components/ui/separator";
-import {Birdhouse, BookOpenIcon, GlobeIcon, LucideHistory} from "lucide-react";
+import {BookOpenIcon, GlobeIcon, LucideHistory, UserRoundPen} from "lucide-react";
 import {AnimatedThemeToggler} from "@components/ui/animated-theme-toggler";
 import {usePathname} from "next/navigation";
 import {cn} from "@/lib/utils";
@@ -14,7 +14,7 @@ const Toolbar = () => {
         <Dock direction="middle" className="w-full flex justify-around bg-card p-0">
             <DockIcon>
                 <Link href="/">
-                    <Birdhouse
+                    <UserRoundPen
                         className={cn(["size-5"], pathname === "/" ? ["stroke-primary"] : ["hover:stroke-primary-light"])}/>
                 </Link>
             </DockIcon>

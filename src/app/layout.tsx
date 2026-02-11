@@ -2,8 +2,7 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Toolbar from "@components/toolbar";
-import {MainPageContainer, MultiSectionLayout, SidebarContainer} from "@components/ui/custom-container";
-import Testimonials from "@components/testimonials";
+import {MultiSectionLayout, SidebarContainer} from "@components/ui/custom-container";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -34,7 +33,6 @@ export default function RootLayout({
             sidebar={
                 <SidebarContainer>
                     <Toolbar/>
-                    <Testimonials/>
                 </SidebarContainer>}>
             {children}
         </MultiSectionLayout>

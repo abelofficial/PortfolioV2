@@ -19,12 +19,12 @@ const EducationExperience = async () => {
         title: experience.startDate + " - " + experience.endDate,
         content: <div className="flex flex-col gap-1">
             <Image src={experience.logo.responsiveImage.src} alt={experience.title} width={50} height={50} />
-            <p className="text-sm text-muted-foreground">{experience.title}</p>
+            <p className="text-xs text-muted-foreground py-2">{experience.title} | <span className="text-xs text-primary">{experience.place}</span></p>
             <p className="text-sm">{experience.content}</p>
         </div>
     }));
     
-    return <SectionContainer title="Education Experience" disableShine>
+    return <SectionContainer title="Education" disableShine>
         <Timeline data={data}/>
     </SectionContainer>
 }
