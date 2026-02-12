@@ -10,7 +10,7 @@ const GithubPreview = async () => {
     const orgs = await getGithubOrgs();
     const contributions = await getGithubContributions("abelofficial");
 
-    return <SectionContainer>
+    return <SectionContainer disablePattern>
         <CardHeader className="flex flex-col items-center gap-2 pt-10">
             <Image src={profile.avatar_url} alt={profile.name} width={100} height={100} className="rounded-full"/>
             <h2 className="text-lg font-bold ">{profile.name}</h2>

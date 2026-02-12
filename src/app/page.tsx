@@ -10,8 +10,8 @@ const Home = () => {
         <GithubPreview/>
         <Testimonials/>
         <EducationExperience/>
-        <TechStack/>
         <WorkExperience/>
+        <TechStack/>
     </MainPageContainer>
 }
 
