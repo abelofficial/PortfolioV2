@@ -13,8 +13,11 @@ const GithubPreview = async () => {
     return <SectionContainer>
         <CardHeader className="flex flex-col items-center gap-2 pt-10">
             <Image src={profile.avatar_url} alt={profile.name} width={100} height={100} className="rounded-full"/>
-            <h2 className="text-lg font-bold">{profile.name}</h2>
-            <p className="text-xs">{profile.bio.trim()} at <span className="text-xs text-primary font-bold">{profile.company}</span></p>
+            <h2 className="text-lg font-bold ">{profile.name}</h2>
+            <div className="flex gap-1 ">
+                <p className="text-sm text-primary font-bold">{profile.bio.trim()}</p>
+                <span className="text-sm text"> at {profile.company}</span>
+            </div>
         </CardHeader>
         <CardContent className="max-w-full self-center flex flex-col items-center gap-5 p-1">
             <div className="w-full flex justify-between gap-2">

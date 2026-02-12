@@ -9,7 +9,7 @@ const TechStack = async () => {
     const {allTechstacks}: TechStackList = await datoCMS({query: queryWrapper([techStacksQuery])});
 
     return (
-        <SectionContainer title="Tech stack" disableShine>
+        <SectionContainer title="Tech stack" disableShine disablePattern>
             <Marquee pauseOnHover className="[--duration:30s] [--gap:2rem]">
                 {allTechstacks.map((techStack) => (
                     <div

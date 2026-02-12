@@ -19,11 +19,11 @@ const ContributionCalendar = ({data}: ContributionCalendarProps) => {
                 <ContributionGraphBlock
                     activity={activity}
                     className={cn(
-                        'data-[level="0"]:fill-[#ebedf0] dark:data-[level="0"]:fill-[#161b22]',
-                        'data-[level="1"]:fill-[#9be9a8] dark:data-[level="1"]:fill-[#0e4429]',
-                        'data-[level="2"]:fill-[#40c463] dark:data-[level="2"]:fill-[#006d32]',
-                        'data-[level="3"]:fill-[#30a14e] dark:data-[level="3"]:fill-[#26a641]',
-                        'data-[level="4"]:fill-[#216e39] dark:data-[level="4"]:fill-[#39d353]'
+                        'data-[level="0"]:fill-slate-100 dark:data-[level="0"]:fill-neutral-800',
+                        'data-[level="1"]:fill-[oklch(0.85_0.08_45)] dark:data-[level="1"]:fill-[oklch(0.3_0.05_45)]',
+                        'data-[level="2"]:fill-[oklch(0.75_0.15_45)] dark:data-[level="2"]:fill-[oklch(0.45_0.1_45)]',
+                        'data-[level="3"]:fill-[oklch(0.65_0.22_45)] dark:data-[level="3"]:fill-[oklch(0.6_0.15_45)]',
+                        'data-[level="4"]:fill-[oklch(0.6_0.25_45)] dark:data-[level="4"]:fill-[oklch(0.7_0.2_45)]'
                     )}
                     dayIndex={dayIndex}
                     weekIndex={weekIndex}

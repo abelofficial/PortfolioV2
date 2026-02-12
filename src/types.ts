@@ -1,27 +1,14 @@
 import {Maybe} from "graphql/jsutils/Maybe";
 
 export interface EducationExperienceList {
-    allEducations: EducationExperience[];
-}
-
-export interface EducationExperience {
-    id: string;
-    order: number;
-    title: string;
-    content: string;
-    startDate: string;
-    endDate: string;
-    place: string;
-    logo:{
-        responsiveImage: ResponsiveImageType;
-    }
+    allEducations: Experience[];
 }
 
 export interface WorkExperienceList {
-    allWorks: WorkExperience[];
+    allWorks: Experience[];
 }
 
-export interface WorkExperience {
+export interface Experience {
     id: string;
     order: number;
     title: string;

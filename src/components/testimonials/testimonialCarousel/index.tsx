@@ -20,8 +20,8 @@ const TestimonialCarousel = ({allTestimonials}: TestimonialsList) => {
             <CarouselContent className="gap-1">
                 {allTestimonials.map((testimonial) => (
                     <CarouselItem key={testimonial.id}>
-                        <SectionContainer disableShine>
-                            <CardContent className="flex flex-col px-2 pb-4 m-0">
+                        <SectionContainer disableShine disablePattern>
+                            <CardContent className="px-2 pb-4 m-0 max-w-4xl self-center">
                                 <blockquote
                                     className="text-sm italic text-justify">&quot;{testimonial.text}&quot;</blockquote>
                             </CardContent>
