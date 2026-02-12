@@ -56,7 +56,7 @@ export interface SectionContainerProps {
 }
 
 export const SectionContainer = ({title, disableShine, children}: SectionContainerProps) => {
-    return <Card className="w-full p-2 py-4 overflow-hidden relative">
+    return <Card className="w-full p-4 py-4 overflow-hidden relative">
         {disableShine || <ShineBorder
             shineColor={["var(--color-primary-light)", "oklch(0.9 0.1 60)", "var(--color-primary-light)"]}/>}
         {title && <h2 className="text-sm font-bold">{title}</h2>}
