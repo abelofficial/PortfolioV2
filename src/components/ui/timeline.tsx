@@ -20,7 +20,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     useLayoutEffect(() => {
         if (!ref.current) return;
         const resizeObserver = new ResizeObserver((entries) => {
-            for (let entry of entries) {
+            for (const entry of entries) {
                 setHeight(entry.contentRect.height);
             }
         });

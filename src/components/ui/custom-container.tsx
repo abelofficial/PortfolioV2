@@ -55,7 +55,7 @@ export interface SectionContainerProps {
     disableShine?: boolean;
     disablePattern?: boolean;
     fullHeight?: boolean;
-    headerAction: React.ReactNode
+    headerAction?: React.ReactNode
 }
 
 export const SectionContainer = ({title, disableShine, disablePattern, fullHeight, headerAction, children}: SectionContainerProps) => {
