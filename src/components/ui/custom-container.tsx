@@ -54,17 +54,22 @@ export interface SectionContainerProps {
     title?: string;
     disableShine?: boolean;
     disablePattern?: boolean;
+    fullHeight?: boolean;
+    headerAction: React.ReactNode
 }
 
-export const SectionContainer = ({title, disableShine, disablePattern, children}: SectionContainerProps) => {
-    return <Card className="w-full p-4 py-4 overflow-hidden relative">
+export const SectionContainer = ({title, disableShine, disablePattern, fullHeight, headerAction, children}: SectionContainerProps) => {
+    return <Card className={`w-full p-4 py-4 overflow-hidden relative ${fullHeight ? "h-full" : ""}`}>
         {disablePattern || <DotPattern className={cn(
             "mask-[radial-gradient(300px_circle_at_top_right,white,transparent)]",
             "lg:mask-[radial-gradient(400px_circle_at_right,white,transparent)]"
         )}/>}
         {disableShine || <ShineBorder
             shineColor={["var(--color-primary-light)", "oklch(0.9 0.1 60)", "var(--color-primary-light)"]}/>}
-        {title && <h2 className="text-sm font-bold">{title}</h2>}
+        <div className="flex justify-between">
+            {title && <h2 className="text-sm font-bold">{title}</h2>}
+            {title && headerAction}
+        </div>
         {children}
     </Card>
 }

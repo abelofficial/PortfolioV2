@@ -3,6 +3,7 @@ import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Toolbar from "@components/toolbar";
 import {MultiSectionLayout, SidebarContainer} from "@components/ui/custom-container";
+import ChatAI from "@components/chatAI";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -51,6 +52,7 @@ export default function RootLayout({
             sidebar={
                 <SidebarContainer>
                     <Toolbar/>
+                    <ChatAI />
                 </SidebarContainer>}>
             {children}
         </MultiSectionLayout>
