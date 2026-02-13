@@ -5,7 +5,15 @@ import {useState, useRef, useEffect} from "react";
 import {SectionContainer} from "@components/ui/custom-container";
 import ReactMarkdown from 'react-markdown';
 import {motion, AnimatePresence} from "framer-motion";
-import {MessageCircle, X, Send} from "lucide-react"; 
+import {MessageCircle, X, Send, Sparkles} from "lucide-react";
+
+// 1. Define your starter questions
+const SUGGESTED_QUESTIONS = [
+    "What are Abel's core technical skills?",
+    "Tell me about his work experience.",
+    "Does he have experience with AWS or Cloud?",
+    "What kind of projects has he worked on?"
+];
 
 export default function ChatAI() {
     const [isOpen, setIsOpen] = useState(false);
@@ -20,21 +28,34 @@ export default function ChatAI() {
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
 
-    const handleFormSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!input.trim() || status !== 'ready') return;
+    useEffect(() => {
+        const isMobile = window.innerWidth < 1280;
+        if (isOpen && isMobile) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => { document.body.style.overflow = "unset"; };
+    }, [isOpen]);
+
+    const handleFormSubmit = async (e?: React.FormEvent, manualMessage?: string) => {
+        if (e) e.preventDefault();
+        const messageToSend = manualMessage || input;
+
+        if (!messageToSend.trim() || status !== 'ready') return;
+
         setInput("");
-        await sendMessage({text: input});
+        await sendMessage({text: messageToSend});
     };
 
     return (
         <>
-            <div className="xl:hidden fixed bottom-6 right-6 z-50">
+            <div className="xl:hidden fixed bottom-3 right-3 z-50">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl shadow-2xl"
+                    className="flex items-center gap-2 bg-primary text-white p-2 rounded-xl"
                 >
-                    {isOpen ? <X size={20}/> : <><MessageCircle size={20}/><span>Chat with my AI</span></>}
+                    {isOpen ? <X size={20}/> : <><MessageCircle size={20}/><span className="text-xs">Chat with Abel&#39;s AI</span></>}
                 </button>
             </div>
 
@@ -50,7 +71,7 @@ export default function ChatAI() {
                         flex flex-col items-center justify-end`}
                     >
                         <div className={`
-                        w-full h-full max-w-lg xl:max-w-none 
+                        w-full h-full max-w-lg xl:max-none 
                         flex flex-col overflow-hidden bg-white dark:bg-neutral-900`}>
                             <SectionContainer
                                 disablePattern
@@ -64,6 +85,28 @@ export default function ChatAI() {
                             >
                                 <div className="flex flex-col h-full min-h-0 m-0">
                                     <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4">
+
+                                        {/* 2. SUGGESTED QUESTIONS UI */}
+                                        {messages.length === 0 && (
+                                            <div className="flex flex-col gap-3 py-4">
+                                                <div className="flex items-center gap-2 text-xs text-primary font-semibold mb-1">
+                                                    <Sparkles size={14} />
+                                                    Suggested Starters
+                                                </div>
+                                                <div className="grid grid-cols-1 gap-2">
+                                                    {SUGGESTED_QUESTIONS.map((q, i) => (
+                                                        <button
+                                                            key={i}
+                                                            onClick={() => handleFormSubmit(undefined, q)}
+                                                            className="text-left text-xs p-3 rounded-xl border border-primary/10 bg-secondary/30 hover:bg-primary/5 hover:border-primary/30 transition-all text-neutral-600 dark:text-neutral-300"
+                                                        >
+                                                            {q}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        )}
+
                                         {messages.map((m) => (
                                             <div key={m.id}
                                                  className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
