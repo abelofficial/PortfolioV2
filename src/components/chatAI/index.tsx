@@ -80,12 +80,12 @@ export default function ChatAI() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20 }}
                         className={`
-                        fixed inset-0 z-[100] p-4 bg-background/80 backdrop-blur-md
+                        fixed inset-0 z-[100] p-4 bg-background/80 backdrop-blur-md 
                         xl:relative xl:z-0 xl:p-0 xl:w-full h-[80vh] xl:h-[70vh] xl:bg-transparent xl:backdrop-blur-none mt-auto
                         flex flex-col items-center justify-end`}
                     >
                         <div className={`
-                        w-full h-full max-w-lg xl:max-none 
+                        w-full h-full xl:max-none 
                         flex flex-col overflow-hidden bg-white dark:bg-neutral-900 border border-primary/10 rounded-2xl xl:rounded-none shadow-2xl xl:shadow-none`}>
                             <SectionContainer
                                 disablePattern
@@ -108,7 +108,7 @@ export default function ChatAI() {
                                     </div>
                                 }
                             >
-                                <div className="flex flex-col h-full min-h-0 m-0">
+                                <div className="flex flex-col h-full min-h-0 m-0 ">
                                     <div className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-4">
 
                                         
