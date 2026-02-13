@@ -4,6 +4,8 @@ import "./globals.css";
 import Toolbar from "@components/toolbar";
 import {MultiSectionLayout, SidebarContainer} from "@components/ui/custom-container";
 import ChatAI from "@components/chatAI";
+import {SpeedInsights} from "@vercel/speed-insights/next";
+import {Analytics} from "@vercel/analytics/next";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -56,14 +58,16 @@ export default function RootLayout({
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-        <MultiSectionLayout
-            sidebar={
-                <SidebarContainer>
-                    <Toolbar/>
-                    <ChatAI />
-                </SidebarContainer>}>
-            {children}
-        </MultiSectionLayout>
+            <MultiSectionLayout
+                sidebar={
+                    <SidebarContainer>
+                        <Toolbar/>
+                        <ChatAI/>
+                    </SidebarContainer>}>
+                {children}
+            </MultiSectionLayout>
+            <SpeedInsights/>
+            <Analytics/>
         </body>
         </html>
     );
