@@ -59,7 +59,7 @@ export interface SectionContainerProps {
 }
 
 export const SectionContainer = ({title, disableShine, disablePattern, fullHeight, headerAction, children}: SectionContainerProps) => {
-    return <Card className={`w-full p-4 py-4 overflow-hidden relative ${fullHeight ? "h-full" : ""}`}>
+    return <Card className={`w-full p-4 py-4 overflow-hidden relative gap-1 ${fullHeight ? "h-full" : ""}`}>
         {disablePattern || <DotPattern className={cn(
             "mask-[radial-gradient(300px_circle_at_top_right,white,transparent)]",
             "lg:mask-[radial-gradient(400px_circle_at_right,white,transparent)]"
