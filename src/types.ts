@@ -1,5 +1,32 @@
 import {Maybe} from "graphql/jsutils/Maybe";
 
+export interface HomePage {
+    id: string;
+    name: string;
+    jobTitle: string;
+    workPlace: string;
+    workExperience: string;
+    education: string;
+    at: string;
+    months: string;
+    avatar: {
+        responsiveImage: ResponsiveImageType;
+    }
+}
+
+export interface ContactInfoList {
+    allContacts: ContactInfo[];
+}
+
+export interface ContactInfo {
+    id: string;
+    address: string;
+    title: string;
+    icon: {
+        responsiveImage: ResponsiveImageType;
+    };
+}
+
 export interface EducationExperienceList {
     allEducations: Experience[];
 }

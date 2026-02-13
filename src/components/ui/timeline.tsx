@@ -1,11 +1,10 @@
 "use client";
 import {
-  useMotionValueEvent,
   useScroll,
   useTransform,
   motion,
 } from "motion/react";
-import React, {useEffect, useLayoutEffect, useRef, useState} from "react";
+import React, {useLayoutEffect, useRef, useState} from "react";
 
 interface TimelineEntry {
   title: string;
@@ -14,7 +13,7 @@ interface TimelineEntry {
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     const containerRef = useRef<HTMLDivElement>(null);
-    const ref = useRef<HTMLDivElement>(null); // This measures the actual content height
+    const ref = useRef<HTMLDivElement>(null);
     const [height, setHeight] = useState(0);
 
     useLayoutEffect(() => {
@@ -30,14 +29,13 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        // Adjusting these offsets is key for big screens
         offset: ["start 70%", "end 80%"],
     });
 
     const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
 
   return (
-      <div className="timeline w-full font-sans md:px-10" ref={containerRef}>
+      <div className="timeline w-full font-sans md:px-10 relative" ref={containerRef}>
           <div ref={ref} className="relative max-w-7xl mx-auto pt-10">
               {data.map((item, index) => (
                   <div

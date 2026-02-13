@@ -6,6 +6,7 @@ import {MultiSectionLayout, SidebarContainer} from "@components/ui/custom-contai
 import ChatAI from "@components/chatAI";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/next";
+import {ThemeProvider} from "next-themes";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -36,36 +37,25 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
-        <head>
-            {/* Even though we use the Metadata API for titles, 
-            Next.js allows you to put a <script> in <head> here.
-        */}
-            <script
-                dangerouslySetInnerHTML={{
-                    __html: `
-              try {
-                if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-                  document.documentElement.classList.add('dark')
-                } else {
-                  document.documentElement.classList.remove('dark')
-                }
-              } catch (_) {}
-            `,
-                }}
-            />
-        </head>
+        <html lang="en" suppressHydrationWarning>
         <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-            <MultiSectionLayout
-                sidebar={
-                    <SidebarContainer>
-                        <Toolbar/>
-                        <ChatAI/>
-                    </SidebarContainer>}>
-                {children}
-            </MultiSectionLayout>
+            <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+            >
+                <MultiSectionLayout
+                    sidebar={
+                        <SidebarContainer>
+                            <Toolbar/>
+                            <ChatAI/>
+                        </SidebarContainer>}>
+                    {children}
+                </MultiSectionLayout>
+            </ThemeProvider>
             <SpeedInsights/>
             <Analytics/>
         </body>

@@ -25,7 +25,7 @@ const TechStack = async () => {
                             />
                         </div>
                         <blockquote
-                            className="text-[10px] font-medium uppercase tracking-widest whitespace-nowrap">
+                            className="text-[10px] font-medium uppercase tracking-widest whitespace-nowrap text-shadow-muted-foreground">
                             {techStack.name}
                         </blockquote>
                     </div>

@@ -1,8 +1,8 @@
 "use client"
-
 import { useCallback, useEffect, useRef, useState } from "react"
 import { Moon, Sun } from "lucide-react"
 import { flushSync } from "react-dom"
+import { useTheme } from "next-themes" // Import this
 import { cn } from "@/lib/utils"
 
 interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
@@ -14,55 +14,31 @@ export const AnimatedThemeToggler = ({
                                          duration = 400,
                                          ...props
                                      }: AnimatedThemeTogglerProps) => {
-    // Initialize as null to avoid hydration mismatch (SSR vs Client)
-    const [isDark, setIsDark] = useState<boolean | null>(null)
+    const { theme, setTheme, resolvedTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
     const buttonRef = useRef<HTMLButtonElement>(null)
 
-    // 1. Initial Sync & Persistence Logic
     useEffect(() => {
-        const root = document.documentElement
-
-        // Check localStorage first, then fallback to system preference
-        const savedTheme = localStorage.getItem("theme")
-        const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-
-        const shouldBeDark = savedTheme ? savedTheme === "dark" : systemPrefersDark
-
-        setIsDark(shouldBeDark)
-        root.classList.toggle("dark", shouldBeDark)
-
-        // Listen for external changes (like other tabs or system settings)
-        const updateTheme = () => {
-            setIsDark(root.classList.contains("dark"))
-        }
-
-        const observer = new MutationObserver(updateTheme)
-        observer.observe(root, {
-            attributes: true,
-            attributeFilter: ["class"],
-        })
-
-        return () => observer.disconnect()
-    }, [])
+        const raf = requestAnimationFrame(() => {
+            setMounted(true);
+        });
+        return () => cancelAnimationFrame(raf);
+    }, []);
 
     const toggleTheme = useCallback(async () => {
-        if (!buttonRef.current || isDark === null) return
+        if (!buttonRef.current) return
+
+        const nextTheme = resolvedTheme === "dark" ? "light" : "dark"
 
         // Support for View Transitions API
         if (!document.startViewTransition) {
-            const nextTheme = !isDark
-            setIsDark(nextTheme)
-            document.documentElement.classList.toggle("dark")
-            localStorage.setItem("theme", nextTheme ? "dark" : "light")
+            setTheme(nextTheme)
             return
         }
 
         await document.startViewTransition(() => {
             flushSync(() => {
-                const nextTheme = !isDark
-                setIsDark(nextTheme)
-                document.documentElement.classList.toggle("dark")
-                localStorage.setItem("theme", nextTheme ? "dark" : "light")
+                setTheme(nextTheme)
             })
         }).ready
 
@@ -87,10 +63,10 @@ export const AnimatedThemeToggler = ({
                 pseudoElement: "::view-transition-new(root)",
             }
         )
-    }, [isDark, duration])
+    }, [resolvedTheme, setTheme, duration])
 
-    // Avoid rendering icons until we know the theme (prevents flickering)
-    if (isDark === null) return <div className={cn("h-9 w-9", className)} />
+    // Prevent rendering until mounted to match server HTML
+    if (!mounted) return <div className={cn("h-9 w-9", className)} />
 
     return (
         <button
@@ -98,12 +74,11 @@ export const AnimatedThemeToggler = ({
             onClick={toggleTheme}
             {...props}
         >
-            {isDark ? (
-                <Sun className="stroke-amber-400 fill-amber-400/20" />
+            {resolvedTheme === "dark" ? (
+                <Sun className="stroke-amber-400 fill-amber-400/20 size-5" />
             ) : (
-                <Moon />
+                <Moon className="size-5" />
             )}
-            <span className="sr-only">Toggle theme</span>
         </button>
     )
 }

@@ -17,7 +17,7 @@ export const SidebarContainer = ({children}: SidebarContainerProps) => {
         <DotPattern className={cn(
             "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
         )}/>
-        <div className="flex flex-col items-center gap-5 px-5 pb-5 max-w-4xl  w-full">
+        <div className="flex flex-col items-center gap-5 px-5 pb-5 max-w-4xl relative w-full">
             {children}
         </div>
     </div>

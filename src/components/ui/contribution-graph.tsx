@@ -392,6 +392,7 @@ export const ContributionGraphCalendar = ({
                     <g className="fill-current">
                         {monthLabels.map(({label, weekIndex}) => (
                             <text
+                                className="text-xs"
                                 dominantBaseline="hanging"
                                 key={weekIndex}
                                 x={(blockSize + blockMargin) * weekIndex}
@@ -415,103 +416,6 @@ export const ContributionGraphCalendar = ({
                     })
                 )}
             </svg>
-        </div>
-    );
-};
-
-export type ContributionGraphFooterProps = HTMLAttributes<HTMLDivElement>;
-
-export const ContributionGraphFooter = ({
-                                            className,
-                                            ...props
-                                        }: ContributionGraphFooterProps) => (
-    <div
-        className={cn(
-            "flex flex-wrap gap-1 whitespace-nowrap sm:gap-x-4",
-            className
-        )}
-        {...props}
-    />
-);
-
-export type ContributionGraphTotalCountProps = Omit<
-    HTMLAttributes<HTMLDivElement>,
-    "children"
-> & {
-    children?: (props: { totalCount: number; year: number }) => ReactNode;
-};
-
-export const ContributionGraphTotalCount = ({
-                                                className,
-                                                children,
-                                                ...props
-                                            }: ContributionGraphTotalCountProps) => {
-    const {totalCount, year, labels} = useContributionGraph();
-
-    if (children) {
-        return <>{children({totalCount, year})}</>;
-    }
-
-    return (
-        <div className={cn("text-muted-foreground", className)} {...props}>
-            {labels.totalCount
-                ? labels.totalCount
-                    .replace("{{count}}", String(totalCount))
-                    .replace("{{year}}", String(year))
-                : `${totalCount} activities in ${year}`}
-        </div>
-    );
-};
-
-export type ContributionGraphLegendProps = Omit<
-    HTMLAttributes<HTMLDivElement>,
-    "children"
-> & {
-    children?: (props: { level: number }) => ReactNode;
-};
-
-export const ContributionGraphLegend = ({
-                                            className,
-                                            children,
-                                            ...props
-                                        }: ContributionGraphLegendProps) => {
-    const {labels, maxLevel, blockSize, blockRadius} = useContributionGraph();
-
-    return (
-        <div
-            className={cn("ml-auto flex items-center gap-[3px]", className)}
-            {...props}
-        >
-      <span className="mr-1 text-muted-foreground">
-        {labels.legend?.less || "Less"}
-      </span>
-            {new Array(maxLevel + 1).fill(undefined).map((_, level) =>
-                children ? (
-                    <Fragment key={level}>{children({level})}</Fragment>
-                ) : (
-                    <svg height={blockSize} key={level} width={blockSize}>
-                        <title>{`${level} contributions`}</title>
-                        <rect
-                            className={cn(
-                                "stroke-[1px] stroke-border",
-                                'data-[level="0"]:fill-muted',
-                                'data-[level="1"]:fill-muted-foreground/20',
-                                'data-[level="2"]:fill-muted-foreground/40',
-                                'data-[level="3"]:fill-muted-foreground/60',
-                                'data-[level="4"]:fill-muted-foreground/80'
-                            )}
-                            data-level={level}
-                            height={blockSize}
-                            rx={blockRadius}
-                            ry={blockRadius}
-                            width={blockSize}
-                        />
-                    </svg>
-                )
-            )}
-            <span className="ml-1 text-muted-foreground">
-        {labels.legend?.more || "More"}
-      </span>
         </div>
     );
 };

@@ -6,6 +6,7 @@ import {SectionContainer} from "@components/ui/custom-container";
 import ReactMarkdown from 'react-markdown';
 import {motion, AnimatePresence} from "framer-motion";
 import {MessageCircle, X, Send, Sparkles} from "lucide-react";
+import useWindowWidth from "@/useWindowWidth";
 
 // 1. Define your starter questions
 const SUGGESTED_QUESTIONS = [
@@ -17,13 +18,15 @@ const SUGGESTED_QUESTIONS = [
 
 export default function ChatAI() {
     const [isOpen, setIsOpen] = useState(false);
+
+    const width = useWindowWidth();
     const {messages, sendMessage, status} = useChat({
         transport: new DefaultChatTransport({api: '/api/chat'}),
     });
 
     const [input, setInput] = useState("");
     const messagesEndRef = useRef<HTMLDivElement>(null);
-
+    
     useEffect(() => {
         messagesEndRef.current?.scrollIntoView({behavior: "smooth"});
     }, [messages]);
@@ -37,6 +40,8 @@ export default function ChatAI() {
         }
         return () => { document.body.style.overflow = "unset"; };
     }, [isOpen]);
+
+    const isDesktop = width >= 1280;
 
     const handleFormSubmit = async (e?: React.FormEvent, manualMessage?: string) => {
         if (e) e.preventDefault();
@@ -60,7 +65,7 @@ export default function ChatAI() {
             </div>
 
             <AnimatePresence>
-                {(isOpen || (typeof window !== 'undefined' && window.innerWidth >= 1280)) && (
+                {(isOpen || isDesktop) && (
                     <motion.div
                         initial={{opacity: 0, y: 20}}
                         animate={{opacity: 1, y: 0}}

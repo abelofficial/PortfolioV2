@@ -1,4 +1,4 @@
-export const queryWrapper = (queries: [string]) => `
+export const queryWrapper = (queries: string[]) => `
     query {
         ${[...queries]}
     }
@@ -27,6 +27,36 @@ export const contactsQuery = `
             }
         } 
     }
+`;
+
+export const homePageQuery = `
+    homePage{
+        id
+        name
+        jobTitle
+        workPlace
+        workExperience
+        education
+        at
+        months
+        avatar {
+            url
+            title
+            responsiveImage {
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+        } 
+    }     
 `;
 
 export const testimonialsQuery = `
