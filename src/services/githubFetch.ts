@@ -1,22 +1,16 @@
 import "server-only";
-import {ContributionDay, ContributionLevel, GithubGraphQLResponse, IGithubOrgs, IGithubProfile} from "@/types";
+import {
+    ContributionData,
+    ContributionDay,
+    ContributionLevel,
+    GithubGraphQLResponse,
+    IGithubOrgs,
+    IGithubProfile
+} from "@/types";
 
 const GITHUB_API_URL = "https://api.github.com";
 
-async function githubFetch<T>(endpoint: string, revalidate = 3600): Promise<T> {
-    const response = await fetch(`${GITHUB_API_URL}/${endpoint}`, {
-        headers: {
-            Authorization: `Bearer ${process.env.NEXT_PUBLIC_GITHUB_KEYS}`,
-            Accept: "application/vnd.github+json",
-            "X-GitHub-Api-Version": "2022-11-28",
-        },
-        next: {revalidate},
-    });
-    if (!response.ok) throw new Error(`GitHub REST Error: ${response.statusText}`);
-    return response.json();
-}
-
-async function githubGraphQL<T>(query: string, variables: Record<string, any>, token?: string): Promise<T> {
+async function githubGraphQL<T>(query: string, variables: Record<string, unknown>, token?: string): Promise<T> {
     const response = await fetch(`${GITHUB_API_URL}/graphql`, {
         method: "POST",
         headers: {
@@ -30,9 +24,6 @@ async function githubGraphQL<T>(query: string, variables: Record<string, any>, t
     return response.json();
 }
 
-export const getGithubProfile = () => githubFetch<IGithubProfile>("user");
-export const getGithubOrgs = () => githubFetch<IGithubOrgs[]>("user/orgs");
-
 const levelMap: Record<ContributionLevel, number> = {
     NONE: 0,
     FIRST_QUARTILE: 1,
@@ -41,7 +32,7 @@ const levelMap: Record<ContributionLevel, number> = {
     FOURTH_QUARTILE: 4,
 };
 
-export const getGithubContributions = async (username: string): Promise<ContributionDay[]> => {
+export const getGithubContributions = async (username: string): Promise<ContributionData> => {
     const query = `
       query {
           viewer {
@@ -65,11 +56,14 @@ export const getGithubContributions = async (username: string): Promise<Contribu
 
     const weeks = res.data.viewer.contributionsCollection.contributionCalendar.weeks;
 
-    return weeks.flatMap((week) =>
-        week.contributionDays.map((day) => ({
-            date: day.date,
-            count: day.contributionCount,
-            level: levelMap[day.contributionLevel] ?? 0,
-        }))
-    );
+    return {
+        totalContributions: res.data.viewer.contributionsCollection.contributionCalendar.totalContributions,
+        contributionsByDate: weeks.flatMap((week) =>
+            week.contributionDays.map((day) => ({
+                date: day.date,
+                count: day.contributionCount,
+                level: levelMap[day.contributionLevel] ?? 0,
+            }))
+        )
+    }
 };

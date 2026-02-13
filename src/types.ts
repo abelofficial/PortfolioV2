@@ -9,6 +9,7 @@ export interface HomePage {
     education: string;
     at: string;
     months: string;
+    totalContributionLabel: string;
     avatar: {
         responsiveImage: ResponsiveImageType;
     }
@@ -138,6 +139,11 @@ export interface GithubGraphQLResponse {
             };
         };
     };
+}
+
+export interface ContributionData {
+    totalContributions: number;
+    contributionsByDate: ContributionDay[];
 }
 
 export interface ContributionDay {

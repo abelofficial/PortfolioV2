@@ -21,7 +21,7 @@ const Profile = async () => {
                 <span className="text-sm text"> {homePage.at} {homePage.workPlace}</span>
             </div>
         </CardHeader>
-        <CardContent className="max-w-full self-center flex flex-col items-center gap-5 p-1">
+        <CardContent className="max-w-full self-center flex flex-col items-center p-1">
             <div className="w-full flex justify-around gap-2">
                 {allContacts.map((contact) => (
                     <a
@@ -29,7 +29,7 @@ const Profile = async () => {
                         target='_blank'
                         rel='noreferrer'
                         href={contact.address}
-                        className="flex flex-col items-center gap-2 py-5"
+                        className="flex flex-col items-center gap-2 pt-5"
                     >
                         <Image
                             src={contact.icon.responsiveImage.src}
@@ -41,7 +41,8 @@ const Profile = async () => {
                     </a>
                 ))}
             </div>
-            <ContributionCalendar data={contributions}/>
+            <ContributionCalendar data={contributions.contributionsByDate} totalContributions={contributions.totalContributions} label={homePage.totalContributionLabel}/>
+            
         </CardContent>
     </SectionContainer>
 }

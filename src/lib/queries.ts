@@ -39,6 +39,7 @@ export const homePageQuery = `
         education
         at
         months
+        totalContributionLabel
         avatar {
             url
             title
