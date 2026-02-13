@@ -14,7 +14,7 @@ const Profile = async () => {
     
     return <SectionContainer disablePattern>
         <CardHeader className="flex flex-col items-center gap-2 pt-10">
-            <Image src={homePage.avatar.responsiveImage.src} alt={homePage.name} width={200} height={200} className="rounded-full aspect-square object-cover border-2 border-gray-300"/>
+            <Image src={homePage.avatar.responsiveImage.src} alt={homePage.name} width={150} height={150} className="rounded-full aspect-square object-cover border-2 border-gray-300"/>
             <h2 className="text-lg font-bold ">{homePage.name}</h2>
             <div className="flex gap-1 ">
                 <p className="text-sm text-primary font-bold">{homePage.jobTitle}</p>

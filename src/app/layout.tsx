@@ -2,11 +2,12 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Toolbar from "@components/toolbar";
-import {MultiSectionLayout, SidebarContainer} from "@components/ui/custom-container";
+import {MultiSectionLayout, SectionContainer, SidebarContainer} from "@components/ui/custom-container";
 import ChatAI from "@components/chatAI";
 import {SpeedInsights} from "@vercel/speed-insights/next";
 import {Analytics} from "@vercel/analytics/next";
 import {ThemeProvider} from "next-themes";
+import Footer from "@components/footer";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -54,6 +55,7 @@ export default function RootLayout({
                             <ChatAI/>
                         </SidebarContainer>}>
                     {children}
+                    <Footer />
                 </MultiSectionLayout>
             </ThemeProvider>
             <SpeedInsights/>

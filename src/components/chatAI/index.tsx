@@ -55,7 +55,7 @@ export default function ChatAI() {
 
     return (
         <>
-            <div className="xl:hidden fixed bottom-3 right-3 z-50">
+            <div className="xl:hidden fixed bottom-5 right-5 z-50">
                 <button
                     onClick={() => setIsOpen(!isOpen)}
                     className="flex items-center gap-2 bg-primary text-white p-2 rounded-xl"
