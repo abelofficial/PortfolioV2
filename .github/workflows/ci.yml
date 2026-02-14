@@ -9,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: production
 
     steps:
       - name: Checkout Code
@@ -22,7 +23,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 20
           cache: 'pnpm'
 
       - name: Install Dependencies
@@ -33,6 +34,7 @@ jobs:
 
       - name: Run Build
         env:
+          NEXT_TELEMETRY_DISABLED: 1
           ACCOUNT_GITHUB_COMMIT_STATUES_TOKEN: ${{ secrets.ACCOUNT_GITHUB_COMMIT_STATUES_TOKEN }}
           ACCOUNT_GITHUB_TOKEN: ${{ secrets.ACCOUNT_GITHUB_TOKEN }}
           ACCOUNT_DATOCMS_API_TOKEN: ${{ secrets.ACCOUNT_DATOCMS_API_TOKEN }}
