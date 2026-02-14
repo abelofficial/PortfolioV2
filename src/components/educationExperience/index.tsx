@@ -1,6 +1,6 @@
 import { EducationExperienceList } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { educationExperienceQuery, queryWrapper } from '@/lib/queries';
+import { educationExperienceQuery, getCombinedQuery } from '@/lib/queries';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Timeline } from '@components/ui/timeline';
 import TimelineCard from '@components/timelineCard';
@@ -12,7 +12,8 @@ type TimelineEntry = {
 
 const EducationExperience = async () => {
   const { allEducations }: EducationExperienceList = await datoCMS({
-    query: queryWrapper([educationExperienceQuery]),
+    query: getCombinedQuery([educationExperienceQuery]),
+    variables: { locale: 'en' },
   });
 
   const data: TimelineEntry[] = allEducations.reverse().map((experience) => ({

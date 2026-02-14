@@ -1,6 +1,6 @@
 import { WorkExperienceList } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { queryWrapper, workExperienceQuery } from '@/lib/queries';
+import { getCombinedQuery, workExperienceQuery } from '@/lib/queries';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Timeline } from '@components/ui/timeline';
 import TimelineCard from '@components/timelineCard';
@@ -12,7 +12,8 @@ type TimelineEntry = {
 
 const WorkExperience = async () => {
   const { allWorks }: WorkExperienceList = await datoCMS({
-    query: queryWrapper([workExperienceQuery]),
+    query: getCombinedQuery([workExperienceQuery]),
+    variables: { locale: 'en' },
   });
 
   const data: TimelineEntry[] = allWorks.reverse().map((experience) => ({

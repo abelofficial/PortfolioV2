@@ -6,14 +6,15 @@ import ContributionCalendar from '@components/profile/contributionCalendar';
 import React from 'react';
 import { ContactInfo, HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { queryWrapper, contactsQuery, homePageQuery } from '@/lib/queries';
+import { getCombinedQuery, contactsQuery, homePageQuery } from '@/lib/queries';
 
 const Profile = async () => {
   const {
     allContacts,
     homePage,
   }: { allContacts: ContactInfo[]; homePage: HomePage } = await datoCMS({
-    query: queryWrapper([homePageQuery, contactsQuery]),
+    query: getCombinedQuery([homePageQuery, contactsQuery]),
+    variables: { locale: 'en' },
   });
   const contributions = await getGithubContributions('abelofficial');
 

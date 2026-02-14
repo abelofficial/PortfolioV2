@@ -10,7 +10,7 @@ import {
 import { datoCMS } from '@services/datoCMS';
 import {
   educationExperienceQuery,
-  queryWrapper,
+  getCombinedQuery,
   workExperienceQuery,
 } from '@/lib/queries';
 
@@ -29,10 +29,12 @@ async function seed() {
   try {
     const [educationExperiences, workExperiences] = await Promise.all([
       datoCMS({
-        query: queryWrapper([educationExperienceQuery]),
+        query: getCombinedQuery([educationExperienceQuery]),
+        variables: { locale: 'en' },
       }) as Promise<EducationExperienceList>,
       datoCMS({
-        query: queryWrapper([workExperienceQuery]),
+        query: getCombinedQuery([workExperienceQuery]),
+        variables: { locale: 'en' },
       }) as Promise<WorkExperienceList>,
     ]);
 

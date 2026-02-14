@@ -1,13 +1,14 @@
 import { TechStackList } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { queryWrapper, techStacksQuery } from '@/lib/queries';
+import { getCombinedQuery, techStacksQuery } from '@/lib/queries';
 import Image from 'next/image';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Marquee } from '@components/ui/marquee';
 
 const TechStack = async () => {
   const { allTechstacks }: TechStackList = await datoCMS({
-    query: queryWrapper([techStacksQuery]),
+    query: getCombinedQuery([techStacksQuery]),
+    variables: { locale: 'en' },
   });
 
   return (
