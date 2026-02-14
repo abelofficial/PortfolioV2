@@ -1,5 +1,11 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface TimelineEntry {
+  title: string;
+  content: React.ReactNode;
+  order: number;
+}
+
 export interface HomePage {
   id: string;
   name: string;

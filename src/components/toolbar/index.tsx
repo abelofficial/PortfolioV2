@@ -2,39 +2,38 @@
 import Link from 'next/link';
 import { Dock, DockIcon } from '@components/ui/dock';
 import { Separator } from '@components/ui/separator';
-import {
-  BookOpenIcon,
-  GlobeIcon,
-  LucideHistory,
-  UserRoundPen,
-} from 'lucide-react';
+import { BookOpenIcon, LucideHistory, UserRoundPen } from 'lucide-react';
 import { AnimatedThemeToggler } from '@components/ui/animated-theme-toggler';
-import { usePathname } from 'next/navigation';
+import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { LanguageSwitcher } from '@components/languageSwitcher';
+import languages from '@/utils/languages';
 
 const Toolbar = () => {
   const pathname = usePathname();
-
+  const { locale } = useParams();
+  const isHome = languages.some(
+    (lang) =>
+      pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
+  );
   return (
     <Dock direction="middle" className="bg-card flex w-full justify-around p-0">
       <DockIcon>
-        <Link href="/">
+        <Link href={`/${locale}`}>
           <UserRoundPen
             className={cn(
               ['size-5'],
-              pathname === '/'
-                ? ['stroke-primary']
-                : ['hover:stroke-primary-light']
+              isHome ? ['stroke-primary'] : ['hover:stroke-primary-light']
             )}
           />
         </Link>
       </DockIcon>
       <DockIcon>
-        <Link href="/timeline">
+        <Link href={`/${locale}/timeline`}>
           <LucideHistory
             className={cn(
               ['size-5'],
-              pathname === '/timeline'
+              pathname.includes('/timeline')
                 ? ['stroke-primary']
                 : ['hover:stroke-primary-light']
             )}
@@ -42,11 +41,11 @@ const Toolbar = () => {
         </Link>
       </DockIcon>
       <DockIcon>
-        <Link href="/blogs">
+        <Link href={`/${locale}/blogs`}>
           <BookOpenIcon
             className={cn(
               ['size-5'],
-              pathname === '/blogs'
+              pathname.includes('/blogs')
                 ? ['stroke-primary']
                 : ['hover:stroke-primary-light']
             )}
@@ -55,7 +54,7 @@ const Toolbar = () => {
       </DockIcon>
       <Separator orientation="vertical" />
       <DockIcon>
-        <GlobeIcon className="size-5" />
+        <LanguageSwitcher className="size-5" />
       </DockIcon>
       <DockIcon>
         <AnimatedThemeToggler className="size-5" />

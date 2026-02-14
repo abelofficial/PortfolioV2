@@ -4,10 +4,14 @@ import { TestimonialsList } from '@/types';
 import React from 'react';
 import TestimonialCarousel from '@components/testimonials/testimonialCarousel';
 
-const Testimonials = async () => {
+export interface TestimonialsProps {
+  locale: string;
+}
+
+const Testimonials = async ({ locale }: TestimonialsProps) => {
   const { allTestimonials }: TestimonialsList = await datoCMS({
     query: getCombinedQuery([testimonialsQuery]),
-    variables: { locale: 'en' },
+    variables: { locale: locale },
   });
 
   return <TestimonialCarousel allTestimonials={allTestimonials} />;
