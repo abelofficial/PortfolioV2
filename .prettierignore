@@ -1,0 +1,17 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Next.js Build Output
+.next
+out
+build
+
+# Static Assets
+public
+
+# Lockfiles (Never format these!)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml

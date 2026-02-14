@@ -1,153 +1,153 @@
-import {Maybe} from "graphql/jsutils/Maybe";
+import { Maybe } from 'graphql/jsutils/Maybe';
 
 export interface HomePage {
-    id: string;
-    name: string;
-    jobTitle: string;
-    workPlace: string;
-    workExperience: string;
-    education: string;
-    at: string;
-    months: string;
-    totalContributionLabel: string;
-    avatar: {
-        responsiveImage: ResponsiveImageType;
-    }
+  id: string;
+  name: string;
+  jobTitle: string;
+  workPlace: string;
+  workExperience: string;
+  education: string;
+  at: string;
+  months: string;
+  totalContributionLabel: string;
+  avatar: {
+    responsiveImage: ResponsiveImageType;
+  };
 }
 
 export interface ContactInfoList {
-    allContacts: ContactInfo[];
+  allContacts: ContactInfo[];
 }
 
 export interface ContactInfo {
-    id: string;
-    address: string;
-    title: string;
-    icon: {
-        responsiveImage: ResponsiveImageType;
-    };
+  id: string;
+  address: string;
+  title: string;
+  icon: {
+    responsiveImage: ResponsiveImageType;
+  };
 }
 
 export interface EducationExperienceList {
-    allEducations: Experience[];
+  allEducations: Experience[];
 }
 
 export interface WorkExperienceList {
-    allWorks: Experience[];
+  allWorks: Experience[];
 }
 
 export interface Experience {
-    id: string;
-    order: number;
-    title: string;
-    content: string;
-    startDate: string;
-    endDate: string;
-    place: string;
-    logo:{
-        responsiveImage: ResponsiveImageType;
-    }
+  id: string;
+  order: number;
+  title: string;
+  content: string;
+  startDate: string;
+  endDate: string;
+  place: string;
+  logo: {
+    responsiveImage: ResponsiveImageType;
+  };
 }
 
 export declare type ResponsiveImageType = {
-    aspectRatio: number;
-    base64?: Maybe<string>;
-    height?: Maybe<number>;
-    width: number;
-    sizes?: Maybe<string>;
-    src: string;
-    srcSet?: Maybe<string>;
-    webpSrcSet?: Maybe<string>;
-    bgColor?: Maybe<string>;
-    alt?: Maybe<string>;
-    title?: Maybe<string>;
+  aspectRatio: number;
+  base64?: Maybe<string>;
+  height?: Maybe<number>;
+  width: number;
+  sizes?: Maybe<string>;
+  src: string;
+  srcSet?: Maybe<string>;
+  webpSrcSet?: Maybe<string>;
+  bgColor?: Maybe<string>;
+  alt?: Maybe<string>;
+  title?: Maybe<string>;
 };
 
 export interface TestimonialsList {
-    allTestimonials: Testimonial[];
+  allTestimonials: Testimonial[];
 }
 
 export interface Testimonial {
-    id: string;
-    name: string;
-    text: string;
-    workPlace: string;
-    workPosition: string;
+  id: string;
+  name: string;
+  text: string;
+  workPlace: string;
+  workPosition: string;
 }
 
 export interface TechStackList {
-    allTechstacks: TechStack[];
+  allTechstacks: TechStack[];
 }
 
 export interface TechStack {
-    id: string;
-    title: string;
-    name: string;
-    icon: {
-        url: string;
-    };
+  id: string;
+  title: string;
+  name: string;
+  icon: {
+    url: string;
+  };
 }
 
 export interface IGithubProfile {
-    name: string;
-    avatar_url: string;
-    followers: string;
-    following: string;
-    orgs: string;
-    public_repos: string;
-    total_private_repos: string;
-    company: string;
-    bio: string;
+  name: string;
+  avatar_url: string;
+  followers: string;
+  following: string;
+  orgs: string;
+  public_repos: string;
+  total_private_repos: string;
+  company: string;
+  bio: string;
 }
 
 export interface IGithubOrgs {
-    avatar_url: string;
-    description: string;
-    events_url: string;
-    hooks_url: string;
-    id: number;
-    issues_url: string;
-    login: string;
-    members_url: string;
-    node_id: string;
-    public_members_url: string;
-    repos_url: string;
-    url: string;
+  avatar_url: string;
+  description: string;
+  events_url: string;
+  hooks_url: string;
+  id: number;
+  issues_url: string;
+  login: string;
+  members_url: string;
+  node_id: string;
+  public_members_url: string;
+  repos_url: string;
+  url: string;
 }
 
 export type ContributionLevel =
-    | "NONE"
-    | "FIRST_QUARTILE"
-    | "SECOND_QUARTILE"
-    | "THIRD_QUARTILE"
-    | "FOURTH_QUARTILE";
+  | 'NONE'
+  | 'FIRST_QUARTILE'
+  | 'SECOND_QUARTILE'
+  | 'THIRD_QUARTILE'
+  | 'FOURTH_QUARTILE';
 
 export interface GithubGraphQLResponse {
-    data: {
-        viewer: {
-            contributionsCollection: {
-                contributionCalendar: {
-                    totalContributions: number;
-                    weeks: {
-                        contributionDays: {
-                            contributionCount: number;
-                            date: string; // YYYY-MM-DD
-                            contributionLevel: ContributionLevel;
-                        }[];
-                    }[];
-                };
-            };
+  data: {
+    viewer: {
+      contributionsCollection: {
+        contributionCalendar: {
+          totalContributions: number;
+          weeks: {
+            contributionDays: {
+              contributionCount: number;
+              date: string;
+              contributionLevel: ContributionLevel;
+            }[];
+          }[];
         };
+      };
     };
+  };
 }
 
 export interface ContributionData {
-    totalContributions: number;
-    contributionsByDate: ContributionDay[];
+  totalContributions: number;
+  contributionsByDate: ContributionDay[];
 }
 
 export interface ContributionDay {
-    date: string;
-    count: number;
-    level: number; // 0-4
+  date: string;
+  count: number;
+  level: number;
 }
