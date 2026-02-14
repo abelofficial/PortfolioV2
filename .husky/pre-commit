@@ -1,0 +1,2 @@
+pnpm exec lint-staged
+echo "pnpm dlx commitlint --edit \$1" > .husky/commit-msg

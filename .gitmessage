@@ -1,0 +1,6 @@
+# <type>(<scope>): <subject>
+# Allowed types: feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
+
+# Examples:
+# feat(ui): add magnetic effect to buttons
+# fix(api): resolve hydration mismatch in DotPattern
