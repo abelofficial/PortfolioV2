@@ -15,7 +15,7 @@ async function githubGraphQL<T>(
   const response = await fetch(`${GITHUB_API_URL}/graphql`, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${token ?? process.env.NEXT_PUBLIC_GITHUB_KEYS}`,
+      Authorization: `Bearer ${token ?? process.env.ACCOUNT_GITHUB_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({ query, variables }),
@@ -59,7 +59,7 @@ export const getGithubContributions = async (
   const res = await githubGraphQL<GithubGraphQLResponse>(
     query,
     { login: username },
-    process.env.GITHUB_COMMIT_STATUES
+    process.env.ACCOUNT_GITHUB_COMMIT_STATUES_TOKEN
   );
 
   const weeks =

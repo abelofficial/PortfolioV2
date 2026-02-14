@@ -32,4 +32,12 @@ jobs:
         run: pnpm lint
 
       - name: Run Build
+        env:
+          ACCOUNT_GITHUB_COMMIT_STATUES_TOKEN: ${{ secrets.ACCOUNT_GITHUB_COMMIT_STATUES_TOKEN }}
+          ACCOUNT_GITHUB_TOKEN: ${{ secrets.ACCOUNT_GITHUB_TOKEN }}
+          ACCOUNT_DATOCMS_API_TOKEN: ${{ secrets.ACCOUNT_DATOCMS_API_TOKEN }}
+          UPSTASH_VECTOR_REST_URL: ${{ secrets.UPSTASH_VECTOR_REST_URL }}
+          UPSTASH_VECTOR_REST_TOKEN: ${{ secrets.UPSTASH_VECTOR_REST_TOKEN }}
+          UPSTASH_VECTOR_REST_TOKEN_READ_ONLY: ${{ secrets.UPSTASH_VECTOR_REST_TOKEN_READ_ONLY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: pnpm build
