@@ -1,27 +1,40 @@
-import { EducationExperienceList } from '@/types';
+import {
+  EducationExperienceList,
+  Experience,
+  HomePage,
+  TimelineEntry,
+} from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { educationExperienceQuery, queryWrapper } from '@/lib/queries';
+import {
+  educationExperienceQuery,
+  getCombinedQuery,
+  homePageQuery,
+} from '@/lib/queries';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Timeline } from '@components/ui/timeline';
 import TimelineCard from '@components/timelineCard';
 
-type TimelineEntry = {
-  title: string;
-  content: React.ReactNode;
-};
+interface EducationExperienceProps {
+  locale: string;
+}
 
-const EducationExperience = async () => {
-  const { allEducations }: EducationExperienceList = await datoCMS({
-    query: queryWrapper([educationExperienceQuery]),
+const EducationExperience = async ({ locale }: EducationExperienceProps) => {
+  const {
+    allEducations,
+    homePage,
+  }: { allEducations: Experience[]; homePage: HomePage } = await datoCMS({
+    query: getCombinedQuery([educationExperienceQuery, homePageQuery]),
+    variables: { locale: locale },
   });
 
-  const data: TimelineEntry[] = allEducations.reverse().map((experience) => ({
+  const data: TimelineEntry[] = allEducations.map((experience) => ({
     title: experience.startDate + ' - ' + experience.endDate,
     content: <TimelineCard data={experience} />,
+    order: experience.order,
   }));
 
   return (
-    <SectionContainer title="Education" disableShine>
+    <SectionContainer title={homePage.education} disableShine>
       <Timeline data={data} />
     </SectionContainer>
   );

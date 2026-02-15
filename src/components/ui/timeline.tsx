@@ -1,11 +1,7 @@
 'use client';
 import { useScroll, useTransform, motion } from 'motion/react';
 import React, { useLayoutEffect, useRef, useState } from 'react';
-
-interface TimelineEntry {
-  title: string;
-  content: React.ReactNode;
-}
+import { TimelineEntry } from '@/types';
 
 export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,20 +32,22 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       ref={containerRef}
     >
       <div ref={ref} className="relative mx-auto max-w-7xl pt-10">
-        {data.map((item, index) => (
-          <div key={index} className="flex justify-start pb-5">
-            <div className="z-40 px-6 py-2">
-              <div className="bg-primary-light h-4 w-4 rounded-full" />
-            </div>
+        {data
+          .sort((a, b) => a.order - b.order)
+          .map((item, index) => (
+            <div key={index} className="flex justify-start pb-5">
+              <div className="z-40 px-6 py-2">
+                <div className="bg-primary-light h-4 w-4 rounded-full" />
+              </div>
 
-            <div className="relative w-full pr-4">
-              <h3 className="text-md mb-4 block text-left font-bold text-neutral-500 dark:text-neutral-500">
-                {item.title}
-              </h3>
-              {item.content}
+              <div className="relative w-full pr-4">
+                <h3 className="text-md mb-4 block text-left font-bold text-neutral-500 dark:text-neutral-500">
+                  {item.title}
+                </h3>
+                {item.content}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
         <div className="z-40 px-3">
           <p className="text-primary text-sm">Start</p>
         </div>

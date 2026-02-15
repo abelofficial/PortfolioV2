@@ -5,14 +5,15 @@ import WorkExperience from '@components/workExperience';
 import EducationExperience from '@components/educationExperience';
 import Testimonials from '@components/testimonials';
 
-const Home = () => {
+const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
   return (
     <MainPageContainer>
-      <Profile />
-      <Testimonials />
-      <EducationExperience />
-      <WorkExperience />
-      <TechStack />
+      <Profile locale={locale} />
+      <Testimonials locale={locale} />
+      <TechStack locale={locale} />
+      <WorkExperience locale={locale} />
+      <EducationExperience locale={locale} />
     </MainPageContainer>
   );
 };

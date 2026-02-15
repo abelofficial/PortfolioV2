@@ -1,15 +1,32 @@
 import { datoCMS } from '@services/datoCMS';
-import { queryWrapper, testimonialsQuery } from '@/lib/queries';
-import { TestimonialsList } from '@/types';
+import {
+  getCombinedQuery,
+  homePageQuery,
+  testimonialsQuery,
+} from '@/lib/queries';
+import { HomePage, Testimonial, TestimonialsList } from '@/types';
 import React from 'react';
 import TestimonialCarousel from '@components/testimonials/testimonialCarousel';
 
-const Testimonials = async () => {
-  const { allTestimonials }: TestimonialsList = await datoCMS({
-    query: queryWrapper([testimonialsQuery]),
+export interface TestimonialsProps {
+  locale: string;
+}
+
+const Testimonials = async ({ locale }: TestimonialsProps) => {
+  const {
+    allTestimonials,
+    homePage,
+  }: { allTestimonials: Testimonial[]; homePage: HomePage } = await datoCMS({
+    query: getCombinedQuery([testimonialsQuery, homePageQuery]),
+    variables: { locale: locale },
   });
 
-  return <TestimonialCarousel allTestimonials={allTestimonials} />;
+  return (
+    <TestimonialCarousel
+      allTestimonials={allTestimonials}
+      homePage={homePage}
+    />
+  );
 };
 
 export default Testimonials;

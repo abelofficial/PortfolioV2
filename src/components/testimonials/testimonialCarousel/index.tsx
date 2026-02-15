@@ -1,5 +1,5 @@
 'use client';
-import { TestimonialsList } from '@/types';
+import { HomePage, Testimonial, TestimonialsList } from '@/types';
 import React from 'react';
 import {
   Carousel,
@@ -10,7 +10,14 @@ import Autoplay from 'embla-carousel-autoplay';
 import { CardContent, CardFooter } from '@components/ui/card';
 import { SectionContainer } from '@components/ui/custom-container';
 
-const TestimonialCarousel = ({ allTestimonials }: TestimonialsList) => {
+export interface TestimonialCarouselProps {
+  allTestimonials: Testimonial[];
+  homePage: HomePage;
+}
+const TestimonialCarousel = ({
+  allTestimonials,
+  homePage,
+}: TestimonialCarouselProps) => {
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
@@ -34,7 +41,8 @@ const TestimonialCarousel = ({ allTestimonials }: TestimonialsList) => {
                 <p className="text-muted-foreground text-xs">
                   {testimonial.name}{' '}
                   <span className="text-primary text-xs font-bold">
-                    {testimonial.workPosition} at {testimonial.workPlace}
+                    {testimonial.workPosition} {homePage.at}{' '}
+                    {testimonial.workPlace}
                   </span>
                 </p>
               </CardFooter>

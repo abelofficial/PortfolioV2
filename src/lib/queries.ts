@@ -1,11 +1,11 @@
-export const queryWrapper = (queries: string[]) => `
-    query {
-        ${[...queries]}
+export const getCombinedQuery = (queryBlocks: string[]) => `
+    query GeneralQuery($locale: SiteLocale){
+        ${queryBlocks.join('\n')}
     }
 `;
 
 export const contactsQuery = `
-    allContacts {
+    allContacts(locale: $locale) {
         title
         id
         address
@@ -30,7 +30,7 @@ export const contactsQuery = `
 `;
 
 export const homePageQuery = `
-    homePage{
+    homePage(locale: $locale) {
         id
         name
         jobTitle
@@ -40,6 +40,16 @@ export const homePageQuery = `
         at
         months
         totalContributionLabel
+        openAiChatButton
+        aiChatTitle
+        suggestionLabel
+        aiTypingIndicator
+        techStackTitle
+        footer
+        chatInputPlaceholder
+        suggestedQuestions{
+            singleQuestion
+        }
         avatar {
             url
             title
@@ -61,7 +71,7 @@ export const homePageQuery = `
 `;
 
 export const testimonialsQuery = `
-    allTestimonials {
+    allTestimonials(locale: $locale) {
         id
         name
         text(markdown: false)
@@ -71,7 +81,7 @@ export const testimonialsQuery = `
 `;
 
 export const projectsQuery = `
-    allProjects {
+    allProjects(locale: $locale) {
         url
         title
         name
@@ -98,7 +108,7 @@ export const projectsQuery = `
 `;
 
 export const workExperienceQuery = `
-    allWorks {
+    allWorks(locale: $locale) {
         id
         order
         content
@@ -125,7 +135,7 @@ export const workExperienceQuery = `
 `;
 
 export const educationExperienceQuery = `
-    allEducations {
+    allEducations(locale: $locale) {
         id
         order
         content
@@ -152,7 +162,7 @@ export const educationExperienceQuery = `
 `;
 
 export const specialtyQuery = `
-    allSpecialties {
+    allSpecialties(locale: $locale) {
         icon {
             url
         }
@@ -162,7 +172,7 @@ export const specialtyQuery = `
 `;
 
 export const sectionsQuery = `
-    allSections {
+    allSections(locale: $locale) {
         id
         icon {
             urltechStacksQuery
@@ -173,7 +183,7 @@ export const sectionsQuery = `
 `;
 
 export const techStacksQuery = `
-    allTechstacks {
+    allTechstacks(locale: $locale) {
         id
         icon {
         url
@@ -184,7 +194,7 @@ export const techStacksQuery = `
 `;
 
 export const blogQuery = `
-    allBlogs {
+    allBlogs(locale: $locale) {
         id
         position
         title
@@ -204,7 +214,7 @@ export const blogQuery = `
 `;
 
 export const blogCTAQuery = `
-    allBlogsCtas {
+    allBlogsCtas(locale: $locale) {
         id
         blog {
             id
@@ -214,7 +224,7 @@ export const blogCTAQuery = `
     }
 `;
 export const singleBlogQuery = (id: string) => `
-    allBlogs(filter: {id: {eq: "${id}"}}) {
+    allBlogs(filter: {id: {eq: "${id}"}}, locale: $locale) {
         id
         position
         title

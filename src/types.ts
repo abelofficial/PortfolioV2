@@ -1,5 +1,11 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface TimelineEntry {
+  title: string;
+  content: React.ReactNode;
+  order: number;
+}
+
 export interface HomePage {
   id: string;
   name: string;
@@ -10,6 +16,16 @@ export interface HomePage {
   at: string;
   months: string;
   totalContributionLabel: string;
+  openAiChatButton: string;
+  aiChatTitle: string;
+  suggestionLabel: string;
+  chatInputPlaceholder: string;
+  aiTypingIndicator: string;
+  techStackTitle: string;
+  footer: string;
+  suggestedQuestions: {
+    singleQuestion: string;
+  }[];
   avatar: {
     responsiveImage: ResponsiveImageType;
   };

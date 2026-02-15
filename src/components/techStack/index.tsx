@@ -1,17 +1,33 @@
-import { TechStackList } from '@/types';
+import { HomePage, TechStack as TechnologyStack } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { queryWrapper, techStacksQuery } from '@/lib/queries';
+import {
+  getCombinedQuery,
+  homePageQuery,
+  techStacksQuery,
+} from '@/lib/queries';
 import Image from 'next/image';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Marquee } from '@components/ui/marquee';
 
-const TechStack = async () => {
-  const { allTechstacks }: TechStackList = await datoCMS({
-    query: queryWrapper([techStacksQuery]),
+export interface TechStackProps {
+  locale: string;
+}
+
+const TechStack = async ({ locale }: TechStackProps) => {
+  const {
+    allTechstacks,
+    homePage,
+  }: { allTechstacks: TechnologyStack[]; homePage: HomePage } = await datoCMS({
+    query: getCombinedQuery([techStacksQuery, homePageQuery]),
+    variables: { locale: locale },
   });
 
   return (
-    <SectionContainer title="Tech stack" disableShine disablePattern>
+    <SectionContainer
+      title={homePage.techStackTitle}
+      disableShine
+      disablePattern
+    >
       <Marquee pauseOnHover className="[--duration:30s] [--gap:2rem]">
         {allTechstacks.map((techStack) => (
           <div

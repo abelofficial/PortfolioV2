@@ -7,15 +7,13 @@ import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, Trash2 } from 'lucide-react';
 import useWindowWidth from '@/useWindowWidth';
+import { HomePage } from '@/types';
 
-const SUGGESTED_QUESTIONS = [
-  "What are Abel's core technical skills?",
-  'Tell me about his work experience.',
-  'Does he have experience with AWS or Cloud?',
-  'What kind of projects has he worked on?',
-];
+export interface ChatAIProps {
+  homePage: HomePage;
+}
 
-export default function ChatAI() {
+export default function ChatAI({ homePage }: ChatAIProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
   const width = useWindowWidth();
@@ -58,7 +56,7 @@ export default function ChatAI() {
     await sendMessage({ text: messageToSend });
 
     setCurrentSuggestionIndex(
-      (prev) => (prev + 1) % SUGGESTED_QUESTIONS.length
+      (prev) => (prev + 1) % homePage.suggestedQuestions.length
     );
   };
 
@@ -79,7 +77,7 @@ export default function ChatAI() {
           ) : (
             <>
               <MessageCircle size={20} />
-              <span className="text-xs">Chat with Abel&#39;s AI</span>
+              <span className="text-xs">{homePage.openAiChatButton}</span>
             </>
           )}
         </button>
@@ -99,7 +97,7 @@ export default function ChatAI() {
               <SectionContainer
                 disablePattern
                 fullHeight
-                title="Abel's AI"
+                title={homePage.aiChatTitle}
                 headerAction={
                   <div className="flex items-center gap-3">
                     {messages.length > 0 && (
@@ -126,16 +124,18 @@ export default function ChatAI() {
                       <div className="flex flex-col gap-3 py-4">
                         <div className="text-primary mb-1 flex items-center gap-2 text-xs font-semibold">
                           <Sparkles size={14} />
-                          Suggested Starters
+                          {homePage.suggestionLabel}
                         </div>
                         <div className="grid grid-cols-1 gap-2">
-                          {SUGGESTED_QUESTIONS.map((q, i) => (
+                          {homePage.suggestedQuestions.map((q, i) => (
                             <button
                               key={i}
-                              onClick={() => handleFormSubmit(undefined, q)}
+                              onClick={() =>
+                                handleFormSubmit(undefined, q.singleQuestion)
+                              }
                               className="border-primary/10 bg-secondary/30 hover:bg-primary/5 hover:border-primary/30 rounded-xl border p-3 text-left text-xs text-neutral-600 transition-all dark:text-neutral-300"
                             >
-                              {q}
+                              {q.singleQuestion}
                             </button>
                           ))}
                         </div>
@@ -164,7 +164,7 @@ export default function ChatAI() {
                     ))}
                     {(status === 'streaming' || status === 'submitted') && (
                       <div className="text-primary animate-pulse pl-2 text-xs font-medium">
-                        Abel&#39;s AI is typing...
+                        {homePage.aiTypingIndicator}
                       </div>
                     )}
                     <div ref={messagesEndRef} />
@@ -179,7 +179,9 @@ export default function ChatAI() {
                           onClick={() =>
                             handleFormSubmit(
                               undefined,
-                              SUGGESTED_QUESTIONS[currentSuggestionIndex]
+                              homePage.suggestedQuestions[
+                                currentSuggestionIndex
+                              ].singleQuestion
                             )
                           }
                           className="text-primary/60 hover:text-primary group flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase transition-all disabled:opacity-50"
@@ -189,7 +191,12 @@ export default function ChatAI() {
                             className="transition-transform group-hover:rotate-12"
                           />
                           <span className="truncate">
-                            Ask: {SUGGESTED_QUESTIONS[currentSuggestionIndex]}
+                            Ask:{' '}
+                            {
+                              homePage.suggestedQuestions[
+                                currentSuggestionIndex
+                              ].singleQuestion
+                            }
                           </span>
                         </button>
                       </div>
@@ -200,7 +207,7 @@ export default function ChatAI() {
                         <input
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
-                          placeholder="Ask about Abel..."
+                          placeholder={homePage.chatInputPlaceholder}
                           className="border-primary/30 focus:border-primary flex-1 border-b bg-transparent py-1 text-sm transition-colors focus:outline-none"
                         />
                         <button
