@@ -11,9 +11,9 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
     <MainPageContainer>
       <Profile locale={locale} />
       <Testimonials locale={locale} />
-      <EducationExperience locale={locale} />
+      <TechStack locale={locale} />
       <WorkExperience locale={locale} />
-      <TechStack />
+      <EducationExperience locale={locale} />
     </MainPageContainer>
   );
 };

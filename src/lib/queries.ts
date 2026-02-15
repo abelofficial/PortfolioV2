@@ -40,6 +40,16 @@ export const homePageQuery = `
         at
         months
         totalContributionLabel
+        openAiChatButton
+        aiChatTitle
+        suggestionLabel
+        aiTypingIndicator
+        techStackTitle
+        footer
+        chatInputPlaceholder
+        suggestedQuestions{
+            singleQuestion
+        }
         avatar {
             url
             title

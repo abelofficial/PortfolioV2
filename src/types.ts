@@ -16,6 +16,16 @@ export interface HomePage {
   at: string;
   months: string;
   totalContributionLabel: string;
+  openAiChatButton: string;
+  aiChatTitle: string;
+  suggestionLabel: string;
+  chatInputPlaceholder: string;
+  aiTypingIndicator: string;
+  techStackTitle: string;
+  footer: string;
+  suggestedQuestions: {
+    singleQuestion: string;
+  }[];
   avatar: {
     responsiveImage: ResponsiveImageType;
   };

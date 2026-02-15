@@ -1,6 +1,15 @@
-import { EducationExperienceList, TimelineEntry } from '@/types';
+import {
+  EducationExperienceList,
+  Experience,
+  HomePage,
+  TimelineEntry,
+} from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { educationExperienceQuery, getCombinedQuery } from '@/lib/queries';
+import {
+  educationExperienceQuery,
+  getCombinedQuery,
+  homePageQuery,
+} from '@/lib/queries';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Timeline } from '@components/ui/timeline';
 import TimelineCard from '@components/timelineCard';
@@ -10,8 +19,11 @@ interface EducationExperienceProps {
 }
 
 const EducationExperience = async ({ locale }: EducationExperienceProps) => {
-  const { allEducations }: EducationExperienceList = await datoCMS({
-    query: getCombinedQuery([educationExperienceQuery]),
+  const {
+    allEducations,
+    homePage,
+  }: { allEducations: Experience[]; homePage: HomePage } = await datoCMS({
+    query: getCombinedQuery([educationExperienceQuery, homePageQuery]),
     variables: { locale: locale },
   });
 
@@ -22,7 +34,7 @@ const EducationExperience = async ({ locale }: EducationExperienceProps) => {
   }));
 
   return (
-    <SectionContainer title="Education" disableShine>
+    <SectionContainer title={homePage.education} disableShine>
       <Timeline data={data} />
     </SectionContainer>
   );

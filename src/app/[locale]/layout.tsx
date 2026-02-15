@@ -11,6 +11,13 @@ import { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
+import { Experience, HomePage } from '@/types';
+import { datoCMS } from '@services/datoCMS';
+import {
+  getCombinedQuery,
+  homePageQuery,
+  workExperienceQuery,
+} from '@/lib/queries';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -60,6 +67,11 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
+  const { homePage }: { homePage: HomePage } = await datoCMS({
+    query: getCombinedQuery([homePageQuery]),
+    variables: { locale: locale },
+  });
+
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
@@ -75,12 +87,12 @@ export default async function RootLayout({
             sidebar={
               <SidebarContainer>
                 <Toolbar />
-                <ChatAI />
+                <ChatAI homePage={homePage} />
               </SidebarContainer>
             }
           >
             {children}
-            <Footer />
+            <Footer homePage={homePage} />
           </MultiSectionLayout>
         </ThemeProvider>
         <SpeedInsights />
