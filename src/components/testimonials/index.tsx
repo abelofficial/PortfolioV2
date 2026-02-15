@@ -4,7 +4,7 @@ import {
   homePageQuery,
   testimonialsQuery,
 } from '@/lib/queries';
-import { HomePage, Testimonial, TestimonialsList } from '@/types';
+import { HomePage, Testimonial } from '@/types';
 import React from 'react';
 import TestimonialCarousel from '@components/testimonials/testimonialCarousel';
 

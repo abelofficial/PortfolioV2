@@ -341,37 +341,34 @@ const TechnicalLedger = ({ locale }: TechnicalNotePageProps) => {
                   );
                 }
               }),
-              renderNodeRule(
-                isHeading,
-                ({ node, children, key, ancestors }) => {
-                  switch (node.level) {
-                    case 1:
-                      return (
-                        <h1 key={key} className="my-4 text-2xl font-bold">
-                          {children}
-                        </h1>
-                      );
-                    case 2:
-                      return (
-                        <h2 key={key} className="my-3 text-xl font-bold">
-                          {children}
-                        </h2>
-                      );
-                    case 3:
-                      return (
-                        <h3 key={key} className="my-2 text-lg font-semibold">
-                          {children}
-                        </h3>
-                      );
-                    default:
-                      return (
-                        <p key={key} className="text-sm font-bold">
-                          {children}
-                        </p>
-                      );
-                  }
+              renderNodeRule(isHeading, ({ node, children, key }) => {
+                switch (node.level) {
+                  case 1:
+                    return (
+                      <h1 key={key} className="my-4 text-2xl font-bold">
+                        {children}
+                      </h1>
+                    );
+                  case 2:
+                    return (
+                      <h2 key={key} className="my-3 text-xl font-bold">
+                        {children}
+                      </h2>
+                    );
+                  case 3:
+                    return (
+                      <h3 key={key} className="my-2 text-lg font-semibold">
+                        {children}
+                      </h3>
+                    );
+                  default:
+                    return (
+                      <p key={key} className="text-sm font-bold">
+                        {children}
+                      </p>
+                    );
                 }
-              ),
+              }),
             ]}
           />
         </article>
