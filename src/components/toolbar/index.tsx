@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Dock, DockIcon } from '@components/ui/dock';
 import { Separator } from '@components/ui/separator';
-import { BookOpenIcon, LucideHistory, UserRoundPen } from 'lucide-react';
+import { BookOpenIcon, UserRoundPen, NotebookTextIcon } from 'lucide-react';
 import { AnimatedThemeToggler } from '@components/ui/animated-theme-toggler';
 import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -33,9 +33,11 @@ const Toolbar = () => {
         </Link>
       </DockIcon>
       <DockIcon>
-        <Link href={`/${locale}/notes`}>
-          <LucideHistory
-            className={getClassName(() => pathname.includes('/notes'))}
+        <Link href={`/${locale}/technical-ledgers`}>
+          <NotebookTextIcon
+            className={getClassName(() =>
+              pathname.includes('/technical-ledgers')
+            )}
           />
         </Link>
       </DockIcon>

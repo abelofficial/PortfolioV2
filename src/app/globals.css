@@ -187,3 +187,9 @@
     scrollbar-color: oklch(0.7 0.2 45) transparent;
   }
 }
+
+.shiki-container pre {
+  background-color: transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
