@@ -6,6 +6,13 @@ export interface TimelineEntry {
   order: number;
 }
 
+export interface Prompt {
+  coreRules: string;
+  safetyLimitations: string;
+  toneAndStyle: string;
+  formattingAndStructure: string;
+}
+
 export interface HomePage {
   id: string;
   name: string;

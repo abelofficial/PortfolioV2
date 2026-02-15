@@ -2,6 +2,14 @@ import { Index } from '@upstash/vector';
 import { openai } from '@ai-sdk/openai';
 import { streamText, convertToModelMessages, type UIMessage, embed } from 'ai';
 import { getAssistantPrompt } from '@/utils/ai-prompts';
+import { HomePage, Prompt } from '@/types';
+import { datoCMS } from '@services/datoCMS';
+import {
+  getCombinedQuery,
+  getCombinedQueryWithoutLocalization,
+  homePageQuery,
+  promptQuery,
+} from '@/lib/queries';
 
 const index = new Index({
   url: process.env.UPSTASH_VECTOR_REST_URL!,
@@ -10,6 +18,9 @@ const index = new Index({
 
 export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
+  const { prompt }: { prompt: Prompt } = await datoCMS({
+    query: getCombinedQueryWithoutLocalization([promptQuery]),
+  });
 
   const lastUserMessage = messages[messages.length - 1];
   const lastMessageText = lastUserMessage.parts
@@ -35,7 +46,7 @@ export async function POST(req: Request) {
 
   const result = streamText({
     model: openai('gpt-4o-mini'),
-    system: getAssistantPrompt(context),
+    system: getAssistantPrompt(context, prompt),
     messages: await convertToModelMessages(messages),
   });
 

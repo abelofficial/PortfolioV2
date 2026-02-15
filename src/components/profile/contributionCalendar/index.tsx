@@ -30,8 +30,8 @@ const ContributionCalendar = ({
           <ContributionGraphBlock
             activity={activity}
             className={cn(
-              'data-[level="0"]:fill-primary/5',
-              'data-[level="1"]:fill-primary/10',
+              'data-[level="0"]:fill-primary/2',
+              'data-[level="1"]:fill-primary/20',
               'data-[level="2"]:fill-primary/40',
               'data-[level="3"]:fill-primary/80',
               'data-[level="4"]:fill-primary'
