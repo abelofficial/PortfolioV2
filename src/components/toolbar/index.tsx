@@ -12,43 +12,37 @@ import languages from '@/utils/languages';
 const Toolbar = () => {
   const pathname = usePathname();
   const { locale } = useParams();
-  const isHome = languages.some(
-    (lang) =>
-      pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
-  );
+  const isHomePageChecker = () =>
+    languages.some(
+      (lang) =>
+        pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
+    );
+
+  const getClassName = (checker: () => boolean) => {
+    return cn(
+      ['size-5'],
+      checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']
+    );
+  };
+
   return (
     <Dock direction="middle" className="bg-card flex w-full justify-around p-0">
       <DockIcon>
         <Link href={`/${locale}`}>
-          <UserRoundPen
-            className={cn(
-              ['size-5'],
-              isHome ? ['stroke-primary'] : ['hover:stroke-primary-light']
-            )}
-          />
+          <UserRoundPen className={getClassName(isHomePageChecker)} />
         </Link>
       </DockIcon>
       <DockIcon>
-        <Link href={`/${locale}/timeline`}>
+        <Link href={`/${locale}/notes`}>
           <LucideHistory
-            className={cn(
-              ['size-5'],
-              pathname.includes('/timeline')
-                ? ['stroke-primary']
-                : ['hover:stroke-primary-light']
-            )}
+            className={getClassName(() => pathname.includes('/notes'))}
           />
         </Link>
       </DockIcon>
       <DockIcon>
         <Link href={`/${locale}/blogs`}>
           <BookOpenIcon
-            className={cn(
-              ['size-5'],
-              pathname.includes('/blogs')
-                ? ['stroke-primary']
-                : ['hover:stroke-primary-light']
-            )}
+            className={getClassName(() => pathname.includes('/blogs'))}
           />
         </Link>
       </DockIcon>
