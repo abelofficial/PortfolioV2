@@ -4,6 +4,21 @@ export const getCombinedQuery = (queryBlocks: string[]) => `
     }
 `;
 
+export const getCombinedQueryWithoutLocalization = (queryBlocks: string[]) => `
+    query GeneralQuery {
+        ${queryBlocks.join('\n')}
+    }
+`;
+
+export const promptQuery = `
+    prompt {
+        coreRule
+        safetyLimitations
+        toneAndStyle
+        formattingAndStructure
+  }
+`;
+
 export const contactsQuery = `
     allContacts(locale: $locale) {
         title

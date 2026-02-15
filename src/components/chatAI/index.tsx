@@ -92,7 +92,7 @@ export default function ChatAI({ homePage }: ChatAIProps) {
             className={`bg-background/80 fixed inset-0 z-[100] mt-auto flex h-[80vh] flex-col items-center justify-end p-4 backdrop-blur-md xl:relative xl:z-0 xl:h-[70vh] xl:w-full xl:bg-transparent xl:p-0 xl:backdrop-blur-none`}
           >
             <div
-              className={`xl:max-none border-primary/10 flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-white shadow-2xl xl:rounded-none xl:shadow-none dark:bg-neutral-900`}
+              className={`xl:max-none bg-card flex h-full w-full flex-col overflow-hidden rounded-2xl shadow-2xl xl:rounded-none xl:shadow-none`}
             >
               <SectionContainer
                 disablePattern
@@ -170,9 +170,9 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                     <div ref={messagesEndRef} />
                   </div>
 
-                  <div className="border-primary/10 flex-shrink-0 border-t bg-neutral-50/50 dark:bg-neutral-900/50">
+                  <div className="border-primary/10 shrink-0 border-t bg-neutral-50/50 dark:bg-neutral-900/50">
                     {messages.length > 0 && (
-                      <div className="px-4 pt-3">
+                      <div className="px-0 pt-3">
                         <button
                           type="button"
                           disabled={status !== 'ready'}
@@ -184,7 +184,7 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                               ].singleQuestion
                             )
                           }
-                          className="text-primary/60 hover:text-primary group flex items-center gap-2 text-[10px] font-bold tracking-wider uppercase transition-all disabled:opacity-50"
+                          className="text-primary/60 hover:text-primary group flex max-w-full items-center gap-2 text-[10px] font-bold tracking-wider text-ellipsis transition-all disabled:opacity-50"
                         >
                           <Sparkles
                             size={12}
