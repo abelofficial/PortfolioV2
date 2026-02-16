@@ -6,7 +6,7 @@ import { SectionContainer } from '@components/ui/custom-container';
 import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, Trash2 } from 'lucide-react';
-import useWindowWidth from '@/useWindowWidth';
+import useWindowWidth from '@/hooks/useWindowWidth';
 import { HomePage } from '@/types';
 
 export interface ChatAIProps {
