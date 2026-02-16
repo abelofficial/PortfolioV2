@@ -1,5 +1,59 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface TechnicalLedgerList {
+  allTechnicalLedgers: TechnicalLedger[];
+}
+
+export interface TechnicalLedger {
+  id: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  tag: {
+    id: string;
+    tag: string;
+  }[];
+  fullNote: {
+    value: LedgerNote;
+  };
+}
+
+export interface LedgerNote {
+  schema: string;
+  document: {
+    type: string;
+    children: LedgerNoteBlock[];
+  };
+}
+
+export interface LedgerNoteBlock {
+  type?: string;
+  level?: number;
+  children?: LedgerNoteBlockChild[];
+  code?: string;
+  language?: string;
+}
+
+export interface LedgerNoteBlockChild {
+  type?: string;
+  value?: string;
+  marks?: string[];
+  children?: LedgerNoteBlockSubChild[];
+}
+
+export interface LedgerNoteBlockSubChild {
+  type?: string;
+  marks?: string[];
+  children?: LedgerNoteBlockSubSubChild[];
+}
+
+export interface LedgerNoteBlockSubSubChild {
+  type?: string;
+  value?: string;
+  marks?: string[];
+}
+
 export interface TimelineEntry {
   title: string;
   content: React.ReactNode;

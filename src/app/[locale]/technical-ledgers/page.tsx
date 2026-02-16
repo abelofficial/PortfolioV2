@@ -1,10 +1,12 @@
 import { MainPageContainer } from '@components/ui/custom-container';
 import TechnicalLedgersList from '@components/technicalLedgersList';
 
-const Notes = () => {
+const Notes = async ({ params }: { params: Promise<{ locale: string }> }) => {
+  const { locale } = await params;
+
   return (
     <MainPageContainer className="p-0">
-      <TechnicalLedgersList />
+      <TechnicalLedgersList locale={locale} />
     </MainPageContainer>
   );
 };

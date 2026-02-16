@@ -95,33 +95,6 @@ export const testimonialsQuery = `
     }     
 `;
 
-export const projectsQuery = `
-    allProjects(locale: $locale) {
-        url
-        title
-        name
-        id
-        githubLink
-        description
-        techstack
-        medias {
-            responsiveImage {
-                alt
-                aspectRatio
-                base64
-                bgColor
-                height
-                sizes
-                src
-                srcSet
-                title
-                webpSrcSet
-                width
-            }
-        }
-    }  
-`;
-
 export const workExperienceQuery = `
     allWorks(locale: $locale) {
         id
@@ -176,78 +149,30 @@ export const educationExperienceQuery = `
     }
 `;
 
-export const specialtyQuery = `
-    allSpecialties(locale: $locale) {
-        icon {
-            url
-        }
-        title
-        content
-    }
-`;
-
-export const sectionsQuery = `
-    allSections(locale: $locale) {
-        id
-        icon {
-            urltechStacksQuery
-          }
-        subtitle
-        title
-    }
-`;
-
 export const techStacksQuery = `
     allTechstacks(locale: $locale) {
         id
         icon {
-        url
+            url
         }
         title
         name
     }
 `;
 
-export const blogQuery = `
-    allBlogs(locale: $locale) {
+export const allTechnicalLedgersQuery = `
+    allTechnicalLedgers(locale: $locale) {
         id
-        position
         title
-        coverImage {
-            responsiveImage(imgixParams: {w: "400", h: "160"}) {
-                title
-                width
-                src
-                height
-            }
-        }
-        description
-        content
-        readArticle
-        topics
-    }
-`;
-
-export const blogCTAQuery = `
-    allBlogsCtas(locale: $locale) {
-        id
-        blog {
+        excerpt
+        date
+        category
+        tags {
             id
+            tag
         }
-        sortIndex
-        title
-    }
-`;
-export const singleBlogQuery = (id: string) => `
-    allBlogs(filter: {id: {eq: "${id}"}}, locale: $locale) {
-        id
-        position
-        title
-        coverImage {
-        url
-        title
+        fullNote {
+            value
         }
-        description
-        content
     }
 `;
