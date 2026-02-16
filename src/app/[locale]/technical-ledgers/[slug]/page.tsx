@@ -4,12 +4,12 @@ import TechnicalLedger from '@components/technicalLedger';
 const TechnicalLedgers = async ({
   params,
 }: {
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; slug: string }>;
 }) => {
-  const { locale } = await params;
+  const { locale, slug } = await params;
   return (
     <MainPageContainer className="p-0">
-      <TechnicalLedger locale={locale} />
+      <TechnicalLedger locale={locale} slug={slug} />
     </MainPageContainer>
   );
 };

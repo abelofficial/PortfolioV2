@@ -4,8 +4,13 @@ export interface TechnicalLedgerList {
   allTechnicalLedgers: TechnicalLedger[];
 }
 
+export interface SingleTechnicalLedger {
+  technicalLedger: TechnicalLedger;
+}
+
 export interface TechnicalLedger {
   id: string;
+  slug: string;
   title: string;
   excerpt: string;
   date: string;
@@ -14,9 +19,11 @@ export interface TechnicalLedger {
     id: string;
     tag: string;
   }[];
-  fullNote: {
-    value: LedgerNote;
-  };
+  fullNote: LedgerContent;
+}
+
+export interface LedgerContent {
+  value: LedgerNote;
 }
 
 export interface LedgerNote {

@@ -14,7 +14,10 @@ const LedgersList = ({ locale, technicalLedgersList }: LedgersListProps) => {
     <div className="flex min-h-[calc(100lvh-18rem)] flex-col gap-4 px-4">
       <AnimatePresence mode="popLayout">
         {technicalLedgersList.map((note, index) => (
-          <Link href={`/${locale}/technical-ledgers/${note.id}`} key={note.id}>
+          <Link
+            href={`/${locale}/technical-ledgers/${note.slug}`}
+            key={note.id}
+          >
             <motion.article
               layout
               initial={{ opacity: 0, y: 20 }}

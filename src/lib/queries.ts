@@ -1,3 +1,9 @@
+export const getCombinedQueryWithSlug = (queryBlocks: string[]) => `
+    query GeneralQuery($locale: SiteLocale, $slug: String){
+        ${queryBlocks.join('\n')}
+    }
+`;
+
 export const getCombinedQuery = (queryBlocks: string[]) => `
     query GeneralQuery($locale: SiteLocale){
         ${queryBlocks.join('\n')}
@@ -163,6 +169,7 @@ export const techStacksQuery = `
 export const allTechnicalLedgersQuery = `
     allTechnicalLedgers(locale: $locale) {
         id
+        slug
         title
         excerpt
         date
@@ -173,6 +180,24 @@ export const allTechnicalLedgersQuery = `
         }
         fullNote {
             value
+        }
+    }
+`;
+
+export const technicalLedgersQuery = `
+     technicalLedger(locale: $locale, filter: {slug: {eq: $slug}}) {
+        id
+        slug
+        title
+        excerpt
+        date
+        category
+        tags {
+          id
+          tag
+        }
+        fullNote {
+          value
         }
     }
 `;
