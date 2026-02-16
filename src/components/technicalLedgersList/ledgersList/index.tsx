@@ -16,7 +16,7 @@ const LedgersList = ({
   page,
 }: LedgersListProps) => {
   return (
-    <div className="flex min-h-[calc(100lvh-18rem)] flex-col gap-4 px-4">
+    <div className="flex min-h-[calc(100lvh-18rem)] flex-col gap-4 px-2">
       <AnimatePresence mode="popLayout">
         {technicalLedgersList.map((note, index) => (
           <Link
@@ -52,7 +52,7 @@ const LedgersList = ({
                 {note.title}
               </h2>
 
-              <p className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">
+              <p className="text-muted-foreground line-clamp-5 text-sm leading-relaxed">
                 {note.excerpt}
               </p>
 

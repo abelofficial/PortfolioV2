@@ -25,7 +25,7 @@ const FilteredLedgersList = ({
       : technicalLedgersList.filter((n) => n.category === activeCategory);
 
   return (
-    <div className="flex flex-col gap-6 xl:pt-4">
+    <div className="flex flex-col gap-6">
       <LedgersListHeader
         categories={distinctCategories}
         activeCategory={activeCategory}

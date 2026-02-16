@@ -1,8 +1,12 @@
 import LedgerHeader from '@components/technicalLedger/LedgerHeader';
 import LedgerContent from '@components/technicalLedger/LedgerContent';
-import { SingleTechnicalLedger } from '@/types';
+import { TechnicalLedger as Ledger, TechnicalLedgerPage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { getCombinedQueryWithSlug, technicalLedgersQuery } from '@/lib/queries';
+import {
+  getCombinedQueryWithSlug,
+  technicalLedgerPageQuery,
+  technicalLedgersQuery,
+} from '@/lib/queries';
 import { notFound } from 'next/navigation';
 
 interface TechnicalNotePageProps {
@@ -11,9 +15,17 @@ interface TechnicalNotePageProps {
 }
 
 const TechnicalLedger = async ({ locale, slug }: TechnicalNotePageProps) => {
-  console.log(slug);
-  const { technicalLedger }: SingleTechnicalLedger = await datoCMS({
-    query: getCombinedQueryWithSlug([technicalLedgersQuery]),
+  const {
+    technicalLedger,
+    technicalLedgersPage,
+  }: {
+    technicalLedger: Ledger;
+    technicalLedgersPage: TechnicalLedgerPage;
+  } = await datoCMS({
+    query: getCombinedQueryWithSlug([
+      technicalLedgersQuery,
+      technicalLedgerPageQuery,
+    ]),
     variables: { locale, slug },
   });
 
@@ -22,7 +34,11 @@ const TechnicalLedger = async ({ locale, slug }: TechnicalNotePageProps) => {
   }
   return (
     <div className="flex flex-col pb-2">
-      <LedgerHeader locale={locale} technicalLedger={technicalLedger} />
+      <LedgerHeader
+        locale={locale}
+        technicalLedger={technicalLedger}
+        page={technicalLedgersPage}
+      />
 
       <LedgerContent content={technicalLedger.fullNote} />
     </div>

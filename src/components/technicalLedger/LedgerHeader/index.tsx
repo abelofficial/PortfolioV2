@@ -1,13 +1,14 @@
 import { SectionContainer } from '@components/ui/custom-container';
 import { Badge, Calendar, ChevronLeft, TagIcon } from 'lucide-react';
 import Link from 'next/link';
-import { TechnicalLedger } from '@/types';
+import { TechnicalLedger, TechnicalLedgerPage } from '@/types';
 
 export interface LedgerHeaderProps {
   locale: string;
   technicalLedger: TechnicalLedger;
+  page: TechnicalLedgerPage;
 }
-const LedgerHeader = ({ locale, technicalLedger }: LedgerHeaderProps) => {
+const LedgerHeader = ({ locale, technicalLedger, page }: LedgerHeaderProps) => {
   return (
     <SectionContainer
       disableShine
@@ -19,7 +20,7 @@ const LedgerHeader = ({ locale, technicalLedger }: LedgerHeaderProps) => {
         className="group text-muted-foreground hover:text-primary mb-4 flex w-fit items-center gap-1 text-sm font-medium transition-colors"
       >
         <ChevronLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-        Back to Ledgers
+        {page.backButtonLabel}
       </Link>
 
       <h1 className="mb-4 text-2xl font-bold tracking-tight md:text-3xl">
