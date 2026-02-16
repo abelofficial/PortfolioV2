@@ -20,9 +20,14 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const { locale } = useParams();
   const router = useRouter();
 
-  const currentLocale = pathname?.split('/')[1] || 'en';
+  const pathSegments = pathname?.split('/');
+  if (pathSegments[2] === 'technical-ledgers' && pathSegments?.length > 3) {
+    return null;
+  }
 
-  const handleLocaleChange = (newLocale: string) => {
+  const currentLocale = pathSegments[1];
+
+  const handleLocaleChange = async (newLocale: string) => {
     const path = pathname.replace(`/${locale}`, `/${newLocale}`);
     router.push(path);
   };
@@ -30,7 +35,6 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        {/* We merge the incoming className here */}
         <GlobeIcon className={className} />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">

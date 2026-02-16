@@ -13,7 +13,7 @@ const LedgerHeader = ({ locale, technicalLedger, page }: LedgerHeaderProps) => {
     <SectionContainer
       disableShine
       disablePattern
-      className="w-full rounded-none border-t-0"
+      className="p0 w-full rounded-none border-t-0"
     >
       <Link
         href={`/${locale}/technical-ledgers`} // Navigates back to your listing page

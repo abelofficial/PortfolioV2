@@ -39,7 +39,7 @@ const LedgerPage = async ({
 }) => {
   const { locale, slug } = await params;
   return (
-    <MainPageContainer className="p-0">
+    <MainPageContainer className="p-0 md:p-4">
       <TechnicalLedger locale={locale} slug={slug} />
     </MainPageContainer>
   );

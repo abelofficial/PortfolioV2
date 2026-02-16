@@ -59,7 +59,6 @@ export const homePageQuery = `
         workExperience
         education
         at
-        months
         totalContributionLabel
         openAiChatButton
         aiChatTitle
@@ -174,12 +173,17 @@ export const allTechnicalLedgersQuery = `
         excerpt
         date
         category
+        readMinutes
         tags {
             id
             tag
         }
         fullNote {
             value
+        }
+        promptNotes {
+            contextTitle
+            contextContent
         }
     }
 `;
@@ -192,6 +196,7 @@ export const technicalLedgersQuery = `
         excerpt
         date
         category
+        readMinutes
         tags {
           id
           tag
