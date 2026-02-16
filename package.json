@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "tsx src/scripts/seedLedgers.ts",
+    "seedLedgers": "tsx src/scripts/seedLedgers.ts",
+    "seedProfile": "tsx src/scripts/seedProfile.ts",
     "prepare": "husky"
   },
   "dependencies": {
