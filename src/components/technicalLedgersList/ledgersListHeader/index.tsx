@@ -21,7 +21,7 @@ const LedgersListHeader = ({
     <SectionContainer
       disableShine
       disablePattern
-      className="w-full rounded-none border-t-0 py-8 shadow-none"
+      className="w-full rounded-none border-t-0"
     >
       <h1 className="text-3xl font-bold tracking-tight">{page.title}</h1>
       <p className="text-muted-foreground mt-2">{page.description}</p>

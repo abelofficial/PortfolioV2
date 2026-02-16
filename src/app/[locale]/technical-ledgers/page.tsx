@@ -44,7 +44,7 @@ const TechnicalLedgersPage = async ({
   const { locale } = await params;
 
   return (
-    <MainPageContainer className="pb-4">
+    <MainPageContainer className="p-0">
       <TechnicalLedgersList locale={locale} />
     </MainPageContainer>
   );
