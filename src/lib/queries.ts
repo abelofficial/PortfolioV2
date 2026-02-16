@@ -1,3 +1,9 @@
+export const getCombinedQueryWithSlug = (queryBlocks: string[]) => `
+    query GeneralQuery($locale: SiteLocale, $slug: String){
+        ${queryBlocks.join('\n')}
+    }
+`;
+
 export const getCombinedQuery = (queryBlocks: string[]) => `
     query GeneralQuery($locale: SiteLocale){
         ${queryBlocks.join('\n')}
@@ -95,33 +101,6 @@ export const testimonialsQuery = `
     }     
 `;
 
-export const projectsQuery = `
-    allProjects(locale: $locale) {
-        url
-        title
-        name
-        id
-        githubLink
-        description
-        techstack
-        medias {
-            responsiveImage {
-                alt
-                aspectRatio
-                base64
-                bgColor
-                height
-                sizes
-                src
-                srcSet
-                title
-                webpSrcSet
-                width
-            }
-        }
-    }  
-`;
-
 export const workExperienceQuery = `
     allWorks(locale: $locale) {
         id
@@ -176,78 +155,99 @@ export const educationExperienceQuery = `
     }
 `;
 
-export const specialtyQuery = `
-    allSpecialties(locale: $locale) {
-        icon {
-            url
-        }
-        title
-        content
-    }
-`;
-
-export const sectionsQuery = `
-    allSections(locale: $locale) {
-        id
-        icon {
-            urltechStacksQuery
-          }
-        subtitle
-        title
-    }
-`;
-
 export const techStacksQuery = `
     allTechstacks(locale: $locale) {
         id
         icon {
-        url
+            url
         }
         title
         name
     }
 `;
 
-export const blogQuery = `
-    allBlogs(locale: $locale) {
+export const allTechnicalLedgersQuery = `
+    allTechnicalLedgers(locale: $locale) {
         id
-        position
+        slugId
         title
-        coverImage {
-            responsiveImage(imgixParams: {w: "400", h: "160"}) {
-                title
-                width
-                src
-                height
-            }
+        excerpt
+        date
+        category
+        tags {
+            id
+            tag
         }
-        description
-        content
-        readArticle
-        topics
+        fullNote {
+            value
+        }
     }
 `;
 
-export const blogCTAQuery = `
-    allBlogsCtas(locale: $locale) {
+export const technicalLedgersQuery = `
+     technicalLedger(locale: $locale, filter: {slugId: {eq: $slug}}) {
         id
-        blog {
-            id
-        }
-        sortIndex
+        slugId
         title
+        excerpt
+        date
+        category
+        tags {
+          id
+          tag
+        }
+        fullNote {
+          value
+        }
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
+        }
     }
 `;
-export const singleBlogQuery = (id: string) => `
-    allBlogs(filter: {id: {eq: "${id}"}}, locale: $locale) {
-        id
-        position
+
+export const technicalLedgerPageQuery = `
+    technicalLedgersPage(locale: $locale) {
         title
-        coverImage {
-        url
-        title
-        }
         description
-        content
+        all
+        minRead
+        backButtonLabel
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
+        }
     }
 `;

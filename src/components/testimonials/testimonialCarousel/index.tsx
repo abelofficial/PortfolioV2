@@ -1,5 +1,5 @@
 'use client';
-import { HomePage, Testimonial, TestimonialsList } from '@/types';
+import { HomePage, Testimonial } from '@/types';
 import React from 'react';
 import {
   Carousel,

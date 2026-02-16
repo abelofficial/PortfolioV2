@@ -4,10 +4,6 @@ import { cn } from '@/lib/utils';
 import { Card } from '@components/ui/card';
 import { ShineBorder } from '@components/ui/shine-border';
 
-export interface MainPageContainerProps {
-  children: React.ReactNode;
-}
-
 export interface SidebarContainerProps {
   children: React.ReactNode;
 }
@@ -28,10 +24,18 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
   );
 };
 
-export const MainPageContainer = ({ children }: MainPageContainerProps) => {
+export interface MainPageContainerProps {
+  className?: string;
+  children: React.ReactNode;
+}
+
+export const MainPageContainer = ({
+  className,
+  children,
+}: MainPageContainerProps) => {
   return (
-    <div className="w-full p-4 md:p-5">
-      <div className="flex flex-col gap-4">{children}</div>
+    <div className={cn(['flex w-full flex-col gap-4 p-4 md:p-5', className])}>
+      {children}
     </div>
   );
 };
@@ -64,6 +68,7 @@ export interface SectionContainerProps {
   disablePattern?: boolean;
   fullHeight?: boolean;
   headerAction?: React.ReactNode;
+  className?: string;
 }
 
 export const SectionContainer = ({
@@ -72,11 +77,15 @@ export const SectionContainer = ({
   disablePattern,
   fullHeight,
   headerAction,
+  className,
   children,
 }: SectionContainerProps) => {
   return (
     <Card
-      className={`relative w-full gap-1 overflow-hidden p-4 py-4 ${fullHeight ? 'h-full' : ''}`}
+      className={cn([
+        `relative ${fullHeight ? 'h-full' : ''} w-full gap-1 overflow-hidden p-4 py-4`,
+        className,
+      ])}
     >
       {disablePattern || (
         <DotPattern

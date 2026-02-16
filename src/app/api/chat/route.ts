@@ -2,12 +2,10 @@ import { Index } from '@upstash/vector';
 import { openai } from '@ai-sdk/openai';
 import { streamText, convertToModelMessages, type UIMessage, embed } from 'ai';
 import { getAssistantPrompt } from '@/utils/ai-prompts';
-import { HomePage, Prompt } from '@/types';
+import { Prompt } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import {
-  getCombinedQuery,
   getCombinedQueryWithoutLocalization,
-  homePageQuery,
   promptQuery,
 } from '@/lib/queries';
 

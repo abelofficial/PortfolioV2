@@ -11,13 +11,9 @@ import { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
-import { Experience, HomePage } from '@/types';
+import { HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import {
-  getCombinedQuery,
-  homePageQuery,
-  workExperienceQuery,
-} from '@/lib/queries';
+import { getCombinedQuery, homePageQuery } from '@/lib/queries';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

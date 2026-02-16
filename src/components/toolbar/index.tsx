@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Dock, DockIcon } from '@components/ui/dock';
 import { Separator } from '@components/ui/separator';
-import { BookOpenIcon, LucideHistory, UserRoundPen } from 'lucide-react';
+import { BookOpenIcon, UserRoundPen, NotebookTextIcon } from 'lucide-react';
 import { AnimatedThemeToggler } from '@components/ui/animated-theme-toggler';
 import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -12,42 +12,31 @@ import languages from '@/utils/languages';
 const Toolbar = () => {
   const pathname = usePathname();
   const { locale } = useParams();
-  const isHome = languages.some(
-    (lang) =>
-      pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
-  );
+  const isHomePageChecker = () =>
+    languages.some(
+      (lang) =>
+        pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
+    );
+
+  const getClassName = (checker: () => boolean) => {
+    return cn(
+      ['size-5'],
+      checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']
+    );
+  };
+
   return (
     <Dock direction="middle" className="bg-card flex w-full justify-around p-0">
       <DockIcon>
         <Link href={`/${locale}`}>
-          <UserRoundPen
-            className={cn(
-              ['size-5'],
-              isHome ? ['stroke-primary'] : ['hover:stroke-primary-light']
-            )}
-          />
+          <UserRoundPen className={getClassName(isHomePageChecker)} />
         </Link>
       </DockIcon>
       <DockIcon>
-        <Link href={`/${locale}/timeline`}>
-          <LucideHistory
-            className={cn(
-              ['size-5'],
-              pathname.includes('/timeline')
-                ? ['stroke-primary']
-                : ['hover:stroke-primary-light']
-            )}
-          />
-        </Link>
-      </DockIcon>
-      <DockIcon>
-        <Link href={`/${locale}/blogs`}>
-          <BookOpenIcon
-            className={cn(
-              ['size-5'],
-              pathname.includes('/blogs')
-                ? ['stroke-primary']
-                : ['hover:stroke-primary-light']
+        <Link href={`/${locale}/technical-ledgers`}>
+          <NotebookTextIcon
+            className={getClassName(() =>
+              pathname.includes('/technical-ledgers')
             )}
           />
         </Link>

@@ -1,9 +1,4 @@
-import {
-  Experience,
-  HomePage,
-  TimelineEntry,
-  WorkExperienceList,
-} from '@/types';
+import { Experience, HomePage, TimelineEntry } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import {
   getCombinedQuery,
