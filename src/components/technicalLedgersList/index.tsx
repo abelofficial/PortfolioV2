@@ -1,15 +1,28 @@
 import { datoCMS } from '@services/datoCMS';
-import { allTechnicalLedgersQuery, getCombinedQuery } from '@/lib/queries';
-import { TechnicalLedgerList } from '@/types';
+import {
+  allTechnicalLedgersQuery,
+  getCombinedQuery,
+  technicalLedgerPageQuery,
+} from '@/lib/queries';
+import { TechnicalLedger, TechnicalLedgerPage } from '@/types';
 import FilteredLedgersList from '@components/technicalLedgersList/filteredLedgersList';
 
 export interface TechnicalLedgersListProps {
   locale: string;
 }
 const TechnicalLedgersList = async ({ locale }: TechnicalLedgersListProps) => {
-  const { allTechnicalLedgers }: TechnicalLedgerList = await datoCMS({
-    query: getCombinedQuery([allTechnicalLedgersQuery]),
-    variables: { locale: 'en' },
+  const {
+    allTechnicalLedgers,
+    technicalLedgersPage,
+  }: {
+    allTechnicalLedgers: TechnicalLedger[];
+    technicalLedgersPage: TechnicalLedgerPage;
+  } = await datoCMS({
+    query: getCombinedQuery([
+      allTechnicalLedgersQuery,
+      technicalLedgerPageQuery,
+    ]),
+    variables: { locale },
   });
 
   return (
@@ -17,6 +30,7 @@ const TechnicalLedgersList = async ({ locale }: TechnicalLedgersListProps) => {
       locale={locale}
       categories={allTechnicalLedgers.map((l) => l.category)}
       technicalLedgersList={allTechnicalLedgers}
+      page={technicalLedgersPage}
     />
   );
 };

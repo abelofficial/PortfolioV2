@@ -1,5 +1,23 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface TechnicalLedgerPage {
+  title: string;
+  description: string;
+  all: string;
+  backButtonLabel: string;
+  minRead: string;
+  seo: SEOData;
+}
+
+export interface SEOData {
+  title: string;
+  description: string;
+  twitterCard: string;
+  image: {
+    responsiveImage: ResponsiveImageType;
+  };
+}
+
 export interface TechnicalLedgerList {
   allTechnicalLedgers: TechnicalLedger[];
 }
@@ -10,7 +28,7 @@ export interface SingleTechnicalLedger {
 
 export interface TechnicalLedger {
   id: string;
-  slug: string;
+  slugId: string;
   title: string;
   excerpt: string;
   date: string;
@@ -20,6 +38,7 @@ export interface TechnicalLedger {
     tag: string;
   }[];
   fullNote: LedgerContent;
+  seo: SEOData;
 }
 
 export interface LedgerContent {

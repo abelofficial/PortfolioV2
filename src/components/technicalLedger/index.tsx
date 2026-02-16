@@ -21,7 +21,7 @@ const TechnicalLedger = async ({ locale, slug }: TechnicalNotePageProps) => {
     notFound();
   }
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col pb-2">
       <LedgerHeader locale={locale} technicalLedger={technicalLedger} />
 
       <LedgerContent content={technicalLedger.fullNote} />

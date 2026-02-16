@@ -169,7 +169,7 @@ export const techStacksQuery = `
 export const allTechnicalLedgersQuery = `
     allTechnicalLedgers(locale: $locale) {
         id
-        slug
+        slugId
         title
         excerpt
         date
@@ -185,9 +185,9 @@ export const allTechnicalLedgersQuery = `
 `;
 
 export const technicalLedgersQuery = `
-     technicalLedger(locale: $locale, filter: {slug: {eq: $slug}}) {
+     technicalLedger(locale: $locale, filter: {slugId: {eq: $slug}}) {
         id
-        slug
+        slugId
         title
         excerpt
         date
@@ -198,6 +198,56 @@ export const technicalLedgersQuery = `
         }
         fullNote {
           value
+        }
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
+        }
+    }
+`;
+
+export const technicalLedgerPageQuery = `
+    technicalLedgersPage(locale: $locale) {
+        title
+        description
+        all
+        minRead
+        backButtonLabel
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
         }
     }
 `;

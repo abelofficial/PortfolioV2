@@ -3,19 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock } from 'lucide-react';
 import Link from 'next/link';
-import { TechnicalLedger } from '@/types';
+import { TechnicalLedger, TechnicalLedgerPage } from '@/types';
 
 export interface LedgersListProps {
   locale: string;
   technicalLedgersList: TechnicalLedger[];
+  page: TechnicalLedgerPage;
 }
-const LedgersList = ({ locale, technicalLedgersList }: LedgersListProps) => {
+const LedgersList = ({
+  locale,
+  technicalLedgersList,
+  page,
+}: LedgersListProps) => {
   return (
     <div className="flex min-h-[calc(100lvh-18rem)] flex-col gap-4 px-4">
       <AnimatePresence mode="popLayout">
         {technicalLedgersList.map((note, index) => (
           <Link
-            href={`/${locale}/technical-ledgers/${note.slug}`}
+            href={`/${locale}/technical-ledgers/${note.slugId}`}
             key={note.id}
           >
             <motion.article
@@ -32,7 +37,7 @@ const LedgersList = ({ locale, technicalLedgersList }: LedgersListProps) => {
                     <Calendar className="size-3" /> {note.date}
                   </span>
                   <span className="flex items-center gap-1">
-                    <Clock className="size-3" /> {'8 min read'}
+                    <Clock className="size-3" /> {'8 ' + page.minRead}
                   </span>
                 </div>
                 <Badge

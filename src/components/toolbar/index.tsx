@@ -41,13 +41,6 @@ const Toolbar = () => {
           />
         </Link>
       </DockIcon>
-      <DockIcon>
-        <Link href={`/${locale}/blogs`}>
-          <BookOpenIcon
-            className={getClassName(() => pathname.includes('/blogs'))}
-          />
-        </Link>
-      </DockIcon>
       <Separator orientation="vertical" />
       <DockIcon>
         <LanguageSwitcher className="size-5" />

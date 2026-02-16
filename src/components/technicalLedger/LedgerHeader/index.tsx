@@ -16,10 +16,10 @@ const LedgerHeader = ({ locale, technicalLedger }: LedgerHeaderProps) => {
     >
       <Link
         href={`/${locale}/technical-ledgers`} // Navigates back to your listing page
-        className="group text-muted-foreground hover:text-primary mb-8 flex w-fit items-center gap-1 text-sm font-medium transition-colors"
+        className="group text-muted-foreground hover:text-primary mb-4 flex w-fit items-center gap-1 text-sm font-medium transition-colors"
       >
         <ChevronLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-        Back to Ledger
+        Back to Ledgers
       </Link>
 
       <h1 className="mb-4 text-2xl font-bold tracking-tight md:text-3xl">
