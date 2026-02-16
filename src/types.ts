@@ -1,5 +1,25 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface TechnicalLedgerForPrompt {
+  id: string;
+  slugId: string;
+  title: string;
+  excerpt: string;
+  date: string;
+  category: string;
+  readMinutes: number;
+  tags: {
+    id: string;
+    tag: string;
+  }[];
+  promptNotes: TechnicalLedgerForPromptMote[];
+}
+
+export interface TechnicalLedgerForPromptMote {
+  contextTitle: string;
+  contextContent: string;
+}
+
 export interface TechnicalLedgerPage {
   title: string;
   description: string;
@@ -16,10 +36,6 @@ export interface SEOData {
   image: {
     responsiveImage: ResponsiveImageType;
   };
-}
-
-export interface TechnicalLedgerList {
-  allTechnicalLedgers: TechnicalLedger[];
 }
 
 export interface SingleTechnicalLedger {

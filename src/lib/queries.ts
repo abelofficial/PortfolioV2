@@ -181,6 +181,10 @@ export const allTechnicalLedgersQuery = `
         fullNote {
             value
         }
+        promptNotes {
+            contextTitle
+            contextContent
+        }
     }
 `;
 
