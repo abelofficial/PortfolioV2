@@ -34,7 +34,12 @@ export const MainPageContainer = ({
   children,
 }: MainPageContainerProps) => {
   return (
-    <div className={cn(['flex w-full flex-col gap-4 p-4 md:p-5', className])}>
+    <div
+      className={cn([
+        'max-w-8xl flex w-full flex-col gap-4 p-4 md:p-5',
+        className,
+      ])}
+    >
       {children}
     </div>
   );

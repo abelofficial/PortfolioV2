@@ -33,6 +33,7 @@ export interface TechnicalLedger {
   excerpt: string;
   date: string;
   category: string;
+  readMinutes: number;
   tag: {
     id: string;
     tag: string;
