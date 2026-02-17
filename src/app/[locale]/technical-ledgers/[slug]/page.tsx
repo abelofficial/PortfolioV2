@@ -1,9 +1,21 @@
-import { MainPageContainer } from '@components/ui/custom-container';
+import {
+  MainPageContainer,
+  MultiSectionLayout,
+  SidebarContainer,
+} from '@components/ui/custom-container';
 import TechnicalLedger from '@components/technicalLedger';
 import { Metadata } from 'next';
-import { SingleTechnicalLedger } from '@/types';
+import { HomePage, SingleTechnicalLedger } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { getCombinedQueryWithSlug, technicalLedgersQuery } from '@/lib/queries';
+import {
+  getCombinedQuery,
+  getCombinedQueryWithSlug,
+  homePageQuery,
+  technicalLedgersQuery,
+} from '@/lib/queries';
+import Toolbar from '@components/toolbar';
+import ChatAI from '@components/chatAI';
+import Footer from '@components/footer';
 
 export const generateMetadata = async ({
   params,
@@ -38,10 +50,31 @@ const LedgerPage = async ({
   params: Promise<{ locale: string; slug: string }>;
 }) => {
   const { locale, slug } = await params;
+  const { technicalLedger }: SingleTechnicalLedger = await datoCMS({
+    query: getCombinedQueryWithSlug([technicalLedgersQuery]),
+    variables: { locale, slug },
+  });
+
   return (
-    <MainPageContainer className="p-0 md:p-4">
-      <TechnicalLedger locale={locale} slug={slug} />
-    </MainPageContainer>
+    <MultiSectionLayout
+      sidebar={
+        <SidebarContainer>
+          <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
+            <div className="shrink-0">
+              <Toolbar />
+            </div>
+            <div className="min-h-0 flex-1">
+              <ChatAI chatBoxInfo={technicalLedger.chatBox} />
+            </div>
+          </div>
+        </SidebarContainer>
+      }
+    >
+      <MainPageContainer className="p-0 md:p-4">
+        <TechnicalLedger locale={locale} slug={slug} />
+      </MainPageContainer>
+      <Footer />
+    </MultiSectionLayout>
   );
 };
 

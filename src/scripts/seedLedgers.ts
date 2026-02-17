@@ -79,25 +79,17 @@ const getLedgerSeedData = (note: TechnicalLedgerForPrompt) => {
     .map((block) => `[${block.contextTitle}]\n${block.contextContent}`)
     .join('\n\n');
 
-  const contentForEmbedding = `
-        Title: ${note.title}
-        Category: ${note.category}
-        Tags: ${note.tags.map((t) => t.tag).join(', ')}
-        
-        Detailed Context:
-        ${flattenedContext}
-    `.trim();
-
   return {
     id: note.id,
-    text: contentForEmbedding,
+    text: flattenedContext,
     metadata: {
       slug: note.slugId,
       category: note.category,
       title: note.title,
-      readTime: note.readMinutes,
+      readMinutes: note.readMinutes,
       excerpt: note.excerpt,
       published: note.date,
+      fullLink: process.env.BASE_URL + '/en/technical-ledgers/' + note?.slugId,
       type: ['ledger', 'blog', 'knowledge-base'],
     },
   };

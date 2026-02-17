@@ -1,5 +1,16 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface PromptContext {
+  title: string;
+  category: string;
+  slug: string;
+  readMinutes: string;
+  excerpt: string;
+  published: string;
+  fullLink: string;
+  text: string;
+}
+
 export interface TechnicalLedgerForPrompt {
   id: string;
   slugId: string;
@@ -8,7 +19,8 @@ export interface TechnicalLedgerForPrompt {
   date: string;
   category: string;
   readMinutes: number;
-  tags: {
+  chatBox: ChatBoxInfo;
+  tag: {
     id: string;
     tag: string;
   }[];
@@ -27,6 +39,7 @@ export interface TechnicalLedgerPage {
   all: string;
   backButtonLabel: string;
   minRead: string;
+  chatBox: ChatBoxInfo;
   seo: SEOData;
 }
 
@@ -51,6 +64,7 @@ export interface TechnicalLedger {
   date: string;
   category: string;
   readMinutes: number;
+  chatBox: ChatBoxInfo;
   tag: {
     id: string;
     tag: string;
@@ -105,10 +119,11 @@ export interface TimelineEntry {
 }
 
 export interface Prompt {
-  coreRules: string;
+  coreRule: string;
   safetyLimitations: string;
   toneAndStyle: string;
   formattingAndStructure: string;
+  contextualKnowledge: string;
 }
 
 export interface HomePage {
@@ -123,19 +138,22 @@ export interface HomePage {
   at: string;
   months: string;
   totalContributionLabel: string;
-  openAiChatButton: string;
-  aiChatTitle: string;
-  suggestionLabel: string;
-  chatInputPlaceholder: string;
-  aiTypingIndicator: string;
   techStackTitle: string;
-  footer: string;
-  suggestedQuestions: {
-    singleQuestion: string;
-  }[];
+  chatBox: ChatBoxInfo;
   avatar: {
     responsiveImage: ResponsiveImageType;
   };
+}
+
+export interface ChatBoxInfo {
+  hint: string;
+  openButtonLabel: string;
+  chatTitle: string;
+  chatInputPlaceholder: string;
+  suggestionLabel: string;
+  questions: {
+    singleQuestion: string;
+  }[];
 }
 
 export interface ContactInfoList {

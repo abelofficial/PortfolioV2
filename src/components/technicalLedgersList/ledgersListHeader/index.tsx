@@ -21,17 +21,6 @@ const LedgersListHeader = ({
 }: LedgersListHeaderProps) => {
   const [showInfo, setShowInfo] = useState(false);
 
-  const normalizedCategories = useMemo(() => {
-    return Array.from(
-      new Set(['All', ...categories.filter((c) => c.toLowerCase() !== 'all')])
-    );
-  }, [categories]);
-
-  const activeLabel =
-    activeCategory && normalizedCategories.includes(activeCategory)
-      ? activeCategory
-      : 'All';
-
   return (
     <SectionContainer
       disableShine
@@ -83,13 +72,15 @@ const LedgersListHeader = ({
           {/* smaller, less dominant selected indicator */}
           <p className="text-muted-foreground text-xs">
             Selected:{' '}
-            <span className="text-foreground font-semibold">{activeLabel}</span>
+            <span className="text-foreground font-semibold">
+              {activeCategory}
+            </span>
           </p>
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {normalizedCategories.map((cat) => {
-            const isActive = activeLabel === cat;
+          {categories.map((cat) => {
+            const isActive = activeCategory === cat;
 
             return (
               <button

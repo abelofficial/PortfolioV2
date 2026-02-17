@@ -8,10 +8,10 @@ import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, Trash2 } from 'lucide-react';
 import useWindowWidth from '@/hooks/useWindowWidth';
-import { HomePage } from '@/types';
+import { ChatBoxInfo } from '@/types';
 
 export interface ChatAIProps {
-  homePage: HomePage;
+  chatBoxInfo: ChatBoxInfo;
 }
 
 function TypingDots() {
@@ -24,7 +24,7 @@ function TypingDots() {
   );
 }
 
-export default function ChatAI({ homePage }: ChatAIProps) {
+export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
 
@@ -99,10 +99,10 @@ export default function ChatAI({ homePage }: ChatAIProps) {
       await sendMessage({ text: messageToSend });
 
       setCurrentSuggestionIndex(
-        (prev) => (prev + 1) % homePage.suggestedQuestions.length
+        (prev) => (prev + 1) % chatBoxInfo.questions.length
       );
     },
-    [homePage.suggestedQuestions.length, input, sendMessage, status]
+    [chatBoxInfo.questions.length, input, sendMessage, status]
   );
 
   const clearChat = () => {
@@ -118,14 +118,14 @@ export default function ChatAI({ homePage }: ChatAIProps) {
         <button
           onClick={() => setIsOpen((v) => !v)}
           className="bg-primary flex items-center gap-2 rounded-xl p-2 text-white shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
-          aria-label={homePage.openAiChatButton}
+          aria-label={chatBoxInfo.openButtonLabel}
         >
           {isOpen ? (
             <X size={20} />
           ) : (
             <>
               <MessageCircle size={20} />
-              <span className="text-xs">{homePage.openAiChatButton}</span>
+              <span className="text-xs">{chatBoxInfo.openButtonLabel}</span>
             </>
           )}
         </button>
@@ -137,7 +137,7 @@ export default function ChatAI({ homePage }: ChatAIProps) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 18 }}
-            className="bg-background/80 fixed inset-0 z-[100] flex items-end justify-center p-4 backdrop-blur-md xl:relative xl:inset-auto xl:z-0 xl:h-full xl:w-full xl:bg-transparent xl:p-0 xl:backdrop-blur-none"
+            className="bg-background/80 fixed inset-0 z-100 flex items-end justify-center p-4 backdrop-blur-md xl:relative xl:inset-auto xl:z-0 xl:h-full xl:max-h-[calc(100dvh-10rem)] xl:w-full xl:bg-transparent xl:p-0 xl:backdrop-blur-none"
             style={{
               height: isDesktop ? undefined : '100dvh',
               paddingBottom: isDesktop
@@ -145,12 +145,11 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                 : 'env(safe-area-inset-bottom)',
             }}
           >
-            {/* WOW: subtle hover lift on desktop */}
             <div className="bg-card flex h-full w-full max-w-2xl flex-col overflow-hidden rounded-2xl shadow-2xl transition-shadow xl:max-w-none xl:rounded-2xl xl:shadow-none xl:hover:shadow-[0_18px_50px_rgba(0,0,0,0.08)] dark:xl:hover:shadow-[0_18px_50px_rgba(0,0,0,0.35)]">
               <SectionContainer
                 disablePattern
                 fullHeight
-                title={homePage.aiChatTitle}
+                title={chatBoxInfo.chatTitle}
                 headerAction={
                   <div className="flex items-center gap-3">
                     {messages.length > 0 && (
@@ -178,8 +177,7 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                   {/* Header microcopy (more breathing room) */}
                   <div className="px-4 pt-3 pb-2">
                     <p className="text-muted-foreground/80 text-xs">
-                      Ask about my experience, projects, and technical ledgers.
-                      Answers come from my site content.
+                      {chatBoxInfo.hint}
                     </p>
                   </div>
 
@@ -195,26 +193,21 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                         <div className="flex flex-col gap-3 py-2">
                           <div className="text-primary mb-1 flex items-center gap-2 text-xs font-semibold">
                             <Sparkles size={14} />
-                            {homePage.suggestionLabel}
+                            {chatBoxInfo.suggestionLabel}
                           </div>
 
                           <div className="grid grid-cols-1 gap-2">
-                            {homePage.suggestedQuestions
-                              .slice(0, 6)
-                              .map((q, i) => (
-                                <button
-                                  key={i}
-                                  onClick={() =>
-                                    handleFormSubmit(
-                                      undefined,
-                                      q.singleQuestion
-                                    )
-                                  }
-                                  className="text-foreground/90 hover:border-primary/30 hover:bg-primary/5 rounded-xl border border-black/10 bg-black/[0.02] p-3 text-left text-xs transition-all dark:border-white/10 dark:bg-white/[0.03] dark:text-white/90"
-                                >
-                                  {q.singleQuestion}
-                                </button>
-                              ))}
+                            {chatBoxInfo.questions.slice(0, 6).map((q, i) => (
+                              <button
+                                key={i}
+                                onClick={() =>
+                                  handleFormSubmit(undefined, q.singleQuestion)
+                                }
+                                className="text-foreground/90 hover:border-primary/30 hover:bg-primary/5 rounded-xl border border-black/10 bg-black/[0.02] p-3 text-left text-xs transition-all dark:border-white/10 dark:bg-white/[0.03] dark:text-white/90"
+                              >
+                                {q.singleQuestion}
+                              </button>
+                            ))}
                           </div>
                         </div>
                       )}
@@ -251,7 +244,20 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                                     key={i}
                                     className="prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-headings:mt-3 prose-ul:my-2 prose-ol:my-2 prose-p:my-2 max-w-none"
                                   >
-                                    <ReactMarkdown>{part.text}</ReactMarkdown>
+                                    <ReactMarkdown
+                                      components={{
+                                        a: ({ node, ...props }) => (
+                                          <a
+                                            {...props}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-primary hover:underline"
+                                          />
+                                        ),
+                                      }}
+                                    >
+                                      {part.text}
+                                    </ReactMarkdown>
                                   </div>
                                 ) : null
                               )}
@@ -286,9 +292,8 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                           onClick={() =>
                             handleFormSubmit(
                               undefined,
-                              homePage.suggestedQuestions[
-                                currentSuggestionIndex
-                              ].singleQuestion
+                              chatBoxInfo.questions[currentSuggestionIndex]
+                                .singleQuestion
                             )
                           }
                           className="group text-primary/80 hover:border-primary/30 hover:bg-primary/5 hover:text-primary inline-flex max-w-full items-center gap-2 rounded-full border border-black/10 bg-black/[0.02] px-3 py-1 text-[11px] font-semibold tracking-wide transition-all disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.03]"
@@ -300,9 +305,8 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                           <span className="truncate">
                             Ask:{' '}
                             {
-                              homePage.suggestedQuestions[
-                                currentSuggestionIndex
-                              ].singleQuestion
+                              chatBoxInfo.questions[currentSuggestionIndex]
+                                .singleQuestion
                             }
                           </span>
                         </button>
@@ -315,7 +319,7 @@ export default function ChatAI({ homePage }: ChatAIProps) {
                           ref={inputRef}
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
-                          placeholder={homePage.chatInputPlaceholder}
+                          placeholder={chatBoxInfo.chatInputPlaceholder}
                           className="placeholder:text-muted-foreground/70 flex-1 bg-transparent text-sm outline-none"
                         />
 
