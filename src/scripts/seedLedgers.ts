@@ -32,15 +32,12 @@ async function seed() {
       return;
     }
 
-    console.log('allTechnicalLedgers: ', allTechnicalLedgers);
     // 2. Format the notes for embedding
     const seedData = allTechnicalLedgers.map((note) => getLedgerSeedData(note));
 
     console.log(
       `Vectorizing ${seedData.length} items via OpenAI (text-embedding-3-small)...`
     );
-
-    console.log('seedData: ', seedData);
 
     // 3. Generate Embeddings
     const embeddingsResponse = await openai.embeddings.create({
