@@ -113,6 +113,8 @@ export interface Prompt {
 export interface HomePage {
   id: string;
   name: string;
+  intro: string;
+  connect: string;
   jobTitle: string;
   workPlace: string;
   workExperience: string;

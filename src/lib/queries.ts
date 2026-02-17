@@ -54,8 +54,10 @@ export const homePageQuery = `
     homePage(locale: $locale) {
         id
         name
+        intro
         jobTitle
         workPlace
+        connect
         workExperience
         education
         at

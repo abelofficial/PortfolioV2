@@ -1,4 +1,5 @@
 'use client';
+
 import {
   ContributionGraph,
   ContributionGraphBlock,
@@ -30,10 +31,10 @@ const ContributionCalendar = ({
           <ContributionGraphBlock
             activity={activity}
             className={cn(
-              'data-[level="0"]:fill-primary/2',
-              'data-[level="1"]:fill-primary/20',
-              'data-[level="2"]:fill-primary/40',
-              'data-[level="3"]:fill-primary/80',
+              'data-[level="0"]:fill-primary/6 dark:data-[level="0"]:fill-primary/2',
+              'data-[level="1"]:fill-primary/28 dark:data-[level="1"]:fill-primary/18',
+              'data-[level="2"]:fill-primary/48 dark:data-[level="2"]:fill-primary/36',
+              'data-[level="3"]:fill-primary/72 dark:data-[level="3"]:fill-primary/70',
               'data-[level="4"]:fill-primary'
             )}
             dayIndex={dayIndex}
@@ -41,8 +42,10 @@ const ContributionCalendar = ({
           />
         )}
       </ContributionGraphCalendar>
-      <p className="text-sm text-shadow-gray-400">
-        <span className="text-primary">{totalContributions}</span> {label}
+
+      <p className="text-muted-foreground mt-2 text-sm">
+        <span className="text-primary font-medium">{totalContributions}</span>{' '}
+        {label}
       </p>
     </ContributionGraph>
   );
