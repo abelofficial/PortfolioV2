@@ -27,6 +27,7 @@ export interface TechnicalLedgerPage {
   all: string;
   backButtonLabel: string;
   minRead: string;
+  chatBox: ChatBoxInfo;
   seo: SEOData;
 }
 
@@ -51,6 +52,7 @@ export interface TechnicalLedger {
   date: string;
   category: string;
   readMinutes: number;
+  chatBox: ChatBoxInfo;
   tag: {
     id: string;
     tag: string;
@@ -123,19 +125,22 @@ export interface HomePage {
   at: string;
   months: string;
   totalContributionLabel: string;
-  openAiChatButton: string;
-  aiChatTitle: string;
-  suggestionLabel: string;
-  chatInputPlaceholder: string;
-  aiTypingIndicator: string;
   techStackTitle: string;
-  footer: string;
-  suggestedQuestions: {
-    singleQuestion: string;
-  }[];
+  chatBox: ChatBoxInfo;
   avatar: {
     responsiveImage: ResponsiveImageType;
   };
+}
+
+export interface ChatBoxInfo {
+  hint: string;
+  openButtonLabel: string;
+  chatTitle: string;
+  chatInputPlaceholder: string;
+  suggestionLabel: string;
+  questions: {
+    singleQuestion: string;
+  }[];
 }
 
 export interface ContactInfoList {

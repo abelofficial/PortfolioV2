@@ -1,19 +1,9 @@
 import '../globals.css';
-import Toolbar from '@components/toolbar';
-import {
-  MultiSectionLayout,
-  SidebarContainer,
-} from '@components/ui/custom-container';
-import ChatAI from '@components/chatAI';
 import { ThemeProvider } from 'next-themes';
-import Footer from '@components/footer';
 import { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
-import { HomePage } from '@/types';
-import { datoCMS } from '@services/datoCMS';
-import { getCombinedQuery, homePageQuery } from '@/lib/queries';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -63,10 +53,6 @@ export default async function RootLayout({
   params: Promise<{ locale: string }>;
 }>) {
   const { locale } = await params;
-  const { homePage }: { homePage: HomePage } = await datoCMS({
-    query: getCombinedQuery([homePageQuery]),
-    variables: { locale: locale },
-  });
 
   return (
     <html lang={locale} suppressHydrationWarning>
@@ -79,23 +65,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <MultiSectionLayout
-            sidebar={
-              <SidebarContainer>
-                <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
-                  <div className="shrink-0">
-                    <Toolbar />
-                  </div>
-                  <div className="min-h-0 flex-1">
-                    <ChatAI homePage={homePage} />
-                  </div>
-                </div>
-              </SidebarContainer>
-            }
-          >
-            {children}
-            <Footer homePage={homePage} />
-          </MultiSectionLayout>
+          {children}
         </ThemeProvider>
         <SpeedInsights />
         <Analytics />

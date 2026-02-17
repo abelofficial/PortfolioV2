@@ -1,12 +1,7 @@
 import { DotPattern } from '@components/ui/dot-pattern';
 import { cn } from '@/lib/utils';
-import { HomePage } from '@/types';
 
-interface FooterProps {
-  homePage: HomePage;
-}
-
-const Footer = ({ homePage }: FooterProps) => {
+const Footer = () => {
   return (
     <div className="bg-background relative w-full gap-2 py-15 text-center">
       <DotPattern
@@ -16,7 +11,7 @@ const Footer = ({ homePage }: FooterProps) => {
         )}
       />
       <p className="text-shadow-muted-foreground py-5 text-center text-sm">
-        {homePage.footer.replace('%%YEAR%%', `${new Date().getFullYear()}`)}
+        {new Date().getFullYear() + ' ' + 'Abel'}
       </p>
     </div>
   );

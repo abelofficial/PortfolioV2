@@ -69,8 +69,15 @@ export const homePageQuery = `
         techStackTitle
         footer
         chatInputPlaceholder
-        suggestedQuestions{
-            singleQuestion
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
         }
         avatar {
             url
@@ -187,6 +194,16 @@ export const allTechnicalLedgersQuery = `
             contextTitle
             contextContent
         }
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
+        }
     }
 `;
 
@@ -205,6 +222,16 @@ export const technicalLedgersQuery = `
         }
         fullNote {
           value
+        }
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
         }
         seo{
           title
@@ -237,6 +264,16 @@ export const technicalLedgerPageQuery = `
         all
         minRead
         backButtonLabel
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
+        }
         seo{
           title
           description
