@@ -82,8 +82,14 @@ export default async function RootLayout({
           <MultiSectionLayout
             sidebar={
               <SidebarContainer>
-                <Toolbar />
-                <ChatAI homePage={homePage} />
+                <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
+                  <div className="shrink-0">
+                    <Toolbar />
+                  </div>
+                  <div className="min-h-0 flex-1">
+                    <ChatAI homePage={homePage} />
+                  </div>
+                </div>
               </SidebarContainer>
             }
           >

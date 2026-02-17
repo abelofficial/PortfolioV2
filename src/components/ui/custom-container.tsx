@@ -36,7 +36,7 @@ export const MainPageContainer = ({
   return (
     <div
       className={cn([
-        'max-w-8xl flex w-full flex-col gap-4 p-4 md:p-5',
+        'mx-auto flex w-full max-w-6xl flex-col gap-4 p-4 md:p-5',
         className,
       ])}
     >
@@ -103,10 +103,11 @@ export const SectionContainer = ({
       {disableShine || (
         <ShineBorder
           shineColor={[
-            'var(--color-primary-light)',
-            'oklch(0.9 0.1 60)',
-            'var(--color-primary-light)',
+            'color-mix(in oklab, var(--color-primary) 45%, transparent)',
+            'oklch(0.92 0.05 60)',
+            'color-mix(in oklab, var(--color-primary) 45%, transparent)',
           ]}
+          className="[--shine-opacity:0.85] dark:[--shine-opacity:0.9]"
         />
       )}
       <div className="flex justify-between">

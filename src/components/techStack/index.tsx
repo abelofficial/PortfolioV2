@@ -28,26 +28,31 @@ const TechStack = async ({ locale }: TechStackProps) => {
       disableShine
       disablePattern
     >
-      <Marquee pauseOnHover className="[--duration:30s] [--gap:2rem]">
-        {allTechstacks.map((techStack) => (
-          <div
-            key={techStack.id}
-            className="flex w-[80px] flex-none flex-col items-center justify-center gap-2 sm:w-[100px] xl:w-[150px]"
-          >
-            <div className="relative flex h-10 w-10 items-center justify-center">
-              <Image
-                src={techStack.icon.url}
-                fill
-                alt={`${techStack.title} icon`}
-                className="object-contain"
-              />
+      <div className="/* ✨ center-focus fade */ relative mt-2 rounded-2xl border border-black/5 bg-black/2 mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] px-4 py-6 [-webkit-mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] dark:border-white/10 dark:bg-white/3">
+        <div className="pointer-events-none absolute inset-y-0 left-1/2 z-10 hidden w-[35%] -translate-x-1/2 bg-linear-to-r from-transparent via-white/20 to-transparent blur-2xl max-lg:block dark:via-white/10" />
+
+        <Marquee pauseOnHover className="[--duration:28s] [--gap:3rem]">
+          {allTechstacks.map((techStack) => (
+            <div
+              key={techStack.id}
+              className="group flex w-[110px] flex-none flex-col items-center justify-center gap-2 sm:w-[130px] xl:w-[150px]"
+            >
+              <div className="relative h-10 w-10 transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12 lg:h-14 lg:w-14">
+                <Image
+                  src={techStack.icon.url}
+                  fill
+                  alt={`${techStack.title} icon`}
+                  className="object-contain opacity-90 transition-all duration-300 group-hover:opacity-100"
+                />
+              </div>
+
+              <p className="text-muted-foreground/80 group-hover:text-foreground text-xs font-medium tracking-wide transition-colors">
+                {techStack.name}
+              </p>
             </div>
-            <blockquote className="text-shadow-muted-foreground text-[10px] font-medium tracking-widest whitespace-nowrap uppercase">
-              {techStack.name}
-            </blockquote>
-          </div>
-        ))}
-      </Marquee>
+          ))}
+        </Marquee>
+      </div>
     </SectionContainer>
   );
 };

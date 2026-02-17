@@ -54,8 +54,10 @@ export const homePageQuery = `
     homePage(locale: $locale) {
         id
         name
+        intro
         jobTitle
         workPlace
+        connect
         workExperience
         education
         at
@@ -231,6 +233,7 @@ export const technicalLedgerPageQuery = `
     technicalLedgersPage(locale: $locale) {
         title
         description
+        explanation
         all
         minRead
         backButtonLabel

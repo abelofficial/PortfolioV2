@@ -1,4 +1,5 @@
 'use client';
+
 import { HomePage, Testimonial } from '@/types';
 import React from 'react';
 import {
@@ -14,6 +15,7 @@ export interface TestimonialCarouselProps {
   allTestimonials: Testimonial[];
   homePage: HomePage;
 }
+
 const TestimonialCarousel = ({
   allTestimonials,
   homePage,
@@ -21,6 +23,7 @@ const TestimonialCarousel = ({
   const plugin = React.useRef(
     Autoplay({ delay: 5000, stopOnInteraction: true })
   );
+
   return (
     <Carousel
       plugins={[plugin.current]}
@@ -28,19 +31,25 @@ const TestimonialCarousel = ({
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent className="gap-1">
+      <CarouselContent className="gap-3">
         {allTestimonials.map((testimonial) => (
           <CarouselItem key={testimonial.id}>
-            <SectionContainer disableShine disablePattern>
-              <CardContent className="m-0 max-w-4xl self-center px-2 pb-4">
-                <blockquote className="text-justify text-sm italic">
-                  &quot;{testimonial.text}&quot;
+            <SectionContainer
+              disablePattern
+              className="bg-black/3 dark:bg-white/3"
+            >
+              <CardContent className="m-0 max-w-3xl self-center px-4 pt-2 pb-4">
+                <blockquote className="text-foreground/90 text-center text-[15px] leading-relaxed italic md:text-base">
+                  <span className="text-primary/70">&ldquo;</span>
+                  {testimonial.text}
+                  <span className="text-primary/70">&rdquo;</span>
                 </blockquote>
               </CardContent>
-              <CardFooter className="flex justify-center">
-                <p className="text-muted-foreground text-xs">
-                  {testimonial.name}{' '}
-                  <span className="text-primary text-xs font-bold">
+
+              <CardFooter className="flex justify-center pb-6">
+                <p className="text-muted-foreground text-sm">
+                  <span className="font-medium">{testimonial.name}</span>{' '}
+                  <span className="text-primary font-semibold">
                     {testimonial.workPosition} {homePage.at}{' '}
                     {testimonial.workPlace}
                   </span>

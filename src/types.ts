@@ -23,6 +23,7 @@ export interface TechnicalLedgerForPromptMote {
 export interface TechnicalLedgerPage {
   title: string;
   description: string;
+  explanation: string;
   all: string;
   backButtonLabel: string;
   minRead: string;
@@ -113,6 +114,8 @@ export interface Prompt {
 export interface HomePage {
   id: string;
   name: string;
+  intro: string;
+  connect: string;
   jobTitle: string;
   workPlace: string;
   workExperience: string;
