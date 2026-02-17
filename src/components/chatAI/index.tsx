@@ -137,7 +137,7 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 18 }}
-            className="bg-background/80 fixed inset-0 z-[100] flex items-end justify-center p-4 backdrop-blur-md xl:relative xl:inset-auto xl:z-0 xl:h-full xl:w-full xl:bg-transparent xl:p-0 xl:backdrop-blur-none"
+            className="bg-background/80 fixed inset-0 z-100 flex items-end justify-center p-4 backdrop-blur-md xl:relative xl:inset-auto xl:z-0 xl:h-full xl:max-h-[calc(100dvh-10rem)] xl:w-full xl:bg-transparent xl:p-0 xl:backdrop-blur-none"
             style={{
               height: isDesktop ? undefined : '100dvh',
               paddingBottom: isDesktop

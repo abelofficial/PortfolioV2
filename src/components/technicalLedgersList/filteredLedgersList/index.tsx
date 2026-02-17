@@ -17,7 +17,7 @@ const FilteredLedgersList = ({
   page,
 }: FilteredTechnicalLedgersListProps) => {
   const [activeCategory, setActiveCategory] = useState(page.all);
-  const distinctCategories = [page.all, ...new Set(categories)];
+  const distinctCategories = [page.all, ...new Set<string>(categories)];
 
   const filteredNotes =
     activeCategory === page.all
