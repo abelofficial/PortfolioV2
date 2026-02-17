@@ -9,11 +9,25 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
   return (
     <MainPageContainer>
-      <Profile locale={locale} />
-      <Testimonials locale={locale} />
-      <TechStack locale={locale} />
-      <WorkExperience locale={locale} />
-      <EducationExperience locale={locale} />
+      <div id="profile" className="scroll-mt-24">
+        <Profile locale={locale} />
+      </div>
+
+      <div id="tech" className="scroll-mt-24">
+        <TechStack locale={locale} />
+      </div>
+
+      <div id="work" className="scroll-mt-24">
+        <WorkExperience locale={locale} />
+      </div>
+
+      <div id="education" className="scroll-mt-24">
+        <EducationExperience locale={locale} />
+      </div>
+
+      <div id="testimonials" className="scroll-mt-24">
+        <Testimonials locale={locale} />
+      </div>
     </MainPageContainer>
   );
 };

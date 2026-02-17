@@ -34,7 +34,7 @@ const TestimonialCarousel = ({
       <CarouselContent className="gap-3">
         {allTestimonials.map((testimonial) => (
           <CarouselItem key={testimonial.id}>
-            <SectionContainer disableShine disablePattern>
+            <SectionContainer disablePattern className="dark:bg-white/3">
               <CardContent className="m-0 max-w-3xl self-center px-4 pt-2 pb-4">
                 <blockquote className="text-foreground/90 text-center text-[15px] leading-relaxed italic md:text-base">
                   <span className="text-primary/70">&ldquo;</span>
