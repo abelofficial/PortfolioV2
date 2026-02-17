@@ -22,6 +22,7 @@ export const promptQuery = `
         safetyLimitations
         toneAndStyle
         formattingAndStructure
+        contextualKnowledge
   }
 `;
 

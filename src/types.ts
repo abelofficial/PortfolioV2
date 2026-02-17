@@ -1,5 +1,16 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
+export interface PromptContext {
+  title: string;
+  category: string;
+  slug: string;
+  readMinutes: string;
+  excerpt: string;
+  published: string;
+  fullLink: string;
+  text: string;
+}
+
 export interface TechnicalLedgerForPrompt {
   id: string;
   slugId: string;
@@ -8,7 +19,8 @@ export interface TechnicalLedgerForPrompt {
   date: string;
   category: string;
   readMinutes: number;
-  tags: {
+  chatBox: ChatBoxInfo;
+  tag: {
     id: string;
     tag: string;
   }[];
@@ -107,10 +119,11 @@ export interface TimelineEntry {
 }
 
 export interface Prompt {
-  coreRules: string;
+  coreRule: string;
   safetyLimitations: string;
   toneAndStyle: string;
   formattingAndStructure: string;
+  contextualKnowledge: string;
 }
 
 export interface HomePage {

@@ -2,7 +2,7 @@ import { Index } from '@upstash/vector';
 import { openai } from '@ai-sdk/openai';
 import { streamText, convertToModelMessages, type UIMessage, embed } from 'ai';
 import { getAssistantPrompt } from '@/utils/ai-prompts';
-import { Prompt } from '@/types';
+import { Prompt, PromptContext } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import {
   getCombinedQueryWithoutLocalization,
@@ -37,14 +37,25 @@ export async function POST(req: Request) {
     includeMetadata: true,
   });
 
-  const context = queryResult
-    .map((match) => match.metadata?.text)
-    .filter(Boolean)
-    .join('\n\n');
+  const context = queryResult.map(
+    (match) =>
+      ({
+        title: match.metadata?.title,
+        category: match.metadata?.category,
+        slug: match.metadata?.slug,
+        readMinutes: match.metadata?.readMinutes,
+        excerpt: match.metadata?.excerpt,
+        published: match.metadata?.published,
+        text: match.metadata?.text,
+        fullLink: match.metadata?.fullLink,
+      }) as PromptContext
+  );
 
+  const finalPrompt = getAssistantPrompt(context, prompt);
+  console.log(finalPrompt);
   const result = streamText({
     model: openai('gpt-4o-mini'),
-    system: getAssistantPrompt(context, prompt),
+    system: finalPrompt,
     messages: await convertToModelMessages(messages),
   });
 

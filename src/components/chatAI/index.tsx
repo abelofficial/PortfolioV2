@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, Trash2 } from 'lucide-react';
 import useWindowWidth from '@/hooks/useWindowWidth';
-import { ChatBoxInfo, HomePage } from '@/types';
+import { ChatBoxInfo } from '@/types';
 
 export interface ChatAIProps {
   chatBoxInfo: ChatBoxInfo;
@@ -244,7 +244,20 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                                     key={i}
                                     className="prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-headings:mt-3 prose-ul:my-2 prose-ol:my-2 prose-p:my-2 max-w-none"
                                   >
-                                    <ReactMarkdown>{part.text}</ReactMarkdown>
+                                    <ReactMarkdown
+                                      components={{
+                                        a: ({ node, ...props }) => (
+                                          <a
+                                            {...props}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-primary hover:underline"
+                                          />
+                                        ),
+                                      }}
+                                    >
+                                      {part.text}
+                                    </ReactMarkdown>
                                   </div>
                                 ) : null
                               )}

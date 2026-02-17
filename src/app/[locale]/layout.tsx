@@ -26,25 +26,6 @@ export async function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'sv_SE' }];
 }
 
-export const generateMetadata = async ({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> => {
-  const { locale } = await params;
-
-  return {
-    title:
-      locale === 'sv_SE'
-        ? 'Abel Sintaro | Mjukvaruingenjör'
-        : 'Abel Sintaro | Software Engineer',
-    description:
-      locale === 'sv_SE'
-        ? 'En personlig webbplats...'
-        : 'A personal website...',
-  };
-};
-
 export default async function RootLayout({
   children,
   params,

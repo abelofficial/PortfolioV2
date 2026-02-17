@@ -14,6 +14,26 @@ import Footer from '@components/footer';
 import { getCombinedQuery, homePageQuery } from '@/lib/queries';
 import { HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
+import { Metadata } from 'next';
+
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> => {
+  const { locale } = await params;
+
+  return {
+    title:
+      locale === 'sv_SE'
+        ? 'Abel Sintaro | Mjukvaruingenjör'
+        : 'Abel Sintaro | Software Engineer',
+    description:
+      locale === 'sv_SE'
+        ? 'En personlig webbplats...'
+        : 'A personal website...',
+  };
+};
 
 const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
