@@ -233,6 +233,7 @@ export const technicalLedgerPageQuery = `
     technicalLedgersPage(locale: $locale) {
         title
         description
+        explanation
         all
         minRead
         backButtonLabel

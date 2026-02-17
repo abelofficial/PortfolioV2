@@ -23,6 +23,7 @@ export interface TechnicalLedgerForPromptMote {
 export interface TechnicalLedgerPage {
   title: string;
   description: string;
+  explanation: string;
   all: string;
   backButtonLabel: string;
   minRead: string;
