@@ -56,23 +56,23 @@ const Profile = async ({ locale }: ProfileProps) => {
             {homePage.connect}
           </p>
 
-          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-3 md:max-w-2xl md:gap-4">
+          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-1 md:max-w-2xl md:gap-4">
             {allContacts.map((contact) => (
               <a
                 key={contact.id}
                 target="_blank"
                 rel="noreferrer"
                 href={contact.address}
-                className="group text-muted-foreground hover:text-foreground inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-4 py-2 text-sm transition hover:bg-black/10 md:px-5 md:py-2.5 md:text-base dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:text-white"
+                className="group text-muted-foreground hover:text-foreground inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-4 py-1 text-sm transition hover:bg-black/10 md:px-5 md:py-2 md:text-base dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:text-white"
               >
                 <Image
                   src={contact.icon.responsiveImage.src}
                   alt={`${contact.title} icon`}
-                  width={18}
-                  height={18}
+                  width={15}
+                  height={15}
                   className="opacity-80 transition group-hover:opacity-100 md:h-5 md:w-5"
                 />
-                <span className="font-medium">
+                <span className="font-small">
                   {contact.title === 'Github' ? 'GitHub' : contact.title}
                 </span>
               </a>
