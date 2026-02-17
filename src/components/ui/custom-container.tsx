@@ -36,7 +36,7 @@ export const MainPageContainer = ({
   return (
     <div
       className={cn([
-        'max-w-8xl flex w-full flex-col gap-4 p-4 md:p-5',
+        'mx-auto flex w-full max-w-6xl flex-col gap-4 p-4 md:p-5',
         className,
       ])}
     >
