@@ -5,8 +5,6 @@ import {
 } from '@components/ui/custom-container';
 import TechStack from '@components/techStack';
 import Profile from '@components/profile';
-import WorkExperience from '@components/workExperience';
-import EducationExperience from '@components/educationExperience';
 import Testimonials from '@components/testimonials';
 import Toolbar from '@components/toolbar';
 import ChatAI from '@components/chatAI';
@@ -18,6 +16,7 @@ import { Metadata } from 'next';
 import getMetadataFromSEOConfig, {
   SeoType,
 } from '@/utils/getMetadataFromSEOConfig';
+import ExperienceTimeline from '@components/experienceTimeline';
 
 export const generateMetadata = async ({
   params,
@@ -64,14 +63,9 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
           <TechStack locale={locale} />
         </div>
 
-        <div id="work" className="scroll-mt-24">
-          <WorkExperience locale={locale} />
+        <div id="experience" className="scroll-mt-24">
+          <ExperienceTimeline locale={locale} />
         </div>
-
-        <div id="education" className="scroll-mt-24">
-          <EducationExperience locale={locale} />
-        </div>
-
         <div id="testimonials" className="scroll-mt-24">
           <Testimonials locale={locale} />
         </div>
