@@ -14,7 +14,7 @@ export const request = async <TResponse, TVariables = Record<string, unknown>>({
   variables,
   includeDrafts,
   excludeInvalid,
-  revalidate = 600, // Default 10 min cache
+  revalidate = 10800, // Default 3 hours cache
 }: IDatoRequestProps<TVariables>): Promise<TResponse> => {
   const client = new GraphQLClient('https://graphql.datocms.com', {
     headers: {
