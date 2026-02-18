@@ -140,6 +140,7 @@ export interface HomePage {
   totalContributionLabel: string;
   techStackTitle: string;
   chatBox: ChatBoxInfo;
+  seo: SEOData;
   avatar: {
     responsiveImage: ResponsiveImageType;
   };

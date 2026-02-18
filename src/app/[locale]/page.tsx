@@ -15,6 +15,9 @@ import { getCombinedQuery, homePageQuery } from '@/lib/queries';
 import { HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { Metadata } from 'next';
+import getMetadataFromSEOConfig, {
+  SeoType,
+} from '@/utils/getMetadataFromSEOConfig';
 
 export const generateMetadata = async ({
   params,
@@ -22,17 +25,12 @@ export const generateMetadata = async ({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> => {
   const { locale } = await params;
+  const { homePage }: { homePage: HomePage } = await datoCMS({
+    query: getCombinedQuery([homePageQuery]),
+    variables: { locale: locale },
+  });
 
-  return {
-    title:
-      locale === 'sv_SE'
-        ? 'Abel Sintaro | Mjukvaruingenjör'
-        : 'Abel Sintaro | Software Engineer',
-    description:
-      locale === 'sv_SE'
-        ? 'En personlig webbplats...'
-        : 'A personal website...',
-  };
+  return getMetadataFromSEOConfig(locale, SeoType.PROFILE, homePage.seo);
 };
 
 const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {

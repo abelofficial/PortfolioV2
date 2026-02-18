@@ -15,6 +15,9 @@ import {
 import Toolbar from '@components/toolbar';
 import ChatAI from '@components/chatAI';
 import Footer from '@components/footer';
+import getMetadataFromSEOConfig, {
+  SeoType,
+} from '@/utils/getMetadataFromSEOConfig';
 
 export const generateMetadata = async ({
   params,
@@ -30,21 +33,9 @@ export const generateMetadata = async ({
     variables: { locale: locale },
   });
 
-  if (!technicalLedgersPage)
-    return { title: 'Technical Ledger | Abel Sintaro' };
-
   const seo = technicalLedgersPage.seo;
 
-  return {
-    title: seo.title,
-    description: seo.description,
-    openGraph: {
-      title: seo.title,
-      description: seo.description,
-      type: 'article',
-      images: seo.image?.responsiveImage.src,
-    },
-  };
+  return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
 };
 
 const TechnicalLedgersPage = async ({

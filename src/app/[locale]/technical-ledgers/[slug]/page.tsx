@@ -5,17 +5,15 @@ import {
 } from '@components/ui/custom-container';
 import TechnicalLedger from '@components/technicalLedger';
 import { Metadata } from 'next';
-import { HomePage, SingleTechnicalLedger } from '@/types';
+import { SingleTechnicalLedger } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import {
-  getCombinedQuery,
-  getCombinedQueryWithSlug,
-  homePageQuery,
-  technicalLedgersQuery,
-} from '@/lib/queries';
+import { getCombinedQueryWithSlug, technicalLedgersQuery } from '@/lib/queries';
 import Toolbar from '@components/toolbar';
 import ChatAI from '@components/chatAI';
 import Footer from '@components/footer';
+import getMetadataFromSEOConfig, {
+  SeoType,
+} from '@/utils/getMetadataFromSEOConfig';
 
 export const generateMetadata = async ({
   params,
@@ -29,19 +27,9 @@ export const generateMetadata = async ({
     variables: { locale, slug },
   });
 
-  const seo = data?.technicalLedger?.seo;
+  const seo = data.technicalLedger.seo;
 
-  if (!seo) return { title: 'Note Not Found | Abel Sintaro' };
-
-  return {
-    title: seo.title,
-    description: seo.description,
-    openGraph: {
-      title: seo.title,
-      description: seo.description,
-      type: 'article',
-    },
-  };
+  return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
 };
 
 const LedgerPage = async ({
