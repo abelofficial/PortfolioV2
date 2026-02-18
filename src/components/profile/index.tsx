@@ -56,7 +56,7 @@ const Profile = async ({ locale }: ProfileProps) => {
             {homePage.connect}
           </p>
 
-          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-1 md:max-w-2xl md:gap-4">
+          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-2 md:max-w-2xl md:gap-4">
             {allContacts.map((contact) => (
               <a
                 key={contact.id}
@@ -81,6 +81,7 @@ const Profile = async ({ locale }: ProfileProps) => {
         </div>
 
         <div className="mt-8 w-full opacity-95 md:mt-10 dark:opacity-90">
+          <Separator className="w-full bg-black/10 dark:bg-white/10" />
           <ContributionCalendar
             data={contributions.contributionsByDate}
             totalContributions={contributions.totalContributions}

@@ -112,10 +112,10 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
 
   return (
     <>
-      <div className="fixed right-5 bottom-5 z-50 xl:hidden">
+      <div className="fixed right-3 bottom-3 z-50 xl:hidden">
         <button
           onClick={() => setIsOpen((v) => !v)}
-          className="bg-primary flex items-center gap-2 rounded-xl p-2 text-white shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
+          className="bg-primary flex items-center gap-2 rounded-xl px-4 py-2 text-white shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
           aria-label={chatBoxInfo.openButtonLabel}
         >
           {isOpen ? (
@@ -123,7 +123,7 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
           ) : (
             <>
               <MessageCircle size={20} />
-              <span className="text-xs">{chatBoxInfo.openButtonLabel}</span>
+              <span className="text-sm">{chatBoxInfo.openButtonLabel}</span>
             </>
           )}
         </button>
