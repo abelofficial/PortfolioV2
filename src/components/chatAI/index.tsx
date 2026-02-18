@@ -71,7 +71,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
     };
   }, [isOpen]);
 
-  // Focus input when opened on mobile
   useEffect(() => {
     const isMobile = width < 1280;
     if (isOpen && isMobile) {
@@ -80,7 +79,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
     }
   }, [isOpen, width]);
 
-  // Close on Escape (mobile overlay)
   useEffect(() => {
     if (!isOpen) return;
     const onKeyDown = (e: KeyboardEvent) => {
@@ -114,7 +112,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
 
   return (
     <>
-      {/* Mobile FAB */}
       <div className="fixed right-5 bottom-5 z-50 xl:hidden">
         <button
           onClick={() => setIsOpen((v) => !v)}
@@ -175,21 +172,17 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                 }
               >
                 <div className="flex h-full min-h-0 flex-col">
-                  {/* Header microcopy (more breathing room) */}
                   <div className="px-4 pt-3 pb-2">
                     <p className="text-muted-foreground/80 text-xs">
                       {chatBoxInfo.hint}
                     </p>
                   </div>
 
-                  {/* Messages */}
                   <div className="relative min-h-0 flex-1">
-                    {/* WOW: edge fades for scroll polish */}
                     <div className="from-card pointer-events-none absolute top-0 left-0 z-10 h-8 w-full bg-gradient-to-b to-transparent" />
                     <div className="from-card pointer-events-none absolute bottom-0 left-0 z-10 h-10 w-full bg-gradient-to-t to-transparent" />
 
                     <div className="custom-scrollbar h-full space-y-4 overflow-y-auto px-4 pt-2 pb-4">
-                      {/* Empty state */}
                       {messages.length === 0 && (
                         <div className="flex flex-col gap-3 py-2">
                           <div className="text-primary mb-1 flex items-center gap-2 text-xs font-semibold">
@@ -204,7 +197,7 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                                 onClick={() =>
                                   handleFormSubmit(undefined, q.singleQuestion)
                                 }
-                                className="text-foreground/90 hover:border-primary/30 hover:bg-primary/5 rounded-xl border border-black/10 bg-black/[0.02] p-3 text-left text-xs transition-all dark:border-white/10 dark:bg-white/[0.03] dark:text-white/90"
+                                className="text-foreground/90 hover:border-primary/30 hover:bg-primary/20 dark:hover:bg-primary/20 rounded-xl border border-black/10 bg-black/2 p-3 text-left text-xs transition-all dark:border-white/10 dark:bg-white/3 dark:text-white/90"
                               >
                                 {q.singleQuestion}
                               </button>
@@ -213,7 +206,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                         </div>
                       )}
 
-                      {/* Conversation */}
                       {messages.map((m) => {
                         const isUser = m.role === 'user';
                         return (
@@ -221,7 +213,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                             key={m.id}
                             className={`flex items-end gap-2 ${isUser ? 'justify-end' : 'justify-start'}`}
                           >
-                            {/* Assistant identity */}
                             {!isUser && (
                               <div className="mb-1 flex h-7 w-7 items-center justify-center rounded-full border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.04]">
                                 <Sparkles
@@ -231,7 +222,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                               </div>
                             )}
 
-                            {/* Responsive max width + softer assistant bubble */}
                             <div
                               className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed xl:max-w-[78%] ${
                                 isUser
@@ -266,7 +256,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                         );
                       })}
 
-                      {/* WOW: typing indicator as a bubble with dots */}
                       {(status === 'streaming' || status === 'submitted') && (
                         <div className="flex items-end gap-2">
                           <div className="mb-1 flex h-7 w-7 items-center justify-center rounded-full border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.04]">
@@ -282,7 +271,6 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                     </div>
                   </div>
 
-                  {/* Composer */}
                   <div className="bg-card/60 shrink-0 border-t border-black/10 px-4 py-3 backdrop-blur dark:border-white/10">
                     {messages.length > 0 && (
                       <div className="pb-2">
