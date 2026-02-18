@@ -9,6 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X, Send, Sparkles, Trash2 } from 'lucide-react';
 import useWindowWidth from '@/hooks/useWindowWidth';
 import { ChatBoxInfo } from '@/types';
+import Link from 'next/link';
 
 export interface ChatAIProps {
   chatBoxInfo: ChatBoxInfo;
@@ -247,10 +248,9 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                                     <ReactMarkdown
                                       components={{
                                         a: ({ node, ...props }) => (
-                                          <a
+                                          <Link
                                             {...props}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
+                                            href={props.href?.toString() || '#'}
                                             className="text-primary hover:underline"
                                           />
                                         ),
