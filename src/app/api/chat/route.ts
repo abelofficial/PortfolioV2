@@ -52,7 +52,7 @@ export async function POST(req: Request) {
   );
 
   const finalPrompt = getAssistantPrompt(context, prompt);
-  console.log(finalPrompt);
+
   const result = streamText({
     model: openai('gpt-4o-mini'),
     system: finalPrompt,

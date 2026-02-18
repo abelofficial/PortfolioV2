@@ -6,14 +6,14 @@ import {
   workExperienceQuery,
 } from '@/lib/queries';
 import { SectionContainer } from '@components/ui/custom-container';
-import { Timeline } from '@components/ui/timeline';
-import TimelineCard from '@components/timelineCard';
+import Timeline from '../timeline';
+import TimelineCard from '../timeline/timelineCard';
 
-export interface WorkExperienceProps {
+export interface WorkProps {
   locale: string;
 }
 
-const WorkExperience = async ({ locale }: WorkExperienceProps) => {
+const Work = async ({ locale }: WorkProps) => {
   const { allWorks, homePage }: { allWorks: Experience[]; homePage: HomePage } =
     await datoCMS({
       query: getCombinedQuery([workExperienceQuery, homePageQuery]),
@@ -32,4 +32,4 @@ const WorkExperience = async ({ locale }: WorkExperienceProps) => {
     </SectionContainer>
   );
 };
-export default WorkExperience;
+export default Work;

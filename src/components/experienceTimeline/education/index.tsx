@@ -6,14 +6,14 @@ import {
   homePageQuery,
 } from '@/lib/queries';
 import { SectionContainer } from '@components/ui/custom-container';
-import { Timeline } from '@components/ui/timeline';
-import TimelineCard from '@components/timelineCard';
+import Timeline from '../timeline';
+import TimelineCard from '../timeline/timelineCard';
 
-interface EducationExperienceProps {
+interface EducationProps {
   locale: string;
 }
 
-const EducationExperience = async ({ locale }: EducationExperienceProps) => {
+const Education = async ({ locale }: EducationProps) => {
   const {
     allEducations,
     homePage,
@@ -34,4 +34,4 @@ const EducationExperience = async ({ locale }: EducationExperienceProps) => {
     </SectionContainer>
   );
 };
-export default EducationExperience;
+export default Education;

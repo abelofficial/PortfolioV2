@@ -96,6 +96,26 @@ export const homePageQuery = `
                 webpSrcSet
                 width
             }
+        }
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
         } 
     }     
 `;

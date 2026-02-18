@@ -9,8 +9,9 @@ import React, {
   useState,
 } from 'react';
 import { TimelineEntry } from '@/types';
+import { cn } from '@/lib/utils';
 
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -142,7 +143,11 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               </div>
 
               {/* Card hover lift on desktop */}
-              <div className="rounded-2xl border border-black/5 bg-black/2 p-4 transition-all duration-200 xl:hover:-translate-y-0.5 xl:hover:shadow-[0_18px_50px_rgba(0,0,0,0.10)] dark:border-white/10 dark:bg-white/3 dark:xl:hover:shadow-[0_18px_50px_rgba(0,0,0,0.40)]">
+              <div
+                className={
+                  'rounded-2xl border border-black/5 bg-black/2 p-4 transition-all duration-200 dark:border-white/10 dark:bg-white/3'
+                }
+              >
                 {/* Date/title */}
                 <h3 className="text-muted-foreground mb-3 text-sm font-semibold tracking-wide">
                   {item.title}
@@ -158,3 +163,5 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
     </div>
   );
 };
+
+export default Timeline;
