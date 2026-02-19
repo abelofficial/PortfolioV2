@@ -18,11 +18,11 @@ import getMetadataFromSEOConfig, {
 } from '@/utils/getMetadataFromSEOConfig';
 import TechnicalLedgersListSkeleton from '@components/technicalLedgersList/skeleton';
 
-export const generateMetadata = async ({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> => {
+}): Promise<Metadata> {
   const { locale } = await params;
 
   const {
@@ -35,7 +35,7 @@ export const generateMetadata = async ({
   const seo = technicalLedgersPage.seo;
 
   return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
-};
+}
 
 const TechnicalLedgersPage = async ({
   params,

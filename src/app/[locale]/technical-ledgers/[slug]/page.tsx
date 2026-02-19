@@ -18,11 +18,11 @@ import getMetadataFromSEOConfig, {
 } from '@/utils/getMetadataFromSEOConfig';
 import TechnicalLedgerSkeleton from '@components/technicalLedger/skeleton';
 
-export const generateMetadata = async ({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string; slug: string }>;
-}): Promise<Metadata> => {
+}): Promise<Metadata> {
   const { locale, slug } = await params;
 
   const data: SingleTechnicalLedger = await datoCMS({
@@ -33,7 +33,7 @@ export const generateMetadata = async ({
   const seo = data.technicalLedger.seo;
 
   return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
-};
+}
 
 const LedgerPage = async ({
   params,
