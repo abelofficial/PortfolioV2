@@ -8,7 +8,6 @@ import TechStackSkeleton from '@components/techStack/skeleton';
 import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
 import TestimonialsSkeleton from '@components/testimonials/skeleton';
 import ToolbarSkeleton from '@components/toolbar/skeleton';
-import ChatAISkeleton from '@components/chatAI/skeleton';
 import { DotPattern } from '@components/ui/dot-pattern';
 import { cn } from '@/lib/utils';
 
@@ -20,9 +19,6 @@ const HomeLoading = () => {
           <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
             <div className="shrink-0">
               <ToolbarSkeleton />
-            </div>
-            <div className="min-h-0 flex-1">
-              <ChatAISkeleton />
             </div>
           </div>
         </SidebarContainer>

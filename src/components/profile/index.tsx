@@ -33,6 +33,7 @@ const Profile = async ({ locale }: ProfileProps) => {
           width={150}
           height={150}
           priority
+          sizes="150px"
           className="aspect-square rounded-full border-2 border-black/10 object-cover dark:border-white/20"
         />
 
