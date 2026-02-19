@@ -35,7 +35,13 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <GlobeIcon className={className} aria-label="Change language" />
+        <button
+          type="button"
+          aria-label="Change language"
+          className={className}
+        >
+          <GlobeIcon className="size-5" aria-hidden="true" focusable="false" />
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-40">
         {languages.map((lang) => (
