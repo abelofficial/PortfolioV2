@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Dock, DockIcon } from '@components/ui/dock';
 import { Separator } from '@components/ui/separator';
-import { BookOpenIcon, UserRoundPen, NotebookTextIcon } from 'lucide-react';
+import { UserRoundPen, NotebookTextIcon } from 'lucide-react';
 import { AnimatedThemeToggler } from '@components/ui/animated-theme-toggler';
 import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';

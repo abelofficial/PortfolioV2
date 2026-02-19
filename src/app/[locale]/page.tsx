@@ -24,11 +24,11 @@ import TechStackSkeleton from '@components/techStack/skeleton';
 import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
 import TestimonialsSkeleton from '@components/testimonials/skeleton';
 
-export const generateMetadata = async ({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ locale: string }>;
-}): Promise<Metadata> => {
+}): Promise<Metadata> {
   const { locale } = await params;
   const { homePage }: { homePage: HomePage } = await datoCMS({
     query: getCombinedQuery([homePageQuery]),
@@ -36,7 +36,7 @@ export const generateMetadata = async ({
   });
 
   return getMetadataFromSEOConfig(locale, SeoType.PROFILE, homePage.seo);
-};
+}
 
 const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
