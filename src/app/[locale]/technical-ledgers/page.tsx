@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import {
   MainPageContainer,
   MultiSectionLayout,
@@ -15,6 +16,7 @@ import Footer from '@components/footer';
 import getMetadataFromSEOConfig, {
   SeoType,
 } from '@/utils/getMetadataFromSEOConfig';
+import TechnicalLedgersListSkeleton from '@components/technicalLedgersList/skeleton';
 
 export const generateMetadata = async ({
   params,
@@ -65,7 +67,9 @@ const TechnicalLedgersPage = async ({
     >
       <AnimatedPageContent>
         <MainPageContainer className="p-0 md:p-4">
-          <TechnicalLedgersList locale={locale} />
+          <Suspense fallback={<TechnicalLedgersListSkeleton />}>
+            <TechnicalLedgersList locale={locale} />
+          </Suspense>
         </MainPageContainer>
         <Footer />
       </AnimatedPageContent>

@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import {
   MainPageContainer,
   MultiSectionLayout,
@@ -15,6 +16,7 @@ import Footer from '@components/footer';
 import getMetadataFromSEOConfig, {
   SeoType,
 } from '@/utils/getMetadataFromSEOConfig';
+import TechnicalLedgerSkeleton from '@components/technicalLedger/skeleton';
 
 export const generateMetadata = async ({
   params,
@@ -61,7 +63,9 @@ const LedgerPage = async ({
     >
       <AnimatedPageContent>
         <MainPageContainer className="p-0 md:p-4">
-          <TechnicalLedger locale={locale} slug={slug} />
+          <Suspense fallback={<TechnicalLedgerSkeleton />}>
+            <TechnicalLedger locale={locale} slug={slug} />
+          </Suspense>
         </MainPageContainer>
         <Footer />
       </AnimatedPageContent>
