@@ -36,6 +36,7 @@ const LedgersListHeader = ({
             </h1>
 
             <button
+              aria-label="Show explanation"
               type="button"
               onClick={() => setShowInfo((v) => !v)}
               className="text-muted-foreground hover:text-foreground inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition"

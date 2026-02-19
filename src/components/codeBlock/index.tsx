@@ -22,7 +22,7 @@ const CodeBlock = async ({ code, language }: CodeBlockProps) => {
             <div className="size-2.5 rounded-full bg-[#27c93f]" />
           </div>
         </div>
-        <span className="font-mono text-[10px] tracking-widest text-neutral-500 uppercase">
+        <span className="font-mono text-[10px] tracking-widest text-white uppercase">
           {language}
         </span>
       </div>
