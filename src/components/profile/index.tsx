@@ -34,7 +34,7 @@ const Profile = async ({ locale }: ProfileProps) => {
           height={150}
           priority
           sizes="150px"
-          preload
+          fetchPriority="high"
           className="aspect-square rounded-full border-2 border-black/10 object-cover dark:border-white/20"
         />
 
