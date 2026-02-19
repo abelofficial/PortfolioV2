@@ -197,7 +197,7 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                                 onClick={() =>
                                   handleFormSubmit(undefined, q.singleQuestion)
                                 }
-                                className="text-foreground/90 hover:border-primary/30 hover:bg-primary/20 dark:hover:bg-primary/20 rounded-xl border border-black/10 bg-black/2 p-3 text-left text-xs transition-all dark:border-white/10 dark:bg-white/3 dark:text-white/90"
+                                className="text-foreground/90 hover:border-primary/30 hover:bg-primary/20 dark:hover:bg-primary/20 rounded-xl border border-black/10 bg-black/2 p-3 text-left text-xs dark:border-white/10 dark:bg-white/3 dark:text-white/90"
                               >
                                 {q.singleQuestion}
                               </button>
@@ -284,7 +284,7 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                                 .singleQuestion
                             )
                           }
-                          className="group text-primary/80 hover:border-primary/30 hover:bg-primary/5 hover:text-primary inline-flex max-w-full items-center gap-2 rounded-full border border-black/10 bg-black/[0.02] px-3 py-1 text-[11px] font-semibold tracking-wide transition-all disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.03]"
+                          className="group text-primary/80 hover:border-primary/30 hover:bg-primary/5 hover:text-primary inline-flex max-w-full items-center gap-2 rounded-full border border-black/10 bg-black/2 px-3 py-1 text-[11px] font-semibold tracking-wide transition-transform disabled:opacity-50 dark:border-white/10 dark:bg-white/[0.03]"
                         >
                           <Sparkles
                             size={12}
@@ -302,7 +302,7 @@ export default function ChatAI({ chatBoxInfo }: ChatAIProps) {
                     )}
 
                     <form onSubmit={handleFormSubmit}>
-                      <div className="focus-within:border-primary/40 focus-within:bg-primary/5 flex items-center gap-2 rounded-xl border border-black/10 bg-black/[0.02] px-3 py-2 transition-colors dark:border-white/10 dark:bg-white/[0.03] dark:focus-within:bg-white/[0.04]">
+                      <div className="focus-within:border-primary/40 focus-within:bg-primary/5 flex items-center gap-2 rounded-xl border border-black/10 bg-black/2 px-3 py-2 transition-colors dark:border-white/10 dark:bg-white/3 dark:focus-within:bg-white/4">
                         <input
                           ref={inputRef}
                           value={input}
