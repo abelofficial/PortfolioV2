@@ -28,13 +28,14 @@ const Toolbar = () => {
   return (
     <Dock direction="middle" className="bg-card flex w-full justify-around p-0">
       <DockIcon>
-        <Link href={`/${locale}`}>
+        <Link href={`/${locale}`} aria-label="Go to home">
           <UserRoundPen className={getClassName(isHomePageChecker)} />
         </Link>
       </DockIcon>
       <DockIcon>
         <Link href={`/${locale}/technical-ledgers`}>
           <NotebookTextIcon
+            aria-label="Go to technical ledgers"
             className={getClassName(() =>
               pathname.includes('/technical-ledgers')
             )}
@@ -46,7 +47,7 @@ const Toolbar = () => {
         <LanguageSwitcher className="size-5" />
       </DockIcon>
       <DockIcon>
-        <AnimatedThemeToggler className="size-5" />
+        <AnimatedThemeToggler className="size-5" aria-label="Change theme" />
       </DockIcon>
     </Dock>
   );

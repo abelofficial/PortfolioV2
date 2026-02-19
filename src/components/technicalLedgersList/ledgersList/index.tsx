@@ -24,6 +24,7 @@ const LedgersList = ({
         {technicalLedgersList.map((note, index) => (
           <motion.div
             key={note.id}
+            initial={false}
             layout="position"
             transition={{ duration: 0.4, delay: index * 0.1 }}
           >

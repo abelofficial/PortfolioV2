@@ -15,13 +15,6 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
-export const viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-};
-
 export async function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'sv_SE' }];
 }
