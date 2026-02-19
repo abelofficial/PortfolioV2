@@ -3,6 +3,7 @@ import {
   MultiSectionLayout,
   SidebarContainer,
 } from '@components/ui/custom-container';
+import { AnimatedPageContent } from '@components/ui/animated-page-content';
 import TechStack from '@components/techStack';
 import Profile from '@components/profile';
 import Testimonials from '@components/testimonials';
@@ -54,23 +55,25 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
         </SidebarContainer>
       }
     >
-      <MainPageContainer>
-        <div id="profile" className="scroll-mt-24">
-          <Profile locale={locale} />
-        </div>
+      <AnimatedPageContent>
+        <MainPageContainer>
+          <div id="profile" className="scroll-mt-24">
+            <Profile locale={locale} />
+          </div>
 
-        <div id="tech" className="scroll-mt-24">
-          <TechStack locale={locale} />
-        </div>
+          <div id="tech" className="scroll-mt-24">
+            <TechStack locale={locale} />
+          </div>
 
-        <div id="experience" className="scroll-mt-24">
-          <ExperienceTimeline locale={locale} />
-        </div>
-        <div id="testimonials" className="scroll-mt-24">
-          <Testimonials locale={locale} />
-        </div>
-      </MainPageContainer>
-      <Footer />
+          <div id="experience" className="scroll-mt-24">
+            <ExperienceTimeline locale={locale} />
+          </div>
+          <div id="testimonials" className="scroll-mt-24">
+            <Testimonials locale={locale} />
+          </div>
+        </MainPageContainer>
+        <Footer />
+      </AnimatedPageContent>
     </MultiSectionLayout>
   );
 };

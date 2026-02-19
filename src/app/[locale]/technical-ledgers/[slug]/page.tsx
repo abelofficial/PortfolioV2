@@ -3,6 +3,7 @@ import {
   MultiSectionLayout,
   SidebarContainer,
 } from '@components/ui/custom-container';
+import { AnimatedPageContent } from '@components/ui/animated-page-content';
 import TechnicalLedger from '@components/technicalLedger';
 import { Metadata } from 'next';
 import { SingleTechnicalLedger } from '@/types';
@@ -58,10 +59,12 @@ const LedgerPage = async ({
         </SidebarContainer>
       }
     >
-      <MainPageContainer className="p-0 md:p-4">
-        <TechnicalLedger locale={locale} slug={slug} />
-      </MainPageContainer>
-      <Footer />
+      <AnimatedPageContent>
+        <MainPageContainer className="p-0 md:p-4">
+          <TechnicalLedger locale={locale} slug={slug} />
+        </MainPageContainer>
+        <Footer />
+      </AnimatedPageContent>
     </MultiSectionLayout>
   );
 };
