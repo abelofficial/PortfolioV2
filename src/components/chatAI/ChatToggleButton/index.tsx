@@ -24,8 +24,10 @@ const ChatToggleButton = ({
           <X size={20} />
         ) : (
           <>
-            <MessageCircle size={20} className="text-white" />
-            <span className="text-base font-semibold text-white">{label}</span>
+            <MessageCircle size={20} className="text-neutral-900" />
+            <span className="text-base font-semibold text-neutral-800">
+              {label}
+            </span>
           </>
         )}
       </button>
