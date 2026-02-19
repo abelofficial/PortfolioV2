@@ -5,7 +5,6 @@ import {
 } from '@components/ui/custom-container';
 import TechnicalLedgerSkeleton from '@components/technicalLedger/skeleton';
 import ToolbarSkeleton from '@components/toolbar/skeleton';
-import ChatAISkeleton from '@components/chatAI/skeleton';
 import { DotPattern } from '@components/ui/dot-pattern';
 import { cn } from '@/lib/utils';
 
@@ -17,9 +16,6 @@ const LedgerLoading = () => {
           <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
             <div className="shrink-0">
               <ToolbarSkeleton />
-            </div>
-            <div className="min-h-0 flex-1">
-              <ChatAISkeleton />
             </div>
           </div>
         </SidebarContainer>
