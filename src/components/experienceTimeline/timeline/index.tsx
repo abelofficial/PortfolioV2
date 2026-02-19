@@ -115,11 +115,11 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
             >
               <div className="absolute top-2 left-2.5 md:left-4.5">
                 <div
-                  className={`relative rounded-full transition-all duration-300 ${isActive ? 'h-4 w-4' : 'h-3.5 w-3.5'} `}
+                  className={`relative rounded-full transition-transform duration-300 ${isActive ? 'h-4 w-4' : 'h-3.5 w-3.5'} `}
                 >
                   {/* core dot */}
                   <div
-                    className={`absolute inset-0 rounded-full transition-all duration-300 ${
+                    className={`absolute inset-0 rounded-full transition-transform duration-300 ${
                       isActive
                         ? 'bg-primary opacity-100'
                         : 'bg-primary/40 dark:bg-primary/35 opacity-70'
@@ -145,7 +145,7 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               {/* Card hover lift on desktop */}
               <div
                 className={
-                  'rounded-2xl border border-black/5 bg-black/2 p-4 transition-all duration-200 dark:border-white/10 dark:bg-white/3'
+                  'rounded-2xl border border-black/5 bg-black/2 p-4 transition-transform duration-200 dark:border-white/10 dark:bg-white/3'
                 }
               >
                 {/* Date/title */}

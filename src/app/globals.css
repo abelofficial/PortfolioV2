@@ -193,3 +193,13 @@
   margin: 0 !important;
   padding: 0 !important;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee,
+  .shine,
+  .bounce,
+  .background-animation {
+    animation: none !important;
+    transition: none !important;
+  }
+}

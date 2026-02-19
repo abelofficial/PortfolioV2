@@ -42,7 +42,7 @@ const TechStack = async ({ locale }: TechStackProps) => {
                   src={techStack.icon.url}
                   fill
                   alt={`${techStack.title} icon`}
-                  className="object-contain opacity-90 transition-all duration-300 group-hover:opacity-100"
+                  className="object-contain opacity-90 transition-transform duration-300 group-hover:opacity-100"
                 />
               </div>
 

@@ -76,7 +76,7 @@ const LedgersList = ({
                     {note.title}
                   </h2>
 
-                  <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary mt-1 size-4 shrink-0 opacity-0 transition-all group-hover:opacity-100" />
+                  <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary mt-1 size-4 shrink-0 opacity-0 transition-transform group-hover:opacity-100" />
                 </div>
 
                 {/* Excerpt */}
