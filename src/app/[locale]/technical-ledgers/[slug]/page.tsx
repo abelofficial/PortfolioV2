@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import {
   MainPageContainer,
   MultiSectionLayout,
   SidebarContainer,
 } from '@components/ui/custom-container';
+import { AnimatedPageContent } from '@components/ui/animated-page-content';
 import TechnicalLedger from '@components/technicalLedger';
 import { Metadata } from 'next';
 import { SingleTechnicalLedger } from '@/types';
@@ -14,6 +16,7 @@ import Footer from '@components/footer';
 import getMetadataFromSEOConfig, {
   SeoType,
 } from '@/utils/getMetadataFromSEOConfig';
+import TechnicalLedgerSkeleton from '@components/technicalLedger/skeleton';
 
 export const generateMetadata = async ({
   params,
@@ -58,10 +61,14 @@ const LedgerPage = async ({
         </SidebarContainer>
       }
     >
-      <MainPageContainer className="p-0 md:p-4">
-        <TechnicalLedger locale={locale} slug={slug} />
-      </MainPageContainer>
-      <Footer />
+      <AnimatedPageContent>
+        <MainPageContainer className="p-0 md:p-4">
+          <Suspense fallback={<TechnicalLedgerSkeleton />}>
+            <TechnicalLedger locale={locale} slug={slug} />
+          </Suspense>
+        </MainPageContainer>
+        <Footer />
+      </AnimatedPageContent>
     </MultiSectionLayout>
   );
 };

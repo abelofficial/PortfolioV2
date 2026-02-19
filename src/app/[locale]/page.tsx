@@ -1,8 +1,10 @@
+import { Suspense } from 'react';
 import {
   MainPageContainer,
   MultiSectionLayout,
   SidebarContainer,
 } from '@components/ui/custom-container';
+import { AnimatedPageContent } from '@components/ui/animated-page-content';
 import TechStack from '@components/techStack';
 import Profile from '@components/profile';
 import Testimonials from '@components/testimonials';
@@ -17,6 +19,10 @@ import getMetadataFromSEOConfig, {
   SeoType,
 } from '@/utils/getMetadataFromSEOConfig';
 import ExperienceTimeline from '@components/experienceTimeline';
+import ProfileSkeleton from '@components/profile/skeleton';
+import TechStackSkeleton from '@components/techStack/skeleton';
+import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
+import TestimonialsSkeleton from '@components/testimonials/skeleton';
 
 export const generateMetadata = async ({
   params,
@@ -54,23 +60,33 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
         </SidebarContainer>
       }
     >
-      <MainPageContainer>
-        <div id="profile" className="scroll-mt-24">
-          <Profile locale={locale} />
-        </div>
+      <AnimatedPageContent>
+        <MainPageContainer>
+          <div id="profile" className="scroll-mt-24">
+            <Suspense fallback={<ProfileSkeleton />}>
+              <Profile locale={locale} />
+            </Suspense>
+          </div>
 
-        <div id="tech" className="scroll-mt-24">
-          <TechStack locale={locale} />
-        </div>
+          <div id="tech" className="scroll-mt-24">
+            <Suspense fallback={<TechStackSkeleton />}>
+              <TechStack locale={locale} />
+            </Suspense>
+          </div>
 
-        <div id="experience" className="scroll-mt-24">
-          <ExperienceTimeline locale={locale} />
-        </div>
-        <div id="testimonials" className="scroll-mt-24">
-          <Testimonials locale={locale} />
-        </div>
-      </MainPageContainer>
-      <Footer />
+          <div id="experience" className="scroll-mt-24">
+            <Suspense fallback={<ExperienceTimelineSkeleton />}>
+              <ExperienceTimeline locale={locale} />
+            </Suspense>
+          </div>
+          <div id="testimonials" className="scroll-mt-24">
+            <Suspense fallback={<TestimonialsSkeleton />}>
+              <Testimonials locale={locale} />
+            </Suspense>
+          </div>
+        </MainPageContainer>
+        <Footer />
+      </AnimatedPageContent>
     </MultiSectionLayout>
   );
 };

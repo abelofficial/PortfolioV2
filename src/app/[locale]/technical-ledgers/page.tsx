@@ -1,23 +1,22 @@
+import { Suspense } from 'react';
 import {
   MainPageContainer,
   MultiSectionLayout,
   SidebarContainer,
 } from '@components/ui/custom-container';
+import { AnimatedPageContent } from '@components/ui/animated-page-content';
 import TechnicalLedgersList from '@components/technicalLedgersList';
 import { Metadata } from 'next';
-import { HomePage, TechnicalLedgerPage } from '@/types';
+import { TechnicalLedgerPage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import {
-  getCombinedQuery,
-  homePageQuery,
-  technicalLedgerPageQuery,
-} from '@/lib/queries';
+import { getCombinedQuery, technicalLedgerPageQuery } from '@/lib/queries';
 import Toolbar from '@components/toolbar';
 import ChatAI from '@components/chatAI';
 import Footer from '@components/footer';
 import getMetadataFromSEOConfig, {
   SeoType,
 } from '@/utils/getMetadataFromSEOConfig';
+import TechnicalLedgersListSkeleton from '@components/technicalLedgersList/skeleton';
 
 export const generateMetadata = async ({
   params,
@@ -66,10 +65,14 @@ const TechnicalLedgersPage = async ({
         </SidebarContainer>
       }
     >
-      <MainPageContainer className="p-0 md:p-4">
-        <TechnicalLedgersList locale={locale} />
-      </MainPageContainer>
-      <Footer />
+      <AnimatedPageContent>
+        <MainPageContainer className="p-0 md:p-4">
+          <Suspense fallback={<TechnicalLedgersListSkeleton />}>
+            <TechnicalLedgersList locale={locale} />
+          </Suspense>
+        </MainPageContainer>
+        <Footer />
+      </AnimatedPageContent>
     </MultiSectionLayout>
   );
 };
