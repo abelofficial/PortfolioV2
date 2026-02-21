@@ -1,7 +1,7 @@
 import { Index } from '@upstash/vector';
 import { openai } from '@ai-sdk/openai';
 import { streamText, convertToModelMessages, type UIMessage, embed } from 'ai';
-import { getAssistantPrompt } from '@/utils/ai-prompts';
+import { formatContextCompact, getSystemPrompt } from '@/utils/ai-prompts';
 import { Prompt, PromptContext } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, promptQuery } from '@/lib/queries';
@@ -16,6 +16,8 @@ import {
   UNKNOWN_IP_RESPONSE,
 } from '@/utils/chatAPIUtils';
 
+const MAX_MESSAGES_MEMORY = 5;
+
 const index = new Index({
   url: process.env.UPSTASH_VECTOR_REST_URL!,
   token: process.env.UPSTASH_VECTOR_REST_TOKEN!,
@@ -28,7 +30,7 @@ const redis = new Redis({
 
 const ratelimit = new Ratelimit({
   redis,
-  limiter: Ratelimit.slidingWindow(20, '1 h'),
+  limiter: Ratelimit.slidingWindow(5, '1 h'),
   analytics: true,
   prefix: 'chat-api',
 });
@@ -68,7 +70,7 @@ export async function POST(req: Request) {
 
   const queryResult = await index.query({
     vector: embedding,
-    topK: 3,
+    topK: 5,
     includeMetadata: true,
   });
 
@@ -77,22 +79,28 @@ export async function POST(req: Request) {
       ({
         title: match.metadata?.title,
         category: match.metadata?.category,
-        slug: match.metadata?.slug,
-        readMinutes: match.metadata?.readMinutes,
-        excerpt: match.metadata?.excerpt,
         published: match.metadata?.published,
         text: match.metadata?.text,
         fullLink: match.metadata?.fullLink,
       }) as PromptContext
   );
 
-  const finalPrompt = getAssistantPrompt(context, prompt);
+  const systemPrompt = getSystemPrompt(prompt);
+  const contextText = formatContextCompact(context);
 
+  const trimmed = messages.slice(-MAX_MESSAGES_MEMORY);
+
+  const modelMessages = await convertToModelMessages(trimmed);
+
+  modelMessages.push({
+    role: 'system',
+    content: contextText,
+  });
   const result = streamText({
     model: openai('gpt-4o-mini'),
-    system: finalPrompt,
-    messages: await convertToModelMessages(messages),
-    maxOutputTokens: 500,
+    system: systemPrompt,
+    messages: modelMessages,
+    maxOutputTokens: 400,
   });
 
   return result.toUIMessageStreamResponse();

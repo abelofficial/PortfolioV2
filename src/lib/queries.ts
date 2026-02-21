@@ -213,6 +213,7 @@ export const allTechnicalLedgersQuery = `
             value
         }
         promptNotes {
+            id
             contextTitle
             contextContent
         }

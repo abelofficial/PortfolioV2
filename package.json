@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "seedLedgers": "tsx src/scripts/seedLedgers.ts",
+    "seedLedgers:debug": "tsx --inspect-brk src/scripts/seedLedgers.ts",
     "seedProfile": "tsx src/scripts/seedProfile.ts",
     "prepare": "husky"
   },

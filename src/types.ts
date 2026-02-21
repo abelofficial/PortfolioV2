@@ -22,6 +22,7 @@ export interface TechnicalLedgerForPrompt {
 }
 
 export interface TechnicalLedgerForPromptMote {
+  id: string;
   contextTitle: string;
   contextContent: string;
 }
