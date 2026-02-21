@@ -43,40 +43,13 @@ const TechnicalLedgersPage = async ({
   params: Promise<{ locale: string }>;
 }) => {
   const { locale } = await params;
-  const {
-    technicalLedgersPage,
-  }: { technicalLedgersPage: TechnicalLedgerPage } = await datoCMS({
-    query: getCombinedQuery([technicalLedgerPageQuery]),
-    variables: { locale: locale },
-  });
 
   return (
-    <MultiSectionLayout
-      sidebar={
-        <SidebarContainer>
-          <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
-            <div className="shrink-0">
-              <Toolbar />
-            </div>
-            <div className="min-h-0 flex-1">
-              <ChatAI
-                chatBoxInfo={technicalLedgersPage.chatBox}
-                locale={locale}
-              />
-            </div>
-          </div>
-        </SidebarContainer>
-      }
-    >
-      <AnimatedPageContent>
-        <MainPageContainer className="p-0 md:p-4">
-          <Suspense fallback={<TechnicalLedgersListSkeleton />}>
-            <TechnicalLedgersList locale={locale} />
-          </Suspense>
-        </MainPageContainer>
-        <Footer />
-      </AnimatedPageContent>
-    </MultiSectionLayout>
+    <MainPageContainer className="p-0 md:p-4">
+      <Suspense fallback={<TechnicalLedgersListSkeleton />}>
+        <TechnicalLedgersList locale={locale} />
+      </Suspense>
+    </MainPageContainer>
   );
 };
 

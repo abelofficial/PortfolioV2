@@ -8,30 +8,73 @@ import React, {
   useEffect,
   useCallback,
   useSyncExternalStore,
+  useMemo,
 } from 'react';
+import { usePathname } from 'next/navigation';
 import { SectionContainer } from '@components/ui/custom-container';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trash2 } from 'lucide-react';
-import { ChatBoxInfo } from '@/types';
+import { ChatBoxInfo, FullChatBoxData } from '@/types';
 import ChatToggleButton from '@components/chatAI/ChatToggleButton';
 import ChatMessages from '@components/chatAI/ChatMessages';
 import ChatInput from '@components/chatAI/ChatInput';
 import ChatSuggestions from '@components/chatAI/ChatSuggestions';
 
-type ChatMetadata = { locale: string };
-
 export interface ChatContainerProps {
-  chatBoxInfo: ChatBoxInfo;
+  chatBoxData: FullChatBoxData;
   locale: string;
 }
 
 const emptySubscribe = () => () => {};
 
-const ChatContainer = ({ chatBoxInfo, locale }: ChatContainerProps) => {
+const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
   const [input, setInput] = useState('');
 
+  // Derive chatBoxInfo based on current path
+  const chatBoxInfo: ChatBoxInfo = useMemo(() => {
+    const { homePage, allTechnicalLedgers, technicalLedgersPage } = chatBoxData;
+
+    // Base info from homePage.chatBox (hint, openButtonLabel, chatTitle, etc.)
+    const baseInfo: ChatBoxInfo = {
+      hint: homePage.chatBox.hint,
+      openButtonLabel: homePage.chatBox.openButtonLabel,
+      chatTitle: homePage.chatBox.chatTitle,
+      chatInputPlaceholder: homePage.chatBox.chatInputPlaceholder,
+      suggestionLabel: homePage.chatBox.suggestionLabel,
+      questions: homePage.chatBox.questions,
+    };
+
+    // Path pattern: /{locale}/technical-ledgers/{slugId}
+    const pathSegments = pathname.split('/').filter(Boolean);
+
+    // Check if we're on a specific technical ledger page (e.g., /en/technical-ledgers/my-slug)
+    if (pathSegments.length >= 3 && pathSegments[1] === 'technical-ledgers') {
+      const slugId = pathSegments[2];
+      const ledger = allTechnicalLedgers.find((l) => l.slugId === slugId);
+      if (ledger?.chatBox?.questions) {
+        return {
+          ...baseInfo,
+          questions: ledger.chatBox.questions,
+        };
+      }
+    }
+
+    // Check if we're on the technical ledgers list page (e.g., /en/technical-ledgers)
+    if (pathSegments.length === 2 && pathSegments[1] === 'technical-ledgers') {
+      if (technicalLedgersPage?.chatBox?.questions) {
+        return {
+          ...baseInfo,
+          questions: technicalLedgersPage.chatBox.questions,
+        };
+      }
+    }
+
+    // Default: home page questions
+    return baseInfo;
+  }, [chatBoxData, pathname]);
   // Hydration-safe mounted detection
   const mounted = useSyncExternalStore(
     emptySubscribe,

@@ -52,6 +52,36 @@ export const contactsQuery = `
     }
 `;
 
+export const fullChatBoxQuery = `
+    homePage(locale: $locale) {
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
+        }
+    }
+    allTechnicalLedgers(locale: $locale) {
+        slugId
+        chatBox{
+            questions{
+                singleQuestion
+            }
+        }
+    }
+    technicalLedgersPage(locale: $locale) {
+        chatBox{
+            questions{
+                singleQuestion
+            }
+        }
+    }
+`;
+
 export const homePageQuery = `
     homePage(locale: $locale) {
         id
@@ -71,16 +101,6 @@ export const homePageQuery = `
         techStackTitle
         footer
         chatInputPlaceholder
-        chatBox{
-            hint
-            openButtonLabel
-            chatTitle
-            chatInputPlaceholder
-            suggestionLabel
-            questions{
-                singleQuestion
-            }
-        }
         avatar {
             url
             title
