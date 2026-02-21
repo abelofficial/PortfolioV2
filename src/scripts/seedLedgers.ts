@@ -84,7 +84,6 @@ const getLedgerSeedData = (note: TechnicalLedgerForPrompt) => {
       category: note.category,
       title: note.title,
       readMinutes: note.readMinutes,
-      excerpt: note.excerpt,
       published: note.date,
       fullLink: process.env.BASE_URL + '/en/technical-ledgers/' + note?.slugId,
       type: ['ledger', 'blog', 'knowledge-base'],

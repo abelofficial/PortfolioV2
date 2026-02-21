@@ -54,7 +54,7 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
               <Toolbar />
             </div>
             <div className="min-h-0 flex-1">
-              <ChatAI chatBoxInfo={homePage.chatBox} />
+              <ChatAI chatBoxInfo={homePage.chatBox} locale={locale} />
             </div>
           </div>
         </SidebarContainer>

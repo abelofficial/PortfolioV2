@@ -59,7 +59,10 @@ const TechnicalLedgersPage = async ({
               <Toolbar />
             </div>
             <div className="min-h-0 flex-1">
-              <ChatAI chatBoxInfo={technicalLedgersPage.chatBox} />
+              <ChatAI
+                chatBoxInfo={technicalLedgersPage.chatBox}
+                locale={locale}
+              />
             </div>
           </div>
         </SidebarContainer>

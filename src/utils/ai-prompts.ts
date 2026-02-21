@@ -19,12 +19,9 @@ export const getAssistantPrompt = (
     (c, i) => `
     Results ${i + 1} \n
   ${c.title && `Title: ${c.title}\n`}
-  ${c.category && `Category: ${c.category}\n`}
-  ${c.slug && `Slug: ${c.slug}\n`}
   ${c.readMinutes && `Read Time: ${c.readMinutes}\n`}
-  ${c.excerpt && `Excerpt: ${c.excerpt}\n`}
   ${c.published && `Published: ${c.published}\n`}
-  ${c.fullLink && `Published: ${c.fullLink}\n`}
+  ${c.fullLink && `FullLink: ${c.fullLink}\n`}
   ${c.text && `Text: ${c.text}\n\n`}
   `
   )}
