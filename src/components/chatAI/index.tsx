@@ -1,13 +1,13 @@
-import { ChatBoxInfo } from '@/types';
+import { FullChatBoxData } from '@/types';
 import ChatContainer from '@components/chatAI/ChatContainer';
 
 export interface ChatAIProps {
-  chatBoxInfo: ChatBoxInfo;
+  chatBoxData: FullChatBoxData;
   locale: string;
 }
 
-const ChatAI = ({ chatBoxInfo, locale }: ChatAIProps) => {
-  return <ChatContainer chatBoxInfo={chatBoxInfo} locale={locale} />;
+const ChatAI = ({ chatBoxData, locale }: ChatAIProps) => {
+  return <ChatContainer chatBoxData={chatBoxData} locale={locale} />;
 };
 
 export default ChatAI;

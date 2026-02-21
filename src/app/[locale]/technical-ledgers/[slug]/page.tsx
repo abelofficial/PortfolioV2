@@ -41,35 +41,12 @@ const LedgerPage = async ({
   params: Promise<{ locale: string; slug: string }>;
 }) => {
   const { locale, slug } = await params;
-  const { technicalLedger }: SingleTechnicalLedger = await datoCMS({
-    query: getCombinedQueryWithSlug([technicalLedgersQuery]),
-    variables: { locale, slug },
-  });
-
   return (
-    <MultiSectionLayout
-      sidebar={
-        <SidebarContainer>
-          <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
-            <div className="shrink-0">
-              <Toolbar />
-            </div>
-            <div className="min-h-0 flex-1">
-              <ChatAI chatBoxInfo={technicalLedger.chatBox} locale={locale} />
-            </div>
-          </div>
-        </SidebarContainer>
-      }
-    >
-      <AnimatedPageContent>
-        <MainPageContainer className="p-0 md:p-4">
-          <Suspense fallback={<TechnicalLedgerSkeleton />}>
-            <TechnicalLedger locale={locale} slug={slug} />
-          </Suspense>
-        </MainPageContainer>
-        <Footer />
-      </AnimatedPageContent>
-    </MultiSectionLayout>
+    <MainPageContainer className="p-0 md:p-4">
+      <Suspense fallback={<TechnicalLedgerSkeleton />}>
+        <TechnicalLedger locale={locale} slug={slug} />
+      </Suspense>
+    </MainPageContainer>
   );
 };
 

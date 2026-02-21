@@ -153,6 +153,29 @@ export interface ChatBoxInfo {
   }[];
 }
 
+export interface FullChatBoxData {
+  homePage: {
+    chatBox: ChatBoxInfo;
+  };
+  allTechnicalLedgers: TechnicalLedgerChatBox[];
+  technicalLedgersPage: {
+    chatBox: {
+      questions: {
+        singleQuestion: string;
+      }[];
+    };
+  };
+}
+
+export interface TechnicalLedgerChatBox {
+  slugId: string;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
+}
+
 export interface ContactInfoList {
   allContacts: ContactInfo[];
 }
