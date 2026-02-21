@@ -17,12 +17,13 @@ export const getCombinedQueryWithoutLocalization = (queryBlocks: string[]) => `
 `;
 
 export const promptQuery = `
-    prompt {
+    prompt(locale: $locale) {
         coreRule
         safetyLimitations
         toneAndStyle
         formattingAndStructure
         contextualKnowledge
+        rateLimitMessage
   }
 `;
 
@@ -212,6 +213,7 @@ export const allTechnicalLedgersQuery = `
             value
         }
         promptNotes {
+            id
             contextTitle
             contextContent
         }

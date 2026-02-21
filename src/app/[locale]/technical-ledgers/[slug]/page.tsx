@@ -55,7 +55,7 @@ const LedgerPage = async ({
               <Toolbar />
             </div>
             <div className="min-h-0 flex-1">
-              <ChatAI chatBoxInfo={technicalLedger.chatBox} />
+              <ChatAI chatBoxInfo={technicalLedger.chatBox} locale={locale} />
             </div>
           </div>
         </SidebarContainer>

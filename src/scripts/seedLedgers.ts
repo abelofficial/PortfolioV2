@@ -1,10 +1,11 @@
 // scripts/seed.ts
 import { Index } from '@upstash/vector';
-import OpenAI from 'openai';
+import { openai } from '@ai-sdk/openai';
 import * as dotenv from 'dotenv';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, allTechnicalLedgersQuery } from '@/lib/queries';
 import { TechnicalLedgerForPrompt } from '@/types';
+import { embedMany } from 'ai';
 
 dotenv.config({ path: '.env' });
 
@@ -12,8 +13,6 @@ const index = new Index({
   url: process.env.UPSTASH_VECTOR_REST_URL!,
   token: process.env.UPSTASH_VECTOR_REST_TOKEN!,
 });
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 async function seed() {
   console.log('🚀 Starting Technical Ledger seed process...');
@@ -33,22 +32,30 @@ async function seed() {
     }
 
     // 2. Format the notes for embedding
-    const seedData = allTechnicalLedgers.map((note) => getLedgerSeedData(note));
+    const seedChunks = allTechnicalLedgers.flatMap((note) =>
+      getLedgerSeedData(note)
+    );
 
     console.log(
-      `Vectorizing ${seedData.length} items via OpenAI (text-embedding-3-small)...`
+      `Vectorizing ${seedChunks.length} items via OpenAI (text-embedding-3-small)...`
     );
 
     // 3. Generate Embeddings
-    const embeddingsResponse = await openai.embeddings.create({
-      model: 'text-embedding-3-small',
-      input: seedData.map((item) => item.text),
+    const { embeddings } = await embedMany({
+      model: openai.embedding('text-embedding-3-small'),
+      values: seedChunks.map((chunk) => chunk.text),
     });
 
+    if (embeddings.length !== seedChunks.length) {
+      throw new Error(
+        `Embedding mismatch: got ${embeddings.length} vectors for ${seedChunks.length} chunks`
+      );
+    }
+
     // 4. Map to Upstash Records
-    const records = seedData.map((item, i) => ({
+    const records = seedChunks.map((item, i) => ({
       id: item.id,
-      vector: embeddingsResponse.data[i].embedding,
+      vector: embeddings[i],
       metadata: {
         ...item.metadata,
         text: item.text,
@@ -70,26 +77,35 @@ async function seed() {
 /**
  * Helper to transform Modular promptNotes into a single string
  */
-const getLedgerSeedData = (note: TechnicalLedgerForPrompt) => {
-  // Join all promptNotes into a structured string
-  const flattenedContext = note.promptNotes
-    .map((block) => `[${block.contextTitle}]\n${block.contextContent}`)
-    .join('\n\n');
 
-  return {
-    id: note.id,
-    text: flattenedContext,
+type TechnicalLedgerEmbeddingSeed = {
+  id: string;
+  text: string;
+  metadata: {
+    category: string;
+    title: string;
+    published: string;
+    fullLink: string;
+  };
+};
+
+const getLedgerSeedData = (
+  note: TechnicalLedgerForPrompt
+): TechnicalLedgerEmbeddingSeed[] => {
+  return note.promptNotes.map((block) => ({
+    id: note.id + '-' + block.id, // Unique ID for each block
+    text: `[${note.title}] : [${block.contextTitle}]\n 
+    [published] : [${note.date}]\n
+    [category] : [${note.category}]\n
+    [readMinutes] : [${note.readMinutes}]\n
+    \n\n${block.contextContent}`,
     metadata: {
-      slug: note.slugId,
       category: note.category,
       title: note.title,
-      readMinutes: note.readMinutes,
-      excerpt: note.excerpt,
       published: note.date,
       fullLink: process.env.BASE_URL + '/en/technical-ledgers/' + note?.slugId,
-      type: ['ledger', 'blog', 'knowledge-base'],
     },
-  };
+  }));
 };
 
 seed()

@@ -2,7 +2,7 @@
 
 import { useChat } from '@ai-sdk/react';
 import { DefaultChatTransport } from 'ai';
-import {
+import React, {
   useState,
   useRef,
   useEffect,
@@ -18,13 +18,16 @@ import ChatMessages from '@components/chatAI/ChatMessages';
 import ChatInput from '@components/chatAI/ChatInput';
 import ChatSuggestions from '@components/chatAI/ChatSuggestions';
 
+type ChatMetadata = { locale: string };
+
 export interface ChatContainerProps {
   chatBoxInfo: ChatBoxInfo;
+  locale: string;
 }
 
 const emptySubscribe = () => () => {};
 
-const ChatContainer = ({ chatBoxInfo }: ChatContainerProps) => {
+const ChatContainer = ({ chatBoxInfo, locale }: ChatContainerProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentSuggestionIndex, setCurrentSuggestionIndex] = useState(0);
   const [input, setInput] = useState('');
@@ -69,13 +72,13 @@ const ChatContainer = ({ chatBoxInfo }: ChatContainerProps) => {
       if (!messageToSend || !isReady) return;
 
       setInput('');
-      await sendMessage({ text: messageToSend });
+      await sendMessage({ text: messageToSend, metadata: { locale: locale } });
 
       setCurrentSuggestionIndex(
         (prev) => (prev + 1) % chatBoxInfo.questions.length
       );
     },
-    [chatBoxInfo.questions.length, input, sendMessage, isReady]
+    [chatBoxInfo.questions.length, input, sendMessage, isReady, locale]
   );
 
   const handleSuggestionClick = useCallback(

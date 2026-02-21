@@ -15,19 +15,14 @@ export interface TechnicalLedgerForPrompt {
   id: string;
   slugId: string;
   title: string;
-  excerpt: string;
   date: string;
   category: string;
   readMinutes: number;
-  chatBox: ChatBoxInfo;
-  tag: {
-    id: string;
-    tag: string;
-  }[];
   promptNotes: TechnicalLedgerForPromptMote[];
 }
 
 export interface TechnicalLedgerForPromptMote {
+  id: string;
   contextTitle: string;
   contextContent: string;
 }
@@ -124,6 +119,7 @@ export interface Prompt {
   toneAndStyle: string;
   formattingAndStructure: string;
   contextualKnowledge: string;
+  rateLimitMessage: string;
 }
 
 export interface HomePage {

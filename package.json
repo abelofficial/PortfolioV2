@@ -8,12 +8,15 @@
     "start": "next start",
     "lint": "eslint",
     "seedLedgers": "tsx src/scripts/seedLedgers.ts",
+    "seedLedgers:debug": "tsx --inspect-brk src/scripts/seedLedgers.ts",
     "seedProfile": "tsx src/scripts/seedProfile.ts",
     "prepare": "husky"
   },
   "dependencies": {
     "@ai-sdk/openai": "^3.0.30",
     "@ai-sdk/react": "^3.0.96",
+    "@upstash/ratelimit": "^2.0.8",
+    "@upstash/redis": "^1.36.2",
     "@upstash/vector": "^1.2.2",
     "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^1.3.1",
