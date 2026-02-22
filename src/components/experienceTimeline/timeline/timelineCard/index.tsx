@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { Experience } from '@/types';
+import { SRCImage } from 'react-datocms';
 
 export interface TimelineCardProps {
   data: Experience;
@@ -8,12 +9,7 @@ export interface TimelineCardProps {
 const TimelineCard = ({ data }: TimelineCardProps) => {
   return (
     <div className="flex flex-col gap-1">
-      <Image
-        src={data.logo.responsiveImage.src}
-        alt={data.title}
-        width={50}
-        height={50}
-      />
+      <SRCImage usePlaceholder data={data.logo.responsiveImage} />
       <p className="text-primary py-2 text-xs">
         {data.title}
         <span className="text-muted-foreground text-xs"> | {data.place}</span>

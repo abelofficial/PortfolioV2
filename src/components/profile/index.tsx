@@ -8,6 +8,7 @@ import { ContactInfo, HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, contactsQuery, homePageQuery } from '@/lib/queries';
 import { Separator } from '@components/ui/separator';
+import { SRCImage } from 'react-datocms';
 
 export interface ProfileProps {
   locale: string;
@@ -27,15 +28,12 @@ const Profile = async ({ locale }: ProfileProps) => {
   return (
     <SectionContainer disablePattern>
       <CardHeader className="flex flex-col items-center gap-3 pt-12 md:pt-10">
-        <Image
-          src={homePage.avatar.responsiveImage.src}
-          alt={homePage.name}
-          width={150}
-          height={150}
+        <SRCImage
+          data={homePage.avatar.responsiveImage}
           priority
           sizes="150px"
-          fetchPriority="high"
-          className="aspect-square rounded-full border-2 border-black/10 object-cover dark:border-white/20"
+          usePlaceholder
+          imgClassName="aspect-square rounded-full p-1"
         />
 
         <h2 className="text-lg font-bold md:text-2xl">{homePage.name}</h2>
@@ -55,28 +53,26 @@ const Profile = async ({ locale }: ProfileProps) => {
 
       <CardContent className="flex max-w-full flex-col items-center self-center p-1">
         <div className="mt-5 flex w-full flex-col items-center gap-2 md:mt-7 md:gap-3">
-          <p className="text-muted-foreground/70 dark:text-muted-foreground/50 text-[10px] font-medium tracking-[0.25em] uppercase md:text-xs">
+          <p className="text-muted-foreground/70 dark:text-primary-light text-[10px] font-medium tracking-[0.25em] uppercase md:text-xs">
             {homePage.connect}
           </p>
 
-          <div className="flex w-full max-w-xl flex-wrap items-center justify-center gap-2 md:max-w-2xl md:gap-4">
+          <div className="flex w-full max-w-xl flex-wrap items-center justify-around gap-2 md:max-w-2xl md:gap-4">
             {allContacts.map((contact) => (
               <a
                 key={contact.id}
                 target="_blank"
                 rel="noreferrer"
                 href={contact.address}
-                className="group text-muted-foreground hover:text-foreground inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-4 py-1 text-sm transition hover:bg-black/10 md:px-5 md:py-2 md:text-base dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10 dark:hover:text-white"
+                className="group text-muted-foreground hover:text-primary-light inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-2 py-1 text-sm transition hover:bg-black/10 md:text-base dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
               >
-                <Image
-                  src={contact.icon.responsiveImage.src}
-                  alt={`${contact.title} icon`}
-                  width={15}
-                  height={15}
-                  className="opacity-80 transition group-hover:opacity-100 md:h-5 md:w-5"
+                <SRCImage
+                  usePlaceholder
+                  data={contact.icon.responsiveImage}
+                  imgClassName="opacity-80 transition group-hover:opacity-100"
                 />
-                <span className="font-small">
-                  {contact.title === 'Github' ? 'GitHub' : contact.title}
+                <span className="hover:text-primary text-sm">
+                  {contact.title}
                 </span>
               </a>
             ))}

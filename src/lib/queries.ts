@@ -35,7 +35,7 @@ export const contactsQuery = `
         icon {
             url
             title
-            responsiveImage {
+            responsiveImage(imgixParams: { fit: crop, w: 15, h: 15, auto: format }) {
                 alt
                 aspectRatio
                 base64
@@ -104,7 +104,7 @@ export const homePageQuery = `
         avatar {
             url
             title
-            responsiveImage {
+            responsiveImage(imgixParams: { fit: crop, w: 150, h: 150, auto: format }) {
                 alt
                 aspectRatio
                 base64
@@ -161,7 +161,7 @@ export const workExperienceQuery = `
         place
         title
         logo {
-            responsiveImage {
+            responsiveImage(imgixParams: { fit: crop, w: 50, h: 50, auto: format }) {
                 alt
                 aspectRatio
                 base64
@@ -188,7 +188,7 @@ export const educationExperienceQuery = `
         place
         title
         logo {
-            responsiveImage {
+            responsiveImage(imgixParams: { fit: crop, w: 50, h: 50, auto: format }) {
                 alt
                 aspectRatio
                 base64
