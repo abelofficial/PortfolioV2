@@ -3,6 +3,9 @@ name: Seed Profile Data
 on:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 jobs:
   seed:
     name: Run Seed Profile Script
