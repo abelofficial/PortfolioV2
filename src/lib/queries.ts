@@ -301,6 +301,7 @@ export const technicalLedgersQuery = `
 
 export const technicalLedgerPageQuery = `
     technicalLedgersPage(locale: $locale) {
+        id
         title
         description
         explanation

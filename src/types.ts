@@ -28,6 +28,7 @@ export interface TechnicalLedgerForPromptMote {
 }
 
 export interface TechnicalLedgerPage {
+  id: string;
   title: string;
   description: string;
   explanation: string;
