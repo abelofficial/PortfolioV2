@@ -38,6 +38,15 @@ export interface TechnicalLedgerPage {
   seo: SEOData;
 }
 
+export interface BookSummariesPage {
+  title: string;
+  description: string;
+  all: string;
+  backButtonLabel: string;
+  chatBox: ChatBoxInfo;
+  seo: SEOData;
+}
+
 export interface SEOData {
   title: string;
   description: string;
@@ -159,6 +168,13 @@ export interface FullChatBoxData {
   };
   allTechnicalLedgers: TechnicalLedgerChatBox[];
   technicalLedgersPage: {
+    chatBox: {
+      questions: {
+        singleQuestion: string;
+      }[];
+    };
+  };
+  bookSummaryPage: {
     chatBox: {
       questions: {
         singleQuestion: string;

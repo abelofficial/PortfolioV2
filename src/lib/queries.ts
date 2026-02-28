@@ -80,6 +80,13 @@ export const fullChatBoxQuery = `
             }
         }
     }
+    bookSummaryPage(locale: $locale) {
+        chatBox{
+            questions{
+                singleQuestion
+            }
+        }
+    }
 `;
 
 export const homePageQuery = `
@@ -306,6 +313,45 @@ export const technicalLedgerPageQuery = `
         explanation
         all
         minRead
+        backButtonLabel
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
+        }
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
+        }
+    }
+`;
+
+export const bookSummariesPageQuery = `
+    bookSummaryPage(locale: $locale) {
+        title
+        description
+        all
         backButtonLabel
         chatBox{
             hint
