@@ -1,10 +1,8 @@
 'use client';
 
 import SummariesListHeader from '@components/bookSummariesList/summariesListHeader';
-import SummariesList, {
-  BookSummary,
-} from '@components/bookSummariesList/summariesList';
-import { BookSummariesPage } from '@/types';
+import SummariesList from '@components/bookSummariesList/summariesList';
+import { BookSummariesPage, BookSummary } from '@/types';
 import { useState } from 'react';
 
 export interface FilteredBookSummariesListProps {

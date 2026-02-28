@@ -15,6 +15,7 @@ export const getChatBoxInfoFromPath = (
     allTechnicalLedgers,
     technicalLedgersPage,
     bookSummaryPage,
+    allBookSummaries,
   } = chatBoxData;
 
   // Base info from homePage.chatBox (hint, openButtonLabel, chatTitle, etc.)
@@ -55,18 +56,17 @@ export const getChatBoxInfoFromPath = (
 
   // Check for book summaries routes
   if (pathSegments.length >= 2 && pathSegments[1] === 'book-summaries') {
-    // TODO: Add support for specific book summary pages when allBookSummaries is available
     // Specific book summary page (e.g., /en/book-summaries/my-slug)
-    // if (pathSegments.length >= 3) {
-    //   const slugId = pathSegments[2];
-    //   const summary = allBookSummaries.find((s) => s.slugId === slugId);
-    //   if (summary?.chatBox?.questions) {
-    //     return {
-    //       ...baseInfo,
-    //       questions: summary.chatBox.questions,
-    //     };
-    //   }
-    // }
+    if (pathSegments.length >= 3) {
+      const slugId = pathSegments[2];
+      const summary = allBookSummaries?.find((s) => s.slugId === slugId);
+      if (summary?.chatBox?.questions) {
+        return {
+          ...baseInfo,
+          questions: summary.chatBox.questions,
+        };
+      }
+    }
 
     // Book summaries list page (e.g., /en/book-summaries)
     if (pathSegments.length === 2 && bookSummaryPage?.chatBox?.questions) {

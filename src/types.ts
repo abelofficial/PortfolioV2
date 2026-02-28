@@ -47,6 +47,29 @@ export interface BookSummariesPage {
   seo: SEOData;
 }
 
+export interface BookSummary {
+  id: string;
+  slugId: string;
+  title: string;
+  author: string;
+  bookImage: {
+    responsiveImage: ResponsiveImageType;
+  };
+  category: string;
+  excerpt: string;
+  tags: {
+    id: string;
+    tag: string;
+  }[];
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
+  introduction: LedgerContent;
+  seo: SEOData;
+}
+
 export interface SEOData {
   title: string;
   description: string;
@@ -180,6 +203,16 @@ export interface FullChatBoxData {
         singleQuestion: string;
       }[];
     };
+  };
+  allBookSummaries: BookSummaryChatBox[];
+}
+
+export interface BookSummaryChatBox {
+  slugId: string;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
   };
 }
 
