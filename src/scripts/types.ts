@@ -76,3 +76,14 @@ export interface ProfileSeedChunk extends SeedChunk {
     fullLink: string;
   };
 }
+
+export interface PageSeedChunk extends SeedChunk {
+  text: string;
+  metadata: {
+    id: string;
+    type: 'page';
+    pageTitle: string;
+    pageType: string;
+    fullLink: string;
+  };
+}
