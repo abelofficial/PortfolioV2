@@ -66,12 +66,12 @@ const SummariesListHeader = ({
                 onClick={() => setActiveCategory(cat)}
                 aria-pressed={isActive}
                 className={cn(
-                  'inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition',
+                  'inline-flex items-center rounded-full px-3 py-1 text-xs font-medium transition',
                   'focus-visible:ring-primary/40 focus-visible:ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
                   !isActive &&
                     'text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-foreground border border-black/10 bg-black/2 dark:border-white/10 dark:bg-white/3',
                   isActive &&
-                    'bg-primary text-primary-foreground shadow-primary/25 shadow-sm'
+                    'bg-primary-light shadow-primary/25 text-neutral-800 shadow-sm'
                 )}
               >
                 {cat}

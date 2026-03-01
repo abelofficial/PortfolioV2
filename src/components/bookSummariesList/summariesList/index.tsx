@@ -45,7 +45,7 @@ const SummariesList = ({ locale, bookSummariesList }: SummariesListProps) => {
                   )}
                 >
                   {/* Book cover and content row */}
-                  <div className="flex gap-4">
+                  <div className="flex gap-3">
                     {/* Book cover image */}
                     <div className="w-24 shrink-0 overflow-hidden rounded-lg shadow-md md:w-28">
                       <SRCImage
@@ -61,7 +61,7 @@ const SummariesList = ({ locale, bookSummariesList }: SummariesListProps) => {
                       <div className="flex items-center justify-between gap-2">
                         <Badge
                           variant="outline"
-                          className="bg-primary-light text-muted rounded-full px-2.5 py-0.5 text-xs font-semibold tracking-wider uppercase"
+                          className="bg-primary-light rounded-full px-2 py-0.5 text-xs font-semibold tracking-wider text-neutral-800 uppercase"
                         >
                           {summary.category}
                         </Badge>
@@ -79,7 +79,7 @@ const SummariesList = ({ locale, bookSummariesList }: SummariesListProps) => {
                       </p>
 
                       {/* Excerpt */}
-                      <p className="text-muted-foreground line-clamp-5 text-xs leading-relaxed">
+                      <p className="text-muted-foreground line-clamp-3 text-xs leading-relaxed sm:line-clamp-4">
                         {summary.excerpt}
                       </p>
                     </div>

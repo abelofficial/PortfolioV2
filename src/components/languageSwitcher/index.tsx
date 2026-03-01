@@ -21,14 +21,27 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const router = useRouter();
 
   const pathSegments = pathname?.split('/');
-  if (pathSegments[2] === 'technical-ledgers' && pathSegments?.length > 3) {
-    return null;
-  }
-
   const currentLocale = pathSegments[1];
 
+  const getRedirectPath = (newLocale: string): string => {
+    // Check if on technical ledgers detail page (more than 3 segments: /locale/technical-ledgers/slug)
+    if (pathSegments[2] === 'technical-ledgers' && pathSegments?.length > 3) {
+      return `/${newLocale}/technical-ledgers`;
+    }
+
+    // Check if on book summaries detail page or chapter page
+    // Detail: /locale/book-summaries/slug (4 segments)
+    // Chapter: /locale/book-summaries/slug/chapter/chapterSlug (6 segments)
+    if (pathSegments[2] === 'book-summaries' && pathSegments?.length > 3) {
+      return `/${newLocale}/book-summaries`;
+    }
+
+    // Default: replace locale in current path
+    return pathname.replace(`/${locale}`, `/${newLocale}`);
+  };
+
   const handleLocaleChange = async (newLocale: string) => {
-    const path = pathname.replace(`/${locale}`, `/${newLocale}`);
+    const path = getRedirectPath(newLocale);
     router.push(path);
   };
 

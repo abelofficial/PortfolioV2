@@ -15,7 +15,7 @@ export interface SummaryContentProps {
 
 const SummaryContent = ({ content }: SummaryContentProps) => {
   return (
-    <div className="flex min-h-[calc(100lvh-18rem)] flex-col gap-4 px-5 py-4">
+    <div className="flex min-h-full flex-col gap-4 px-5 py-4">
       <article>
         <StructuredText
           data={content}
