@@ -83,19 +83,19 @@ const ChapterNavigation = ({
                 href={`/${locale}/book-summaries/${bookSlugId}/chapter/${chapter.slugId}`}
                 className={cn(
                   'group flex items-center justify-between gap-3 rounded-lg border p-3',
-                  'border-green-500/30 bg-green-500/5 transition-all',
-                  'hover:border-green-500/50 hover:bg-green-500/10'
+                  'border-primary/30 bg-transparent transition-all',
+                  'hover:border-primary hover:bg-accent/50 hover:shadow-sm'
                 )}
               >
                 <div className="flex items-center gap-3">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-green-500/20 text-sm font-bold text-green-600 dark:text-green-400">
+                  <span className="bg-primary/10 text-primary flex size-8 shrink-0 items-center justify-center rounded-full text-sm font-bold">
                     {chapter.chapter}
                   </span>
-                  <span className="line-clamp-1 text-sm font-medium text-green-700 transition-colors group-hover:text-green-600 dark:text-green-300 dark:group-hover:text-green-200">
+                  <span className="text-foreground group-hover:text-primary line-clamp-1 text-sm font-medium transition-colors">
                     {chapter.title}
                   </span>
                 </div>
-                <ChevronRight className="size-4 shrink-0 text-green-500 transition-transform group-hover:translate-x-0.5" />
+                <ChevronRight className="text-muted-foreground group-hover:text-primary size-4 shrink-0 transition-all group-hover:translate-x-0.5" />
               </Link>
             ) : (
               <div
