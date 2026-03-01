@@ -135,7 +135,13 @@ export async function POST(req: Request) {
     variables: { locale },
   });
 
-  if (ip !== LOCALHOST_IP) {
+  // Parse whitelist: comma-separated IPs, trimmed
+  const whitelistedIps = prompt.rateLimitIpWhitelist
+    ? prompt.rateLimitIpWhitelist.split(',').map((ip) => ip.trim())
+    : [];
+  const isWhitelisted = whitelistedIps.includes(ip);
+
+  if (ip !== LOCALHOST_IP && !isWhitelisted) {
     const { success } = await ratelimit.limit(ip);
 
     if (!success) {

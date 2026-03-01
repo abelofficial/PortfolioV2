@@ -24,6 +24,7 @@ export const promptQuery = `
         formattingAndStructure
         contextualKnowledge
         rateLimitMessage
+        rateLimitIpWhitelist
   }
 `;
 

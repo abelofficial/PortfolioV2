@@ -217,6 +217,7 @@ export interface Prompt {
   formattingAndStructure: string;
   contextualKnowledge: string;
   rateLimitMessage: string;
+  rateLimitIpWhitelist: string;
 }
 
 export interface HomePage {
