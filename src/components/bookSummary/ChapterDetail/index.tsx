@@ -78,7 +78,7 @@ const ChapterDetail = async ({
       : null;
 
   return (
-    <div className="flex flex-col pb-2">
+    <div className="flex min-h-[calc(100lvh-18rem)] flex-col pb-2">
       <ChapterHeader
         locale={locale}
         bookSummary={bookSummary}
