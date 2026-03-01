@@ -101,6 +101,10 @@ export interface BookSummariesPage {
   finished: string;
   notStarted: string;
   chapters: string;
+  next: string;
+  previous: string;
+  intro: string;
+  of: string;
   backButtonLabel: string;
   chatBox: ChatBoxInfo;
   seo: SEOData;

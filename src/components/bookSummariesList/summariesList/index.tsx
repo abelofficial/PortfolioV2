@@ -153,7 +153,7 @@ const SummariesList = ({
                       <div className="text-muted-foreground flex shrink-0 items-center gap-1.5 text-xs">
                         <BookOpen className="h-3.5 w-3.5" />
                         <span className="font-medium">
-                          {publishedChapters}/{totalChapters}
+                          {publishedChapters} {page.of} {totalChapters}
                         </span>
                       </div>
                     </div>
