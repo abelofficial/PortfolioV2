@@ -27,7 +27,7 @@ const FilteredSummariesList = ({
       : bookSummariesList.filter((s) => s.category === activeCategory);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex min-h-[calc(100lvh-18rem)] flex-col gap-6">
       <SummariesListHeader
         categories={distinctCategories}
         activeCategory={activeCategory}
