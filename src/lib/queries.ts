@@ -80,6 +80,29 @@ export const fullChatBoxQuery = `
             }
         }
     }
+    bookSummaryPage(locale: $locale) {
+        chatBox{
+            questions{
+                singleQuestion
+            }
+        }
+    }
+    allBookSummaries(locale: $locale) {
+        slugId
+        chatBox{
+            questions{
+                singleQuestion
+            }
+        }
+        chapters{
+            slugId
+            chatBox{
+                questions{
+                    singleQuestion
+                }
+            }
+        }
+    }
 `;
 
 export const homePageQuery = `
@@ -337,5 +360,152 @@ export const technicalLedgerPageQuery = `
             }
           }
         }
+    }
+`;
+
+export const bookSummariesPageQuery = `
+    bookSummaryPage(locale: $locale) {
+        title
+        description
+        all
+        backButtonLabel
+        chatBox{
+            hint
+            openButtonLabel
+            chatTitle
+            chatInputPlaceholder
+            suggestionLabel
+            questions{
+                singleQuestion
+            }
+        }
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+                alt
+                aspectRatio
+                base64
+                bgColor
+                height
+                sizes
+                src
+                srcSet
+                title
+                webpSrcSet
+                width
+            }
+          }
+        }
+    }
+`;
+
+export const allBookSummaries = `
+    allBookSummaries(locale: $locale) {
+        id
+        slugId
+        title
+        author
+        bookImage {
+          responsiveImage(imgixParams: { fit: crop, w: 112, h: 200, auto: format }) {
+            alt
+            aspectRatio
+            base64
+            bgColor
+            height
+            sizes
+            src
+            srcSet
+            title
+            webpSrcSet
+            width
+          }
+        }
+        category
+        excerpt
+        tags{
+          id
+          tag
+        }
+        chatBox{
+          questions{
+                    singleQuestion
+                }
+        }
+        introduction{
+          value
+        }                 
+     }
+`;
+
+export const bookSummaryQuery = `
+    bookSummary(locale: $locale, filter: {slugId: {eq: $slug}}) {
+        id
+        slugId
+        title
+        author
+        bookImage {
+          responsiveImage(imgixParams: { fit: crop, w: 200, h: 300, auto: format }) {
+            alt
+            aspectRatio
+            base64
+            bgColor
+            height
+            sizes
+            src
+            srcSet
+            title
+            webpSrcSet
+            width
+          }
+        }
+        category
+        excerpt
+        tags{
+          id
+          tag
+        }
+        chatBox{
+          questions{
+            singleQuestion
+          }
+        }
+        introduction{
+          value
+        }
+        seo{
+          title
+          description
+          twitterCard
+          image{
+            responsiveImage{
+              alt
+              aspectRatio
+              base64
+              bgColor
+              height
+              sizes
+              src
+              srcSet
+              title
+              webpSrcSet
+              width
+            }
+          }
+        }
+         chapters{
+            title
+            slugId
+            chapter
+            isPublished
+            chatBox{
+              questions{
+                singleQuestion
+              }
+            }
+            content
+          }
     }
 `;

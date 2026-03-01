@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { Dock, DockIcon } from '@components/ui/dock';
 import { Separator } from '@components/ui/separator';
-import { UserRoundPen, NotebookTextIcon } from 'lucide-react';
+import { UserRoundPen, NotebookTextIcon, LucidePencil } from 'lucide-react';
 import { AnimatedThemeToggler } from '@components/ui/animated-theme-toggler';
 import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -34,11 +34,19 @@ const Toolbar = () => {
       </DockIcon>
       <DockIcon>
         <Link href={`/${locale}/technical-ledgers`}>
-          <NotebookTextIcon
+          <LucidePencil
             aria-label="Go to technical ledgers"
             className={getClassName(() =>
               pathname.includes('/technical-ledgers')
             )}
+          />
+        </Link>
+      </DockIcon>
+      <DockIcon>
+        <Link href={`/${locale}/book-summaries`}>
+          <NotebookTextIcon
+            aria-label="Go to technical ledgers"
+            className={getClassName(() => pathname.includes('/book-summaries'))}
           />
         </Link>
       </DockIcon>

@@ -38,6 +38,52 @@ export interface TechnicalLedgerPage {
   seo: SEOData;
 }
 
+export interface BookSummariesPage {
+  title: string;
+  description: string;
+  all: string;
+  backButtonLabel: string;
+  chatBox: ChatBoxInfo;
+  seo: SEOData;
+}
+
+export interface BookSummary {
+  id: string;
+  slugId: string;
+  title: string;
+  author: string;
+  bookImage: {
+    responsiveImage: ResponsiveImageType;
+  };
+  category: string;
+  excerpt: string;
+  tags: {
+    id: string;
+    tag: string;
+  }[];
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
+  introduction: LedgerContent;
+  seo: SEOData;
+  chapters: Chapter[];
+}
+
+export interface Chapter {
+  title: string;
+  slugId: string;
+  chapter: number;
+  content: string;
+  isPublished: boolean;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
+}
+
 export interface SEOData {
   title: string;
   description: string;
@@ -164,6 +210,33 @@ export interface FullChatBoxData {
         singleQuestion: string;
       }[];
     };
+  };
+  bookSummaryPage: {
+    chatBox: {
+      questions: {
+        singleQuestion: string;
+      }[];
+    };
+  };
+  allBookSummaries: BookSummaryChatBox[];
+}
+
+export interface BookSummaryChatBox {
+  slugId: string;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
+  chapters: ChapterChatBox[];
+}
+
+export interface ChapterChatBox {
+  slugId: string;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
   };
 }
 
