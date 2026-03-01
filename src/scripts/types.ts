@@ -14,6 +14,7 @@ export interface SeedChunk {
 export interface SeedChunkMetadata {
   id: string;
   type: SeedChunkType;
+  [key: string]: unknown; // Allow additional properties
 }
 
 export interface TechnicalLedgerPromptNoteSeedChunk extends SeedChunk {
@@ -60,6 +61,18 @@ export interface BookSummaryChapterSeedChunk extends SeedChunk {
     bookSlugId: string;
     chapterNumber: number;
     chapterTitle: string;
+    fullLink: string;
+  };
+}
+
+export interface ProfileSeedChunk extends SeedChunk {
+  text: string;
+  metadata: {
+    id: string;
+    type: 'profile';
+    title: string;
+    institution: string;
+    experienceType: string;
     fullLink: string;
   };
 }

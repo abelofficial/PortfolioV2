@@ -23,6 +23,7 @@ export const getClientIp = async (
 
 type MetadataWithLocale = {
   locale?: unknown;
+  currentPath?: unknown;
 };
 
 export const getLocale = (metadata: unknown): string => {
@@ -38,6 +39,21 @@ export const getLocale = (metadata: unknown): string => {
   }
 
   return 'en';
+};
+
+export const getCurrentPath = (metadata: unknown): string | null => {
+  if (
+    typeof metadata === 'object' &&
+    metadata !== null &&
+    'currentPath' in metadata
+  ) {
+    const currentPath = (metadata as MetadataWithLocale).currentPath;
+    if (typeof currentPath === 'string') {
+      return currentPath;
+    }
+  }
+
+  return null;
 };
 
 export const manualUIMessageStreamResponse = (text: string, status = 200) =>

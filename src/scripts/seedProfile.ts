@@ -1,7 +1,3 @@
-// scripts/seed.ts
-import { Index } from '@upstash/vector';
-import OpenAI from 'openai';
-import * as dotenv from 'dotenv';
 import {
   EducationExperienceList,
   Experience,
@@ -13,18 +9,13 @@ import {
   getCombinedQuery,
   workExperienceQuery,
 } from '@/lib/queries';
+import { embedAndSeedChunksToVectorDb } from '@/scripts/seed';
+import { ProfileSeedChunk } from '@/scripts/types';
 
-dotenv.config({ path: '.env' });
-
-const index = new Index({
-  url: process.env.UPSTASH_VECTOR_REST_URL!,
-  token: process.env.UPSTASH_VECTOR_REST_TOKEN!,
-});
-
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const BASE_URL = process.env.BASE_URL || 'https://abelsintaro.com';
 
 async function seed() {
-  console.log('🚀 Starting seed process...');
+  console.log('🚀 Starting Profile seed process...');
 
   try {
     const [educationExperiences, workExperiences] = await Promise.all([
@@ -52,27 +43,7 @@ async function seed() {
       return;
     }
 
-    console.log(`Vectorizing ${allSeedData.length} items via OpenAI...`);
-    const inputTexts = allSeedData.map((item) => item.text);
-
-    const embeddingsResponse = await openai.embeddings.create({
-      model: 'text-embedding-3-small',
-      input: inputTexts,
-    });
-
-    const records = allSeedData.map((item, i) => ({
-      id: item.id,
-      vector: embeddingsResponse.data[i].embedding,
-      metadata: {
-        ...item.metadata,
-        text: item.text,
-      },
-    }));
-
-    console.log('Pushing records to Upstash Vector...');
-    await index.upsert(records);
-
-    console.log('✅ Seed successful! Your portfolio AI now has its context.');
+    await embedAndSeedChunksToVectorDb(allSeedData);
   } catch (error) {
     console.error('❌ Seed failed:', error);
     process.exit(1);
@@ -88,24 +59,24 @@ const getExperienceSeedData = ({
 }: {
   type: string;
   experience: Experience;
-}) => {
+}): ProfileSeedChunk => {
   const cleanContent = experience.content.replace(/\* /g, '').trim();
 
-  const contentForEmbedding = `
-        Category: ${type}
-        Title: ${experience.title}
-        Place: ${experience.place}
-        Period: ${experience.startDate} - ${experience.endDate}
-        Description: ${cleanContent}
-    `.trim();
+  const text = `[Type]: Profile - ${type}
+[Title]: ${experience.title}
+[Place]: ${experience.place}
+[Period]: ${experience.startDate} - ${experience.endDate}
+[Description]: ${cleanContent}`;
 
   return {
-    id: experience.id,
-    text: contentForEmbedding,
+    text,
     metadata: {
-      type: type,
+      id: `profile-${type.toLowerCase()}-${experience.id}`,
+      type: 'profile',
+      title: experience.title,
       institution: experience.place,
-      logo: experience.logo.responsiveImage.src,
+      experienceType: type,
+      fullLink: `${BASE_URL}/en`,
     },
   };
 };

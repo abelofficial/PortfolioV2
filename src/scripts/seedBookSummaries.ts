@@ -8,7 +8,7 @@ import {
   SeedChunk,
 } from '@/scripts/types';
 
-const BASE_URL = process.env.BASE_URL || 'https://your-site.com';
+const BASE_URL = process.env.BASE_URL || 'https://abelsintaro.com';
 
 async function seed() {
   console.log('🚀 Starting Book Summaries seed process...');

@@ -4,6 +4,7 @@ import {
   TechnicalLedgerNoteContext,
   BookSummaryIntroContext,
   BookSummaryChapterContext,
+  ProfileContext,
 } from '@/types';
 
 export const getSystemPrompt = (prompt: Prompt) =>
@@ -89,6 +90,22 @@ ${context.text}
 }
 
 /**
+ * Format a profile/experience context
+ */
+function formatProfile(context: ProfileContext, index: number): string {
+  return normalizeWhitespace(`
+Profile ${index}
+Type: ${context.experienceType}
+Title: ${context.title}
+Institution: ${context.institution}
+${context.fullLink ? `Link: ${context.fullLink}` : ''}
+
+Details:
+${context.text}
+  `);
+}
+
+/**
  * Format a generic/legacy context
  */
 function formatGenericContext(context: PromptContext, index: number): string {
@@ -118,6 +135,8 @@ function formatContextItem(context: PromptContext, index: number): string {
         context as BookSummaryChapterContext,
         index
       );
+    case 'profile':
+      return formatProfile(context as ProfileContext, index);
     default:
       return formatGenericContext(context, index);
   }
@@ -151,6 +170,8 @@ function getTypeLabel(type: string): string {
       return 'Book Summaries';
     case 'book-summary-chapter':
       return 'Book Chapters';
+    case 'profile':
+      return 'Profile & Experience';
     default:
       return 'Other Results';
   }

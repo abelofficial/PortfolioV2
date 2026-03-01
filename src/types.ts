@@ -39,10 +39,18 @@ export interface BookSummaryChapterContext extends BasePromptContext {
   chapterTitle: string;
 }
 
+export interface ProfileContext extends BasePromptContext {
+  type: 'profile';
+  title: string;
+  institution: string;
+  experienceType: string;
+}
+
 export type PromptContext =
   | TechnicalLedgerNoteContext
   | BookSummaryIntroContext
   | BookSummaryChapterContext
+  | ProfileContext
   | BasePromptContext;
 
 export interface TechnicalLedgerForPrompt {

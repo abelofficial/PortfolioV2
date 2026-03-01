@@ -8,6 +8,7 @@ import {
   TechnicalLedgerNoteContext,
   BookSummaryIntroContext,
   BookSummaryChapterContext,
+  ProfileContext,
   BasePromptContext,
 } from '@/types';
 import { datoCMS } from '@services/datoCMS';
@@ -18,6 +19,7 @@ import { headers } from 'next/headers';
 import {
   getClientIp,
   getLocale,
+  getCurrentPath,
   LOCALHOST_IP,
   manualUIMessageStreamResponse,
   UNKNOWN_IP_RESPONSE,
@@ -85,6 +87,16 @@ function mapMetadataToPromptContext(
         text: metadata.text as string,
       } as BookSummaryChapterContext;
 
+    case 'profile':
+      return {
+        type: 'profile',
+        title: metadata.title as string,
+        institution: metadata.institution as string,
+        experienceType: metadata.experienceType as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as ProfileContext;
+
     default:
       // Fallback for legacy or unknown types
       return {
@@ -105,9 +117,12 @@ export async function POST(req: Request) {
 
   const { messages }: { messages: UIMessage[] } = await req.json();
   const lastUserMessage = messages[messages.length - 1];
+  const locale = getLocale(lastUserMessage.metadata);
+  const currentPath = getCurrentPath(lastUserMessage.metadata);
+
   const { prompt }: { prompt: Prompt } = await datoCMS({
     query: getCombinedQuery([promptQuery]),
-    variables: { locale: getLocale(lastUserMessage.metadata) },
+    variables: { locale },
   });
 
   if (ip !== LOCALHOST_IP) {
@@ -130,17 +145,43 @@ export async function POST(req: Request) {
 
   const queryResult = await index.query({
     vector: embedding,
-    topK: 5,
+    topK: 8, // Fetch more results to allow for reranking
     includeMetadata: true,
   });
 
   // Map metadata to typed PromptContext
-  const context: PromptContext[] = queryResult.map((match) =>
+  let context: PromptContext[] = queryResult.map((match) =>
     mapMetadataToPromptContext(match.metadata as Record<string, unknown>)
   );
 
+  // Boost results that match the current page by moving them to the top
+  if (currentPath) {
+    const baseUrl = process.env.BASE_URL || '';
+    const fullCurrentUrl = baseUrl + currentPath;
+
+    // Sort: items matching current page first, then by original order
+    context = context.sort((a, b) => {
+      const aMatches =
+        a.fullLink?.includes(currentPath) || a.fullLink === fullCurrentUrl;
+      const bMatches =
+        b.fullLink?.includes(currentPath) || b.fullLink === fullCurrentUrl;
+
+      if (aMatches && !bMatches) return -1;
+      if (!aMatches && bMatches) return 1;
+      return 0;
+    });
+  }
+
+  // Limit to top 5 after reranking
+  context = context.slice(0, 5);
+
   const systemPrompt = getSystemPrompt(prompt);
   const contextText = formatContextCompact(context);
+
+  // Build current page context for the model
+  const currentPageContext = currentPath
+    ? `\n\nCURRENT PAGE: The user is currently viewing: ${currentPath}`
+    : '';
 
   const trimmed = messages.slice(-MAX_MESSAGES_MEMORY);
 
@@ -148,7 +189,7 @@ export async function POST(req: Request) {
 
   modelMessages.push({
     role: 'system',
-    content: contextText,
+    content: contextText + currentPageContext,
   });
   const result = streamText({
     model: openai('gpt-4o-mini'),

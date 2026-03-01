@@ -80,13 +80,23 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
       if (!messageToSend || !isReady) return;
 
       setInput('');
-      await sendMessage({ text: messageToSend, metadata: { locale: locale } });
+      await sendMessage({
+        text: messageToSend,
+        metadata: { locale: locale, currentPath: pathname },
+      });
 
       setCurrentSuggestionIndex(
         (prev) => (prev + 1) % chatBoxInfo.questions.length
       );
     },
-    [chatBoxInfo.questions.length, input, sendMessage, isReady, locale]
+    [
+      chatBoxInfo.questions.length,
+      input,
+      sendMessage,
+      isReady,
+      locale,
+      pathname,
+    ]
   );
 
   const handleSuggestionClick = useCallback(
