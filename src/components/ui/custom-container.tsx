@@ -59,7 +59,7 @@ export const MultiSectionLayout = ({
       <section className="h-fit w-full xl:h-full xl:w-1/3 xl:overflow-hidden">
         {sidebar}
       </section>
-      <section className="xl:custom-scrollbar bg-secondary min-h-full flex-1 xl:h-full xl:overflow-y-auto">
+      <section className="xl:custom-scrollbar bg-secondary h-fit flex-1 xl:h-full xl:overflow-y-auto">
         {children}
       </section>
     </main>
