@@ -4,10 +4,14 @@ import ChapterDetail from '@components/bookSummary/ChapterDetail';
 import { Metadata } from 'next';
 import type { BookSummary } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { getCombinedQueryWithSlug, bookSummaryQuery } from '@/lib/queries';
+import {
+  getCombinedQueryWithSlug,
+  bookSummaryQuery,
+  siteMetaTagsQuery,
+} from '@/lib/queries';
 import ChapterDetailSkeleton from '@components/bookSummary/ChapterDetail/skeleton';
-import getMetadataFromSEOConfig, {
-  SeoType,
+import getMetadataFromDatoCMS, {
+  SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
 
 export async function generateMetadata({
@@ -17,15 +21,18 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug, chapterSlug } = await params;
 
-  const { bookSummary }: { bookSummary: BookSummary } = await datoCMS({
-    query: getCombinedQueryWithSlug([bookSummaryQuery]),
+  const data: { bookSummary: BookSummary } & SiteMetaTags = await datoCMS({
+    query: getCombinedQueryWithSlug([bookSummaryQuery, siteMetaTagsQuery]),
     variables: { locale, slug },
   });
-  const chapter = bookSummary?.chapters?.find((c) => c.slugId === chapterSlug);
-  const seo = bookSummary.seo;
-  seo.title = `Chapter ${chapter?.chapter}: ${bookSummary.title}`;
+  const chapter = data.bookSummary?.chapters?.find(
+    (c) => c.slugId === chapterSlug
+  );
 
-  return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
+  // Use chapter's SEO meta tags if available, otherwise fall back to book's SEO
+  const seoMetaTags = chapter?._seoMetaTags ?? data.bookSummary._seoMetaTags;
+
+  return getMetadataFromDatoCMS(seoMetaTags, data._site.faviconMetaTags);
 }
 
 const ChapterPage = async ({

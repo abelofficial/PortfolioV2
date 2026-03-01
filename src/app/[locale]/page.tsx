@@ -3,12 +3,16 @@ import { MainPageContainer } from '@components/ui/custom-container';
 import TechStack from '@components/techStack';
 import Profile from '@components/profile';
 import Testimonials from '@components/testimonials';
-import { getCombinedQuery, homePageQuery } from '@/lib/queries';
+import {
+  getCombinedQuery,
+  homePageQuery,
+  siteMetaTagsQuery,
+} from '@/lib/queries';
 import { HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { Metadata } from 'next';
-import getMetadataFromSEOConfig, {
-  SeoType,
+import getMetadataFromDatoCMS, {
+  SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
 import ExperienceTimeline from '@components/experienceTimeline';
 import ProfileSkeleton from '@components/profile/skeleton';
@@ -22,12 +26,15 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const { homePage }: { homePage: HomePage } = await datoCMS({
-    query: getCombinedQuery([homePageQuery]),
+  const data: { homePage: HomePage } & SiteMetaTags = await datoCMS({
+    query: getCombinedQuery([homePageQuery, siteMetaTagsQuery]),
     variables: { locale: locale },
   });
 
-  return getMetadataFromSEOConfig(locale, SeoType.PROFILE, homePage.seo);
+  return getMetadataFromDatoCMS(
+    data.homePage._seoMetaTags,
+    data._site.faviconMetaTags
+  );
 }
 
 const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {

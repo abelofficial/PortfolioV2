@@ -1,41 +1,29 @@
 import { Metadata } from 'next';
-import { SEOData } from '@/types';
+import { toNextMetadata, type SeoOrFaviconTag } from 'react-datocms/seo';
+import { TitleMetaLinkTag } from '@/types';
 
-export enum SeoType {
-  ARTICLE = 'article',
-  PROFILE = 'profile',
+export interface SiteMetaTags {
+  _site: {
+    faviconMetaTags: TitleMetaLinkTag[];
+  };
 }
 
-export const getMetadataFromSEOConfig = (
-  locale: string,
-  type: SeoType,
-  seoData: SEOData
-) =>
-  ({
-    title: seoData.title,
-    description: seoData.description,
-    openGraph: {
-      title: seoData.title,
-      description: seoData.description,
-      type: type,
-      images: [
-        {
-          url: seoData.image?.responsiveImage.src,
-          alt: seoData.image?.responsiveImage.alt,
-          width: seoData.image?.responsiveImage.width,
-          height: seoData.image?.responsiveImage.height,
-        },
-      ],
-      twitter: [
-        {
-          card: seoData.twitterCard,
-          title: seoData.title,
-          description: seoData.description,
-          images: seoData.image?.responsiveImage.src,
-        },
-      ],
-      locale: locale,
-    },
-  }) as Metadata;
+/**
+ * Converts DatoCMS SEO and favicon meta tags to Next.js Metadata format
+ * Uses the official react-datocms toNextMetadata helper
+ *
+ * @param seoMetaTags - Array of SEO meta tags from DatoCMS (_seoMetaTags field)
+ * @param faviconMetaTags - Array of favicon meta tags from DatoCMS (_site.faviconMetaTags)
+ * @returns Next.js Metadata object
+ */
+export const getMetadataFromDatoCMS = (
+  seoMetaTags: TitleMetaLinkTag[],
+  faviconMetaTags: TitleMetaLinkTag[] = []
+): Metadata => {
+  // Cast to SeoOrFaviconTag[] since our TitleMetaLinkTag matches the structure
+  // but TypeScript can't infer the string literal types from GraphQL response
+  const allTags = [...seoMetaTags, ...faviconMetaTags] as SeoOrFaviconTag[];
+  return toNextMetadata(allTags);
+};
 
-export default getMetadataFromSEOConfig;
+export default getMetadataFromDatoCMS;

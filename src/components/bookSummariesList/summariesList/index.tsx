@@ -110,7 +110,7 @@ const SummariesList = ({
                         <div className="flex items-center justify-between gap-2">
                           <Badge
                             variant="outline"
-                            className="bg-primary-light rounded-full px-2 py-0.5 text-xs font-semibold tracking-wider text-neutral-800 uppercase"
+                            className="text-primary-light border-primary-light rounded-full bg-transparent px-2 py-0.5 text-xs font-semibold tracking-wider uppercase"
                           >
                             {summary.category}
                           </Badge>
