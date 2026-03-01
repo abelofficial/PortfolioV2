@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 const Footer = () => {
   return (
-    <div className="bg-background relative w-full gap-2 py-15 text-center">
+    <div className="bg-background relative mt-auto w-full gap-2 py-15 text-center">
       <DotPattern
         className={cn(
           'mask-[radial-gradient(300px_circle_at_top_right,white,transparent)]',

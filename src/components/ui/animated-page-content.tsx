@@ -5,5 +5,9 @@ interface AnimatedPageContentProps {
 }
 
 export const AnimatedPageContent = ({ children }: AnimatedPageContentProps) => {
-  return <div className="animate-fade-in-up">{children}</div>;
+  return (
+    <div className="animate-fade-in-up flex min-h-full flex-col">
+      {children}
+    </div>
+  );
 };
