@@ -1,15 +1,49 @@
 import { Maybe } from 'graphql/jsutils/Maybe';
 
-export interface PromptContext {
-  title: string;
-  category: string;
-  slug: string;
-  readMinutes: string;
-  excerpt: string;
-  published: string;
-  fullLink: string;
+export type PromptContextType =
+  | 'technical-ledger-note'
+  | 'technical-ledger-page'
+  | 'book-summary-intro'
+  | 'book-summary-chapter'
+  | 'page'
+  | 'profile';
+
+export interface BasePromptContext {
+  type: PromptContextType;
   text: string;
+  fullLink?: string;
 }
+
+export interface TechnicalLedgerNoteContext extends BasePromptContext {
+  type: 'technical-ledger-note';
+  title: string;
+  noteTitle: string;
+}
+
+export interface BookSummaryIntroContext extends BasePromptContext {
+  type: 'book-summary-intro';
+  title: string;
+  author: string;
+  category: string;
+  tags: string[];
+  totalChapters: number;
+  publishedChapters: number;
+  chapterTitles: string[];
+}
+
+export interface BookSummaryChapterContext extends BasePromptContext {
+  type: 'book-summary-chapter';
+  bookTitle: string;
+  bookSlugId: string;
+  chapterNumber: number;
+  chapterTitle: string;
+}
+
+export type PromptContext =
+  | TechnicalLedgerNoteContext
+  | BookSummaryIntroContext
+  | BookSummaryChapterContext
+  | BasePromptContext;
 
 export interface TechnicalLedgerForPrompt {
   id: string;

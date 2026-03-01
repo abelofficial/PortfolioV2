@@ -1,4 +1,10 @@
-import { Prompt, PromptContext } from '@/types';
+import {
+  Prompt,
+  PromptContext,
+  TechnicalLedgerNoteContext,
+  BookSummaryIntroContext,
+  BookSummaryChapterContext,
+} from '@/types';
 
 export const getSystemPrompt = (prompt: Prompt) =>
   `
@@ -20,55 +26,156 @@ function normalizeWhitespace(s: string) {
     .trim();
 }
 
-function extractSection(text: string) {
-  // tries to pull [X] : [SectionName]
-  const m = text.match(/:\s*\[([^\]]+)\]/);
-  return m?.[1]?.trim();
+/**
+ * Format a technical ledger note context
+ */
+function formatTechnicalLedgerNote(
+  context: TechnicalLedgerNoteContext,
+  index: number
+): string {
+  return normalizeWhitespace(`
+Technical Ledger ${index}
+Title: ${context.title}
+Section: ${context.noteTitle}
+${context.fullLink ? `Link: ${context.fullLink}` : ''}
+
+Content:
+${context.text}
+  `);
 }
 
-export function formatContextCompact(context: PromptContext[]) {
-  if (!context?.length) return 'CONTEXT: (none)';
+/**
+ * Format a book summary intro context
+ */
+function formatBookSummaryIntro(
+  context: BookSummaryIntroContext,
+  index: number
+): string {
+  const publishedInfo =
+    context.publishedChapters < context.totalChapters
+      ? `(${context.publishedChapters} published, ${context.totalChapters - context.publishedChapters} coming soon)`
+      : `(all ${context.totalChapters} chapters published)`;
 
-  // group by fullLink (best) else title
+  return normalizeWhitespace(`
+Book Summary ${index}
+Title: ${context.title}
+Author: ${context.author}
+Category: ${context.category}
+${context.tags?.length ? `Tags: ${context.tags.join(', ')}` : ''}
+Chapters: ${context.totalChapters} ${publishedInfo}
+${context.fullLink ? `Link: ${context.fullLink}` : ''}
+
+Overview:
+${context.text}
+  `);
+}
+
+/**
+ * Format a book summary chapter context
+ */
+function formatBookSummaryChapter(
+  context: BookSummaryChapterContext,
+  index: number
+): string {
+  return normalizeWhitespace(`
+Book Chapter ${index}
+Book: ${context.bookTitle}
+Chapter ${context.chapterNumber}: ${context.chapterTitle}
+${context.fullLink ? `Link: ${context.fullLink}` : ''}
+
+Content:
+${context.text}
+  `);
+}
+
+/**
+ * Format a generic/legacy context
+ */
+function formatGenericContext(context: PromptContext, index: number): string {
+  return normalizeWhitespace(`
+Result ${index}
+${context.fullLink ? `Link: ${context.fullLink}` : ''}
+
+Content:
+${context.text}
+  `);
+}
+
+/**
+ * Format a single context item based on its type
+ */
+function formatContextItem(context: PromptContext, index: number): string {
+  switch (context.type) {
+    case 'technical-ledger-note':
+      return formatTechnicalLedgerNote(
+        context as TechnicalLedgerNoteContext,
+        index
+      );
+    case 'book-summary-intro':
+      return formatBookSummaryIntro(context as BookSummaryIntroContext, index);
+    case 'book-summary-chapter':
+      return formatBookSummaryChapter(
+        context as BookSummaryChapterContext,
+        index
+      );
+    default:
+      return formatGenericContext(context, index);
+  }
+}
+
+/**
+ * Group contexts by type for better organization
+ */
+function groupContextsByType(
+  contexts: PromptContext[]
+): Map<string, PromptContext[]> {
   const groups = new Map<string, PromptContext[]>();
-  for (const c of context) {
-    const key = c.fullLink ?? c.title ?? 'unknown';
-    groups.set(key, [...(groups.get(key) ?? []), c]);
+
+  for (const context of contexts) {
+    const type = context.type || 'unknown';
+    const existing = groups.get(type) || [];
+    groups.set(type, [...existing, context]);
   }
 
-  const blocks: string[] = [];
-  let idx = 1;
+  return groups;
+}
 
-  for (const [key, items] of groups) {
-    const first = items[0];
+/**
+ * Get a human-readable label for a context type
+ */
+function getTypeLabel(type: string): string {
+  switch (type) {
+    case 'technical-ledger-note':
+      return 'Technical Ledger Notes';
+    case 'book-summary-intro':
+      return 'Book Summaries';
+    case 'book-summary-chapter':
+      return 'Book Chapters';
+    default:
+      return 'Other Results';
+  }
+}
 
-    // collect unique sections
-    const sections = items
-      .map((it) => {
-        if (!it.text) return null;
-        const section = extractSection(it.text) ?? 'Notes';
-        const cleaned = normalizeWhitespace(
-          it.text
-            .replace(/\[\s*published\s*\]\s*:\s*\[[^\]]+\]\s*/gi, '')
-            .replace(/\[\s*category\s*\]\s*:\s*\[[^\]]+\]\s*/gi, '')
-            .replace(/\[\s*readMinutes\s*\]\s*:\s*\[[^\]]+\]\s*/gi, '')
-        );
-        const body = cleaned.split('\n').slice(1).join('\n').trim() || cleaned;
-        return `* [${section}]:\n ${body}`;
-      })
-      .filter(Boolean);
+/**
+ * Main function to format all contexts for the AI model
+ * Groups by type and formats each appropriately
+ */
+export function formatContextCompact(contexts: PromptContext[]): string {
+  if (!contexts?.length) return 'CONTEXT: (none)';
 
-    blocks.push(
-      normalizeWhitespace(`
-        Ledger ${idx++}
-        Title: ${first.title ?? 'Unknown'}
-        Published: ${first.published ?? 'Unknown'}
-        ${first.category ? `Category: ${first.category}\n` : ''}${first.fullLink ? `FullLink: ${first.fullLink}\n` : ''}
-        Notes:
-        ${sections.join('\n')}
-        `)
+  const groups = groupContextsByType(contexts);
+  const sections: string[] = [];
+
+  let globalIndex = 1;
+
+  for (const [type, items] of groups) {
+    const typeLabel = getTypeLabel(type);
+    const formattedItems = items.map((item) =>
+      formatContextItem(item, globalIndex++)
     );
+
+    sections.push(`## ${typeLabel}\n\n${formattedItems.join('\n\n---\n\n')}`);
   }
 
-  return `CONTEXT (Top Matching Ledgers):\n\n${blocks.join('\n\n---\n\n')}`;
+  return `CONTEXT (Relevant Information):\n\n${sections.join('\n\n===\n\n')}`;
 }

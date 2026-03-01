@@ -2,7 +2,14 @@ import { Index } from '@upstash/vector';
 import { openai } from '@ai-sdk/openai';
 import { streamText, convertToModelMessages, type UIMessage, embed } from 'ai';
 import { formatContextCompact, getSystemPrompt } from '@/utils/ai-prompts';
-import { Prompt, PromptContext } from '@/types';
+import {
+  Prompt,
+  PromptContext,
+  TechnicalLedgerNoteContext,
+  BookSummaryIntroContext,
+  BookSummaryChapterContext,
+  BasePromptContext,
+} from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, promptQuery } from '@/lib/queries';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -34,6 +41,59 @@ const ratelimit = new Ratelimit({
   analytics: true,
   prefix: 'chat-api',
 });
+
+/**
+ * Map vector DB metadata to typed PromptContext based on the type field
+ */
+function mapMetadataToPromptContext(
+  metadata: Record<string, unknown>
+): PromptContext {
+  const type = metadata?.type as string;
+
+  switch (type) {
+    case 'technical-ledger-note':
+      return {
+        type: 'technical-ledger-note',
+        title: metadata.title as string,
+        noteTitle: metadata.noteTitle as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as TechnicalLedgerNoteContext;
+
+    case 'book-summary-intro':
+      return {
+        type: 'book-summary-intro',
+        title: metadata.title as string,
+        author: metadata.author as string,
+        category: metadata.category as string,
+        tags: (metadata.tags as string[]) || [],
+        totalChapters: metadata.totalChapters as number,
+        publishedChapters: metadata.publishedChapters as number,
+        chapterTitles: (metadata.chapterTitles as string[]) || [],
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as BookSummaryIntroContext;
+
+    case 'book-summary-chapter':
+      return {
+        type: 'book-summary-chapter',
+        bookTitle: metadata.bookTitle as string,
+        bookSlugId: metadata.bookSlugId as string,
+        chapterNumber: metadata.chapterNumber as number,
+        chapterTitle: metadata.chapterTitle as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as BookSummaryChapterContext;
+
+    default:
+      // Fallback for legacy or unknown types
+      return {
+        type: type as BasePromptContext['type'],
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as BasePromptContext;
+  }
+}
 
 export async function POST(req: Request) {
   const headersList = await headers();
@@ -74,15 +134,9 @@ export async function POST(req: Request) {
     includeMetadata: true,
   });
 
-  const context = queryResult.map(
-    (match) =>
-      ({
-        title: match.metadata?.title,
-        category: match.metadata?.category,
-        published: match.metadata?.published,
-        text: match.metadata?.text,
-        fullLink: match.metadata?.fullLink,
-      }) as PromptContext
+  // Map metadata to typed PromptContext
+  const context: PromptContext[] = queryResult.map((match) =>
+    mapMetadataToPromptContext(match.metadata as Record<string, unknown>)
   );
 
   const systemPrompt = getSystemPrompt(prompt);

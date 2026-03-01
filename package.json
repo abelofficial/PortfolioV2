@@ -9,6 +9,9 @@
     "lint": "eslint",
     "seedLedgers": "tsx src/scripts/seedLedgers.ts",
     "seedLedgers:debug": "tsx --inspect-brk src/scripts/seedLedgers.ts",
+    "seedBookSummaries": "tsx src/scripts/seedBookSummaries.ts",
+    "seedBookSummaries:debug": "tsx --inspect-brk src/scripts/seedBookSummaries.ts",
+    "seedAll": "tsx src/scripts/seedLedgers.ts && tsx src/scripts/seedBookSummaries.ts && tsx src/scripts/seedProfile.ts",
     "seedProfile": "tsx src/scripts/seedProfile.ts",
     "prepare": "husky"
   },

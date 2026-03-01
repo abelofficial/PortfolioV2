@@ -437,7 +437,14 @@ export const allBookSummaries = `
         }
         introduction{
           value
-        }                 
+        }
+        chapters{
+          title
+          slugId
+          chapter
+          isPublished
+          content
+        }
      }
 `;
 
