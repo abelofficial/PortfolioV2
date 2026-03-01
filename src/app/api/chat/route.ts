@@ -9,6 +9,7 @@ import {
   BookSummaryIntroContext,
   BookSummaryChapterContext,
   ProfileContext,
+  PageContext,
   BasePromptContext,
 } from '@/types';
 import { datoCMS } from '@services/datoCMS';
@@ -97,6 +98,15 @@ function mapMetadataToPromptContext(
         text: metadata.text as string,
       } as ProfileContext;
 
+    case 'page':
+      return {
+        type: 'page',
+        pageTitle: metadata.pageTitle as string,
+        pageType: metadata.pageType as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as PageContext;
+
     default:
       // Fallback for legacy or unknown types
       return {
@@ -138,9 +148,14 @@ export async function POST(req: Request) {
     .map((part) => part.text)
     .join(' ');
 
+  // Combine user message with current page context for better semantic search
+  const embeddingText = currentPath
+    ? `${lastMessageText} [viewing: ${currentPath}]`
+    : lastMessageText;
+
   const { embedding } = await embed({
     model: openai.embedding('text-embedding-3-small'),
-    value: lastMessageText,
+    value: embeddingText,
   });
 
   const queryResult = await index.query({

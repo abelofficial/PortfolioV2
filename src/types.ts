@@ -46,11 +46,18 @@ export interface ProfileContext extends BasePromptContext {
   experienceType: string;
 }
 
+export interface PageContext extends BasePromptContext {
+  type: 'page';
+  pageTitle: string;
+  pageType: string;
+}
+
 export type PromptContext =
   | TechnicalLedgerNoteContext
   | BookSummaryIntroContext
   | BookSummaryChapterContext
   | ProfileContext
+  | PageContext
   | BasePromptContext;
 
 export interface TechnicalLedgerForPrompt {
@@ -82,6 +89,7 @@ export interface TechnicalLedgerPage {
 }
 
 export interface BookSummariesPage {
+  id: string;
   title: string;
   description: string;
   all: string;

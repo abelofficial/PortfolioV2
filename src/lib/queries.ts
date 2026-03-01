@@ -366,6 +366,7 @@ export const technicalLedgerPageQuery = `
 
 export const bookSummariesPageQuery = `
     bookSummaryPage(locale: $locale) {
+        id
         title
         description
         all

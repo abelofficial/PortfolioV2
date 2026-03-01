@@ -1,10 +1,15 @@
 import { datoCMS } from '@services/datoCMS';
-import { allBookSummaries, getCombinedQuery } from '@/lib/queries';
-import { BookSummary } from '@/types';
+import {
+  allBookSummaries,
+  bookSummariesPageQuery,
+  getCombinedQuery,
+} from '@/lib/queries';
+import { BookSummary, BookSummariesPage } from '@/types';
 import { embedAndSeedChunksToVectorDb } from '@/scripts/seed';
 import {
   BookSummaryIntroSeedChunk,
   BookSummaryChapterSeedChunk,
+  PageSeedChunk,
   SeedChunk,
 } from '@/scripts/types';
 
@@ -14,13 +19,15 @@ async function seed() {
   console.log('🚀 Starting Book Summaries seed process...');
 
   try {
-    // 1. Fetch all book summaries from DatoCMS
+    // 1. Fetch all book summaries and page info from DatoCMS
     const {
       allBookSummaries: bookSummaries,
+      bookSummaryPage,
     }: {
       allBookSummaries: BookSummary[];
+      bookSummaryPage: BookSummariesPage;
     } = await datoCMS({
-      query: getCombinedQuery([allBookSummaries]),
+      query: getCombinedQuery([allBookSummaries, bookSummariesPageQuery]),
       variables: { locale: 'en' },
     });
 
@@ -31,8 +38,15 @@ async function seed() {
 
     console.log(`Found ${bookSummaries.length} book summaries`);
 
-    // 2. Generate seed chunks for intros and chapters
+    // 2. Generate seed chunks for list page, intros, and chapters
     const seedChunks: SeedChunk[] = [];
+
+    // Add list page chunk
+    const listPageChunk = getBookSummariesListPageSeedChunk(
+      bookSummaryPage,
+      bookSummaries
+    );
+    seedChunks.push(listPageChunk);
 
     for (const book of bookSummaries) {
       // Add intro chunk for each book
@@ -144,6 +158,39 @@ ${truncatedContent}`;
       chapterNumber: chapter.chapter,
       chapterTitle: chapter.title,
       fullLink: `${BASE_URL}/en/book-summaries/${book.slugId}/chapter/${chapter.slugId}`,
+    },
+  };
+};
+
+/**
+ * Generate seed chunk for the book summaries list page
+ * Includes overview of all available book summaries
+ */
+const getBookSummariesListPageSeedChunk = (
+  page: BookSummariesPage,
+  books: BookSummary[]
+): PageSeedChunk => {
+  const categories = [...new Set(books.map((book) => book.category))];
+  const bookTitles = books
+    .map((book) => `  - "${book.title}" by ${book.author}`)
+    .join('\n');
+
+  const text = `[Type]: Page - Book Summaries List
+[Page Title]: ${page.title}
+[Page Description]: ${page.description}
+[Total Books]: ${books.length}
+[Categories]: ${categories.join(', ')}
+[Available Book Summaries]:
+${bookTitles}`;
+
+  return {
+    text,
+    metadata: {
+      id: `page-book-summaries-${page.id}`,
+      type: 'page',
+      pageTitle: page.title,
+      pageType: 'book-summaries-list',
+      fullLink: `${BASE_URL}/en/book-summaries`,
     },
   };
 };
