@@ -324,6 +324,7 @@ export const technicalLedgersQuery = `
 
 export const technicalLedgerPageQuery = `
     technicalLedgersPage(locale: $locale) {
+        id
         title
         description
         explanation
@@ -436,7 +437,14 @@ export const allBookSummaries = `
         }
         introduction{
           value
-        }                 
+        }
+        chapters{
+          title
+          slugId
+          chapter
+          isPublished
+          content
+        }
      }
 `;
 

@@ -2,7 +2,15 @@ import { Index } from '@upstash/vector';
 import { openai } from '@ai-sdk/openai';
 import { streamText, convertToModelMessages, type UIMessage, embed } from 'ai';
 import { formatContextCompact, getSystemPrompt } from '@/utils/ai-prompts';
-import { Prompt, PromptContext } from '@/types';
+import {
+  Prompt,
+  PromptContext,
+  TechnicalLedgerNoteContext,
+  BookSummaryIntroContext,
+  BookSummaryChapterContext,
+  ProfileContext,
+  BasePromptContext,
+} from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, promptQuery } from '@/lib/queries';
 import { Ratelimit } from '@upstash/ratelimit';
@@ -11,6 +19,7 @@ import { headers } from 'next/headers';
 import {
   getClientIp,
   getLocale,
+  getCurrentPath,
   LOCALHOST_IP,
   manualUIMessageStreamResponse,
   UNKNOWN_IP_RESPONSE,
@@ -35,6 +44,69 @@ const ratelimit = new Ratelimit({
   prefix: 'chat-api',
 });
 
+/**
+ * Map vector DB metadata to typed PromptContext based on the type field
+ */
+function mapMetadataToPromptContext(
+  metadata: Record<string, unknown>
+): PromptContext {
+  const type = metadata?.type as string;
+
+  switch (type) {
+    case 'technical-ledger-note':
+      return {
+        type: 'technical-ledger-note',
+        title: metadata.title as string,
+        noteTitle: metadata.noteTitle as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as TechnicalLedgerNoteContext;
+
+    case 'book-summary-intro':
+      return {
+        type: 'book-summary-intro',
+        title: metadata.title as string,
+        author: metadata.author as string,
+        category: metadata.category as string,
+        tags: (metadata.tags as string[]) || [],
+        totalChapters: metadata.totalChapters as number,
+        publishedChapters: metadata.publishedChapters as number,
+        chapterTitles: (metadata.chapterTitles as string[]) || [],
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as BookSummaryIntroContext;
+
+    case 'book-summary-chapter':
+      return {
+        type: 'book-summary-chapter',
+        bookTitle: metadata.bookTitle as string,
+        bookSlugId: metadata.bookSlugId as string,
+        chapterNumber: metadata.chapterNumber as number,
+        chapterTitle: metadata.chapterTitle as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as BookSummaryChapterContext;
+
+    case 'profile':
+      return {
+        type: 'profile',
+        title: metadata.title as string,
+        institution: metadata.institution as string,
+        experienceType: metadata.experienceType as string,
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as ProfileContext;
+
+    default:
+      // Fallback for legacy or unknown types
+      return {
+        type: type as BasePromptContext['type'],
+        fullLink: metadata.fullLink as string,
+        text: metadata.text as string,
+      } as BasePromptContext;
+  }
+}
+
 export async function POST(req: Request) {
   const headersList = await headers();
   const ip = await getClientIp(headersList);
@@ -45,9 +117,12 @@ export async function POST(req: Request) {
 
   const { messages }: { messages: UIMessage[] } = await req.json();
   const lastUserMessage = messages[messages.length - 1];
+  const locale = getLocale(lastUserMessage.metadata);
+  const currentPath = getCurrentPath(lastUserMessage.metadata);
+
   const { prompt }: { prompt: Prompt } = await datoCMS({
     query: getCombinedQuery([promptQuery]),
-    variables: { locale: getLocale(lastUserMessage.metadata) },
+    variables: { locale },
   });
 
   if (ip !== LOCALHOST_IP) {
@@ -70,23 +145,43 @@ export async function POST(req: Request) {
 
   const queryResult = await index.query({
     vector: embedding,
-    topK: 5,
+    topK: 8, // Fetch more results to allow for reranking
     includeMetadata: true,
   });
 
-  const context = queryResult.map(
-    (match) =>
-      ({
-        title: match.metadata?.title,
-        category: match.metadata?.category,
-        published: match.metadata?.published,
-        text: match.metadata?.text,
-        fullLink: match.metadata?.fullLink,
-      }) as PromptContext
+  // Map metadata to typed PromptContext
+  let context: PromptContext[] = queryResult.map((match) =>
+    mapMetadataToPromptContext(match.metadata as Record<string, unknown>)
   );
+
+  // Boost results that match the current page by moving them to the top
+  if (currentPath) {
+    const baseUrl = process.env.BASE_URL || '';
+    const fullCurrentUrl = baseUrl + currentPath;
+
+    // Sort: items matching current page first, then by original order
+    context = context.sort((a, b) => {
+      const aMatches =
+        a.fullLink?.includes(currentPath) || a.fullLink === fullCurrentUrl;
+      const bMatches =
+        b.fullLink?.includes(currentPath) || b.fullLink === fullCurrentUrl;
+
+      if (aMatches && !bMatches) return -1;
+      if (!aMatches && bMatches) return 1;
+      return 0;
+    });
+  }
+
+  // Limit to top 5 after reranking
+  context = context.slice(0, 5);
 
   const systemPrompt = getSystemPrompt(prompt);
   const contextText = formatContextCompact(context);
+
+  // Build current page context for the model
+  const currentPageContext = currentPath
+    ? `\n\nCURRENT PAGE: The user is currently viewing: ${currentPath}`
+    : '';
 
   const trimmed = messages.slice(-MAX_MESSAGES_MEMORY);
 
@@ -94,7 +189,7 @@ export async function POST(req: Request) {
 
   modelMessages.push({
     role: 'system',
-    content: contextText,
+    content: contextText + currentPageContext,
   });
   const result = streamText({
     model: openai('gpt-4o-mini'),
