@@ -33,20 +33,20 @@ const Toolbar = () => {
         </Link>
       </DockIcon>
       <DockIcon>
+        <Link href={`/${locale}/book-summaries`}>
+          <NotebookTextIcon
+            aria-label="Go to book summaries"
+            className={getClassName(() => pathname.includes('/book-summaries'))}
+          />
+        </Link>
+      </DockIcon>
+      <DockIcon>
         <Link href={`/${locale}/technical-ledgers`}>
           <LucidePencil
             aria-label="Go to technical ledgers"
             className={getClassName(() =>
               pathname.includes('/technical-ledgers')
             )}
-          />
-        </Link>
-      </DockIcon>
-      <DockIcon>
-        <Link href={`/${locale}/book-summaries`}>
-          <NotebookTextIcon
-            aria-label="Go to technical ledgers"
-            className={getClassName(() => pathname.includes('/book-summaries'))}
           />
         </Link>
       </DockIcon>

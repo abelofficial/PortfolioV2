@@ -1,6 +1,6 @@
 'use client';
 
-import { Chapter } from '@/types';
+import { BookSummariesPage, Chapter } from '@/types';
 import { cn } from '@/lib/utils';
 import { BookOpen, ChevronRight, Lock } from 'lucide-react';
 import Link from 'next/link';
@@ -10,12 +10,25 @@ export interface ChapterNavigationProps {
   locale: string;
   bookSlugId: string;
   chapters: Chapter[];
+  page: BookSummariesPage;
 }
+
+const getBookStatus = (
+  chapters: Chapter[]
+): 'not-started' | 'in-progress' | 'finished' => {
+  const totalChapters = chapters.length;
+  const publishedChapters = chapters.filter((c) => c.isPublished).length;
+
+  if (publishedChapters === 0) return 'not-started';
+  if (publishedChapters === totalChapters) return 'finished';
+  return 'in-progress';
+};
 
 const ChapterNavigation = ({
   locale,
   bookSlugId,
   chapters,
+  page,
 }: ChapterNavigationProps) => {
   // Sort all chapters by chapter number (show both published and unpublished)
   const sortedChapters = [...chapters].sort((a, b) => a.chapter - b.chapter);
@@ -24,11 +37,37 @@ const ChapterNavigation = ({
     return null;
   }
 
+  const status = getBookStatus(chapters);
+  const statusLabel =
+    status === 'finished'
+      ? page.finished
+      : status === 'in-progress'
+        ? page.inProgress
+        : page.notStarted;
+  const statusColors = {
+    finished:
+      'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+    'in-progress':
+      'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+    'not-started':
+      'bg-slate-100 text-slate-600 dark:bg-slate-800/50 dark:text-slate-400',
+  };
+
   return (
     <div className="flex flex-col gap-3 px-5 py-4">
-      <div className="flex items-center gap-2">
-        <BookOpen className="text-primary size-4" />
-        <h3 className="text-sm font-semibold">Chapters</h3>
+      <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
+          <BookOpen className="text-primary size-4" />
+          <h3 className="text-sm font-semibold">{page.chapters}</h3>
+        </div>
+        <span
+          className={cn(
+            'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium',
+            statusColors[status]
+          )}
+        >
+          {statusLabel}
+        </span>
       </div>
 
       <div className="grid grid-cols-1 gap-2 md:grid-cols-2">

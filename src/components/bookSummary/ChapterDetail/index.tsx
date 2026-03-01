@@ -83,7 +83,6 @@ const ChapterDetail = async ({
         locale={locale}
         bookSummary={bookSummary}
         chapter={currentChapter}
-        prevChapter={prevChapter}
         page={bookSummaryPage}
       />
 

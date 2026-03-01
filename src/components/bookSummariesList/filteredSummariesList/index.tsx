@@ -33,8 +33,13 @@ const FilteredSummariesList = ({
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
         page={page}
+        resultCount={filteredSummaries.length}
       />
-      <SummariesList locale={locale} bookSummariesList={filteredSummaries} />
+      <SummariesList
+        locale={locale}
+        bookSummariesList={filteredSummaries}
+        page={page}
+      />
     </div>
   );
 };

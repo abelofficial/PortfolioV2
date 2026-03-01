@@ -10,6 +10,7 @@ export interface SummariesListHeaderProps {
   activeCategory: string;
   setActiveCategory: (category: string) => void;
   page: BookSummariesPage;
+  resultCount: number;
 }
 
 const SummariesListHeader = ({
@@ -17,6 +18,7 @@ const SummariesListHeader = ({
   activeCategory,
   setActiveCategory,
   page,
+  resultCount,
 }: SummariesListHeaderProps) => {
   return (
     <SectionContainer
@@ -47,12 +49,14 @@ const SummariesListHeader = ({
             <p className="text-sm font-semibold">Filter</p>
           </div>
 
-          {/* smaller, less dominant selected indicator */}
+          {/* selected indicator */}
           <p className="text-muted-foreground text-xs">
-            Selected:{' '}
-            <span className="text-foreground font-semibold">
+            {page.selected}{' '}
+            <span className="text-primary-light font-semibold">
               {activeCategory}
             </span>
+            {' · '}
+            {resultCount} {page.results}
           </p>
         </div>
 

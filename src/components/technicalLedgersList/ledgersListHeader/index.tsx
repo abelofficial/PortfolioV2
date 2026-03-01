@@ -4,13 +4,14 @@ import { SectionContainer } from '@components/ui/custom-container';
 import { cn } from '@/lib/utils';
 import { TechnicalLedgerPage } from '@/types';
 import { Filter, Info } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 export interface LedgersListHeaderProps {
   categories: string[];
   activeCategory: string;
   setActiveCategory: (category: string) => void;
   page: TechnicalLedgerPage;
+  resultCount: number;
 }
 
 const LedgersListHeader = ({
@@ -18,6 +19,7 @@ const LedgersListHeader = ({
   activeCategory,
   setActiveCategory,
   page,
+  resultCount,
 }: LedgersListHeaderProps) => {
   const [showInfo, setShowInfo] = useState(false);
 
@@ -56,7 +58,7 @@ const LedgersListHeader = ({
         </p>
 
         {showInfo && (
-          <div className="text-muted-foreground rounded-2xl border border-black/10 bg-black/[0.02] p-4 text-sm dark:border-white/10 dark:bg-white/[0.03]">
+          <div className="text-muted-foreground rounded-2xl border border-black/10 bg-black/2 p-4 text-sm dark:border-white/10 dark:bg-white/3">
             <p className="leading-relaxed">{page.explanation}</p>
           </div>
         )}
@@ -70,12 +72,14 @@ const LedgersListHeader = ({
             <p className="text-sm font-semibold">Filter</p>
           </div>
 
-          {/* smaller, less dominant selected indicator */}
+          {/* selected indicator */}
           <p className="text-muted-foreground text-xs">
-            Selected:{' '}
-            <span className="text-foreground font-semibold">
+            {page.selected}{' '}
+            <span className="text-primary-light font-semibold">
               {activeCategory}
             </span>
+            {' · '}
+            {resultCount} {page.results}
           </p>
         </div>
 
@@ -92,7 +96,7 @@ const LedgersListHeader = ({
                   'inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition',
                   'focus-visible:ring-primary/40 focus-visible:ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
                   !isActive &&
-                    'text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-foreground border border-black/10 bg-black/[0.02] dark:border-white/10 dark:bg-white/[0.03]',
+                    'text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-foreground border border-black/10 bg-black/2 dark:border-white/10 dark:bg-white/3',
                   isActive &&
                     'bg-primary text-primary-foreground shadow-primary/25 shadow-sm'
                 )}

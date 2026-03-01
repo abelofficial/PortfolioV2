@@ -32,20 +32,21 @@ const BookSummary = async ({ locale, slug }: BookSummaryProps) => {
   }
 
   return (
-    <div className="flex min-h-[calc(100lvh-18rem)] flex-col pb-2">
+    <div className="flex min-h-lvh flex-col pb-10">
       <SummaryHeader
         locale={locale}
         bookSummary={bookSummary}
         page={bookSummaryPage}
       />
 
+      <SummaryContent content={bookSummary.introduction} />
+
       <ChapterNavigation
         locale={locale}
         bookSlugId={bookSummary.slugId}
         chapters={bookSummary.chapters}
+        page={bookSummaryPage}
       />
-
-      <SummaryContent content={bookSummary.introduction} />
     </div>
   );
 };
