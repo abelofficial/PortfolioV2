@@ -8,6 +8,8 @@ jobs:
     name: Run Seed Ledgers Script
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      contents: read
 
     steps:
       - name: Checkout Code
