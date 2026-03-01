@@ -7,7 +7,6 @@ export interface ChapterHeaderProps {
   locale: string;
   bookSummary: BookSummary;
   chapter: Chapter;
-  prevChapter: Chapter | null;
   page: BookSummariesPage;
 }
 
@@ -15,15 +14,10 @@ const ChapterHeader = ({
   locale,
   bookSummary,
   chapter,
-  prevChapter,
   page,
 }: ChapterHeaderProps) => {
-  // Determine back link - previous chapter or intro page
-  const backLink = prevChapter
-    ? `/${locale}/book-summaries/${bookSummary.slugId}/chapter/${prevChapter.slugId}`
-    : `/${locale}/book-summaries/${bookSummary.slugId}`;
-
-  const backLabel = prevChapter ? prevChapter.title : page.backButtonLabel;
+  // Back link always goes to book summary detail page
+  const backLink = `/${locale}/book-summaries/${bookSummary.slugId}`;
 
   return (
     <SectionContainer
@@ -36,7 +30,7 @@ const ChapterHeader = ({
         className="group text-muted-foreground hover:text-primary mb-4 flex w-fit items-center gap-1 text-sm font-medium transition-colors"
       >
         <ChevronLeft className="size-4 transition-transform group-hover:-translate-x-1" />
-        {backLabel}
+        {page.backButtonLabel}
       </Link>
 
       <div className="flex flex-col gap-3">

@@ -330,6 +330,8 @@ export const technicalLedgerPageQuery = `
         description
         explanation
         all
+        selected
+        results
         minRead
         backButtonLabel
         chatBox{
@@ -372,6 +374,12 @@ export const bookSummariesPageQuery = `
         description
         all
         backButtonLabel
+        selected
+        results
+        inProgress
+        finished
+        notStarted
+        chapters
         chatBox{
             hint
             openButtonLabel

@@ -31,6 +31,7 @@ const FilteredLedgersList = ({
         activeCategory={activeCategory}
         setActiveCategory={setActiveCategory}
         page={page}
+        resultCount={filteredNotes.length}
       />
       <LedgersList
         locale={locale}

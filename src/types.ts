@@ -82,6 +82,8 @@ export interface TechnicalLedgerPage {
   description: string;
   explanation: string;
   all: string;
+  selected: string;
+  results: string;
   backButtonLabel: string;
   minRead: string;
   chatBox: ChatBoxInfo;
@@ -93,6 +95,12 @@ export interface BookSummariesPage {
   title: string;
   description: string;
   all: string;
+  selected: string;
+  results: string;
+  inProgress: string;
+  finished: string;
+  notStarted: string;
+  chapters: string;
   backButtonLabel: string;
   chatBox: ChatBoxInfo;
   seo: SEOData;
