@@ -56,10 +56,27 @@ export const getChatBoxInfoFromPath = (
 
   // Check for book summaries routes
   if (pathSegments.length >= 2 && pathSegments[1] === 'book-summaries') {
+    const bookSlugId = pathSegments[2];
+    const summary = allBookSummaries?.find((s) => s.slugId === bookSlugId);
+
+    // Chapter page (e.g., /en/book-summaries/my-book/chapter/chapter-slug)
+    if (
+      pathSegments.length >= 5 &&
+      pathSegments[3] === 'chapter' &&
+      summary?.chapters
+    ) {
+      const chapterSlugId = pathSegments[4];
+      const chapter = summary.chapters.find((c) => c.slugId === chapterSlugId);
+      if (chapter?.chatBox?.questions) {
+        return {
+          ...baseInfo,
+          questions: chapter.chatBox.questions,
+        };
+      }
+    }
+
     // Specific book summary page (e.g., /en/book-summaries/my-slug)
-    if (pathSegments.length >= 3) {
-      const slugId = pathSegments[2];
-      const summary = allBookSummaries?.find((s) => s.slugId === slugId);
+    if (pathSegments.length >= 3 && pathSegments.length < 5) {
       if (summary?.chatBox?.questions) {
         return {
           ...baseInfo,

@@ -25,13 +25,13 @@ const SummaryHeader = ({ locale, bookSummary, page }: SummaryHeaderProps) => {
         {page.backButtonLabel}
       </Link>
 
-      <div className="flex flex-col gap-4 md:flex-row md:gap-6">
+      <div className="flex flex-col gap-4 md:flex-row md:items-stretch md:gap-6">
         {/* Book cover */}
-        <div className="w-32 shrink-0 self-center overflow-hidden rounded-lg shadow-lg md:w-40 md:self-start">
+        <div className="flex w-32 shrink-0 items-center justify-center self-center overflow-hidden rounded-lg shadow-lg md:w-40 md:self-stretch">
           <SRCImage
             data={bookSummary.bookImage.responsiveImage}
             usePlaceholder
-            imgClassName="rounded-lg object-cover"
+            imgClassName="rounded-lg object-cover h-full w-full"
           />
         </div>
 

@@ -94,6 +94,14 @@ export const fullChatBoxQuery = `
                 singleQuestion
             }
         }
+        chapters{
+            slugId
+            chatBox{
+                questions{
+                    singleQuestion
+                }
+            }
+        }
     }
 `;
 
@@ -487,5 +495,17 @@ export const bookSummaryQuery = `
             }
           }
         }
+         chapters{
+            title
+            slugId
+            chapter
+            isPublished
+            chatBox{
+              questions{
+                singleQuestion
+              }
+            }
+            content
+          }
     }
 `;

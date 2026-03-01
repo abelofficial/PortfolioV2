@@ -68,6 +68,20 @@ export interface BookSummary {
   };
   introduction: LedgerContent;
   seo: SEOData;
+  chapters: Chapter[];
+}
+
+export interface Chapter {
+  title: string;
+  slugId: string;
+  chapter: number;
+  content: string;
+  isPublished: boolean;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
 }
 
 export interface SEOData {
@@ -208,6 +222,16 @@ export interface FullChatBoxData {
 }
 
 export interface BookSummaryChatBox {
+  slugId: string;
+  chatBox: {
+    questions: {
+      singleQuestion: string;
+    }[];
+  };
+  chapters: ChapterChatBox[];
+}
+
+export interface ChapterChatBox {
   slugId: string;
   chatBox: {
     questions: {

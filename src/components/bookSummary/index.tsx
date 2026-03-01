@@ -1,5 +1,6 @@
 import SummaryHeader from '@components/bookSummary/SummaryHeader';
 import SummaryContent from '@components/bookSummary/SummaryContent';
+import ChapterNavigation from '@components/bookSummary/ChapterNavigation';
 import { BookSummary as Summary, BookSummariesPage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import {
@@ -36,6 +37,12 @@ const BookSummary = async ({ locale, slug }: BookSummaryProps) => {
         locale={locale}
         bookSummary={bookSummary}
         page={bookSummaryPage}
+      />
+
+      <ChapterNavigation
+        locale={locale}
+        bookSlugId={bookSummary.slugId}
+        chapters={bookSummary.chapters}
       />
 
       <SummaryContent content={bookSummary.introduction} />
