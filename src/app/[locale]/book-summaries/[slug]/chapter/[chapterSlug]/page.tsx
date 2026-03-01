@@ -24,7 +24,6 @@ export async function generateMetadata({
   const chapter = bookSummary?.chapters?.find((c) => c.slugId === chapterSlug);
   const seo = bookSummary.seo;
   seo.title = `Chapter ${chapter?.chapter}: ${bookSummary.title}`;
-  seo.description = bookSummary?.excerpt;
 
   return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
 }

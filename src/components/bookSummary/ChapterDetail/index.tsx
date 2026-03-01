@@ -93,6 +93,7 @@ const ChapterDetail = async ({
         nextChapter={nextChapter}
         currentChapter={currentAllIndex + 1}
         totalChapters={allSortedChapters.length}
+        page={bookSummaryPage}
       />
 
       <ChapterContent content={currentChapter.content} />

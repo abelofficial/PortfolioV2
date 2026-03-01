@@ -380,6 +380,10 @@ export const bookSummariesPageQuery = `
         finished
         notStarted
         chapters
+        next
+        intro
+        previous
+        of
         chatBox{
             hint
             openButtonLabel
