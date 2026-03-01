@@ -16,6 +16,16 @@ export const getCombinedQueryWithoutLocalization = (queryBlocks: string[]) => `
     }
 `;
 
+export const siteMetaTagsQuery = `
+    _site {
+        faviconMetaTags {
+            tag
+            attributes
+            content
+        }
+    }
+`;
+
 export const promptQuery = `
     prompt(locale: $locale) {
         coreRule
@@ -142,26 +152,11 @@ export const homePageQuery = `
                 width
             }
         }
-        seo{
-          title
-          description
-          twitterCard
-          image{
-            responsiveImage{
-                alt
-                aspectRatio
-                base64
-                bgColor
-                height
-                sizes
-                src
-                srcSet
-                title
-                webpSrcSet
-                width
-            }
-          }
-        } 
+        _seoMetaTags {
+            tag
+            attributes
+            content
+        }
     }     
 `;
 
@@ -300,25 +295,10 @@ export const technicalLedgersQuery = `
                 singleQuestion
             }
         }
-        seo{
-          title
-          description
-          twitterCard
-          image{
-            responsiveImage{
-                alt
-                aspectRatio
-                base64
-                bgColor
-                height
-                sizes
-                src
-                srcSet
-                title
-                webpSrcSet
-                width
-            }
-          }
+        _seoMetaTags {
+            tag
+            attributes
+            content
         }
     }
 `;
@@ -344,25 +324,10 @@ export const technicalLedgerPageQuery = `
                 singleQuestion
             }
         }
-        seo{
-          title
-          description
-          twitterCard
-          image{
-            responsiveImage{
-                alt
-                aspectRatio
-                base64
-                bgColor
-                height
-                sizes
-                src
-                srcSet
-                title
-                webpSrcSet
-                width
-            }
-          }
+        _seoMetaTags {
+            tag
+            attributes
+            content
         }
     }
 `;
@@ -394,25 +359,10 @@ export const bookSummariesPageQuery = `
                 singleQuestion
             }
         }
-        seo{
-          title
-          description
-          twitterCard
-          image{
-            responsiveImage{
-                alt
-                aspectRatio
-                base64
-                bgColor
-                height
-                sizes
-                src
-                srcSet
-                title
-                webpSrcSet
-                width
-            }
-          }
+        _seoMetaTags {
+            tag
+            attributes
+            content
         }
     }
 `;
@@ -497,25 +447,10 @@ export const bookSummaryQuery = `
         introduction{
           value
         }
-        seo{
-          title
-          description
-          twitterCard
-          image{
-            responsiveImage{
-              alt
-              aspectRatio
-              base64
-              bgColor
-              height
-              sizes
-              src
-              srcSet
-              title
-              webpSrcSet
-              width
-            }
-          }
+        _seoMetaTags {
+            tag
+            attributes
+            content
         }
          chapters{
             title
@@ -528,6 +463,11 @@ export const bookSummaryQuery = `
               }
             }
             content
+            _seoMetaTags {
+              tag
+              attributes
+              content
+            }
           }
     }
 `;

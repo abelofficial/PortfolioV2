@@ -87,7 +87,7 @@ export interface TechnicalLedgerPage {
   backButtonLabel: string;
   minRead: string;
   chatBox: ChatBoxInfo;
-  seo: SEOData;
+  _seoMetaTags: TitleMetaLinkTag[];
 }
 
 export interface BookSummariesPage {
@@ -107,7 +107,7 @@ export interface BookSummariesPage {
   of: string;
   backButtonLabel: string;
   chatBox: ChatBoxInfo;
-  seo: SEOData;
+  _seoMetaTags: TitleMetaLinkTag[];
 }
 
 export interface BookSummary {
@@ -130,7 +130,7 @@ export interface BookSummary {
     }[];
   };
   introduction: LedgerContent;
-  seo: SEOData;
+  _seoMetaTags: TitleMetaLinkTag[];
   chapters: Chapter[];
 }
 
@@ -145,15 +145,16 @@ export interface Chapter {
       singleQuestion: string;
     }[];
   };
+  _seoMetaTags: TitleMetaLinkTag[];
 }
 
-export interface SEOData {
-  title: string;
-  description: string;
-  twitterCard: string;
-  image: {
-    responsiveImage: ResponsiveImageType;
-  };
+/**
+ * DatoCMS SEO meta tag structure returned from _seoMetaTags and faviconMetaTags fields
+ */
+export interface TitleMetaLinkTag {
+  tag: string;
+  content?: string | null;
+  attributes?: Record<string, string> | null;
 }
 
 export interface SingleTechnicalLedger {
@@ -174,7 +175,7 @@ export interface TechnicalLedger {
     tag: string;
   }[];
   fullNote: LedgerContent;
-  seo: SEOData;
+  _seoMetaTags: TitleMetaLinkTag[];
 }
 
 export interface LedgerContent {
@@ -246,7 +247,7 @@ export interface HomePage {
   totalContributionLabel: string;
   techStackTitle: string;
   chatBox: ChatBoxInfo;
-  seo: SEOData;
+  _seoMetaTags: TitleMetaLinkTag[];
   avatar: {
     responsiveImage: ResponsiveImageType;
   };

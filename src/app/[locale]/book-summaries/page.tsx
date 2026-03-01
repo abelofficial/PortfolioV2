@@ -4,9 +4,13 @@ import BookSummariesList from '@components/bookSummariesList';
 import { Metadata } from 'next';
 import type { BookSummariesPage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { getCombinedQuery, bookSummariesPageQuery } from '@/lib/queries';
-import getMetadataFromSEOConfig, {
-  SeoType,
+import {
+  getCombinedQuery,
+  bookSummariesPageQuery,
+  siteMetaTagsQuery,
+} from '@/lib/queries';
+import getMetadataFromDatoCMS, {
+  SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
 import BookSummariesListSkeleton from '@components/bookSummariesList/skeleton';
 
@@ -17,15 +21,16 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
 
-  const { bookSummaryPage }: { bookSummaryPage: BookSummariesPage } =
+  const data: { bookSummaryPage: BookSummariesPage } & SiteMetaTags =
     await datoCMS({
-      query: getCombinedQuery([bookSummariesPageQuery]),
+      query: getCombinedQuery([bookSummariesPageQuery, siteMetaTagsQuery]),
       variables: { locale: locale },
     });
 
-  const seo = bookSummaryPage.seo;
-
-  return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
+  return getMetadataFromDatoCMS(
+    data.bookSummaryPage._seoMetaTags,
+    data._site.faviconMetaTags
+  );
 }
 
 const BookSummariesPage = async ({

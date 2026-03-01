@@ -1,20 +1,16 @@
 import { Suspense } from 'react';
-import {
-  MainPageContainer,
-  MultiSectionLayout,
-  SidebarContainer,
-} from '@components/ui/custom-container';
-import { AnimatedPageContent } from '@components/ui/animated-page-content';
+import { MainPageContainer } from '@components/ui/custom-container';
 import TechnicalLedger from '@components/technicalLedger';
 import { Metadata } from 'next';
 import { SingleTechnicalLedger } from '@/types';
 import { datoCMS } from '@services/datoCMS';
-import { getCombinedQueryWithSlug, technicalLedgersQuery } from '@/lib/queries';
-import Toolbar from '@components/toolbar';
-import ChatAI from '@components/chatAI';
-import Footer from '@components/footer';
-import getMetadataFromSEOConfig, {
-  SeoType,
+import {
+  getCombinedQueryWithSlug,
+  technicalLedgersQuery,
+  siteMetaTagsQuery,
+} from '@/lib/queries';
+import getMetadataFromDatoCMS, {
+  SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
 import TechnicalLedgerSkeleton from '@components/technicalLedger/skeleton';
 
@@ -25,14 +21,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, slug } = await params;
 
-  const data: SingleTechnicalLedger = await datoCMS({
-    query: getCombinedQueryWithSlug([technicalLedgersQuery]),
+  const data: SingleTechnicalLedger & SiteMetaTags = await datoCMS({
+    query: getCombinedQueryWithSlug([technicalLedgersQuery, siteMetaTagsQuery]),
     variables: { locale, slug },
   });
 
-  const seo = data.technicalLedger.seo;
-
-  return getMetadataFromSEOConfig(locale, SeoType.ARTICLE, seo);
+  return getMetadataFromDatoCMS(
+    data.technicalLedger._seoMetaTags,
+    data._site.faviconMetaTags
+  );
 }
 
 const LedgerPage = async ({
