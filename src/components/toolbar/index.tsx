@@ -11,11 +11,7 @@ import languages from '@/utils/languages';
 
 const Toolbar = () => {
   const pathname = usePathname();
-  let { locale } = useParams();
-
-  if (!locale) {
-    locale = 'en';
-  }
+  const { locale } = useParams();
 
   const isHomePageChecker = () =>
     languages.some(

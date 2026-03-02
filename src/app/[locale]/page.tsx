@@ -37,11 +37,7 @@ export async function generateMetadata({
   );
 }
 
-const LocaleHome = async ({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) => {
+const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
   const { locale } = await params;
 
   return (
@@ -72,4 +68,4 @@ const LocaleHome = async ({
   );
 };
 
-export default LocaleHome;
+export default Home;

@@ -1,4 +1,4 @@
-import './globals.css';
+import '../globals.css';
 import { ThemeProvider } from 'next-themes';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
