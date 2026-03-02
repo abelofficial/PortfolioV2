@@ -9,7 +9,6 @@ import React, {
   useState,
 } from 'react';
 import { TimelineEntry } from '@/types';
-import { cn } from '@/lib/utils';
 
 const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -148,13 +147,13 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
                   'rounded-2xl border border-black/5 bg-black/2 p-4 transition-transform duration-200 dark:border-white/10 dark:bg-white/3'
                 }
               >
-                {/* Date/title */}
-                <h3 className="text-muted-foreground mb-3 text-sm font-semibold tracking-wide">
+                {/* Date */}
+                <p className="text-muted-foreground mb-2 text-[10px] font-medium tracking-wide">
                   {item.title}
-                </h3>
+                </p>
 
                 {/* Entry content */}
-                <div className="space-y-2">{item.content}</div>
+                <div>{item.content}</div>
               </div>
             </div>
           );
