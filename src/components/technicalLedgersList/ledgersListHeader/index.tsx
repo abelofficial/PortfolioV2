@@ -1,9 +1,10 @@
 'use client';
 
 import { SectionContainer } from '@components/ui/custom-container';
+import { CategoryFilter } from '@components/ui/category-filter';
 import { cn } from '@/lib/utils';
 import { TechnicalLedgerPage } from '@/types';
-import { Filter, Info } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { useState } from 'react';
 
 export interface LedgersListHeaderProps {
@@ -65,48 +66,14 @@ const LedgersListHeader = ({
       </div>
 
       {/* FILTERS */}
-      <div className="my-5">
-        <div className="mb-2 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-2">
-            <Filter className="text-primary/80 h-4 w-4" />
-            <p className="text-sm font-semibold">Filter</p>
-          </div>
-
-          {/* selected indicator */}
-          <p className="text-muted-foreground text-xs">
-            {page.selected}{' '}
-            <span className="text-primary-light font-semibold">
-              {activeCategory}
-            </span>
-            {' · '}
-            {resultCount} {page.results}
-          </p>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {categories.map((cat) => {
-            const isActive = activeCategory === cat;
-
-            return (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                aria-pressed={isActive}
-                className={cn(
-                  'inline-flex items-center rounded-full px-4 py-2 text-sm font-medium transition',
-                  'focus-visible:ring-primary/40 focus-visible:ring-offset-background focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
-                  !isActive &&
-                    'text-muted-foreground hover:border-primary/30 hover:bg-primary/5 hover:text-foreground border border-black/10 bg-black/2 dark:border-white/10 dark:bg-white/3',
-                  isActive &&
-                    'bg-primary text-primary-foreground shadow-primary/25 shadow-sm'
-                )}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-      </div>
+      <CategoryFilter
+        categories={categories}
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+        selectedLabel={page.selected}
+        resultsLabel={page.results}
+        resultCount={resultCount}
+      />
     </SectionContainer>
   );
 };
