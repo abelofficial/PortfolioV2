@@ -20,12 +20,8 @@ import TechStackSkeleton from '@components/techStack/skeleton';
 import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
 import TestimonialsSkeleton from '@components/testimonials/skeleton';
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}): Promise<Metadata> {
-  const { locale } = await params;
+export async function generateMetadata(): Promise<Metadata> {
+  const locale = 'en'; // Default to English if locale is not provided
   const data: { homePage: HomePage } & SiteMetaTags = await datoCMS({
     query: getCombinedQuery([homePageQuery, siteMetaTagsQuery]),
     variables: { locale: locale },
@@ -37,12 +33,8 @@ export async function generateMetadata({
   );
 }
 
-const LocaleHome = async ({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) => {
-  const { locale } = await params;
+const DefaultHome = async () => {
+  const locale = 'en'; // Default to English if locale is not provided
 
   return (
     <MainPageContainer>
@@ -72,4 +64,4 @@ const LocaleHome = async ({
   );
 };
 
-export default LocaleHome;
+export default DefaultHome;
