@@ -1,5 +1,7 @@
 import { SectionContainer } from '@components/ui/custom-container';
 import { Skeleton } from '@components/ui/skeleton';
+import { ContentSkeleton } from '@components/ui/content-skeleton';
+import ChapterNavigationSkeleton from '@components/bookSummary/ChapterNavigation/skeleton';
 
 const BookSummarySkeleton = () => {
   return (
@@ -44,27 +46,10 @@ const BookSummarySkeleton = () => {
       </SectionContainer>
 
       {/* Content */}
-      <div className="flex flex-col gap-4 p-4">
-        {/* Paragraphs */}
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex flex-col gap-2">
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-            <Skeleton className="h-4 w-4/5" />
-          </div>
-        ))}
+      <ContentSkeleton paragraphCount={4} />
 
-        {/* More paragraphs */}
-        {Array.from({ length: 2 }).map((_, i) => (
-          <div key={i} className="flex flex-col gap-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
-          </div>
-        ))}
-      </div>
+      {/* Chapters List */}
+      <ChapterNavigationSkeleton />
     </div>
   );
 };
