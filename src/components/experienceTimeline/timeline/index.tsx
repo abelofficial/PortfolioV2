@@ -27,69 +27,94 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   // Measure full timeline height for the rail container
   useLayoutEffect(() => {
     if (!contentRef.current) return;
-    const el = contentRef.current;
 
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) setHeight(entry.contentRect.height);
+    const measure = () => {
+      if (contentRef.current) {
+        setHeight(contentRef.current.scrollHeight);
+      }
+    };
+
+    measure();
+
+    const ro = new ResizeObserver(() => {
+      measure();
     });
 
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, []);
+    ro.observe(contentRef.current);
+    window.addEventListener('resize', measure);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', measure);
+    };
+  }, [sorted.length]);
 
   // Rail progress animation
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 70%', 'end 85%'],
+    offset: ['start 80%', 'end 50%'],
   });
 
   const heightTransform = useTransform(scrollYProgress, [0, 1], [0, height]);
 
-  // Active dot highlight while scrolling
+  // Active dot highlight while scrolling - with debouncing to prevent flickering
   useEffect(() => {
     const nodes = itemRefs.current.filter(Boolean) as HTMLDivElement[];
     if (nodes.length === 0) return;
 
-    let rafId: number | null = null;
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+    let pendingIndex: number | null = null;
+
+    const updateActiveIndex = (index: number) => {
+      if (pendingIndex === index) return;
+      pendingIndex = index;
+
+      if (timeoutId) clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        setActiveIndex(index);
+        pendingIndex = null;
+      }, 100);
+    };
 
     const obs = new IntersectionObserver(
       (entries) => {
-        // Pick the entry that is most visible in the "center band"
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort(
-            (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0)
-          )[0];
+        // Find the most visible entry
+        let bestEntry: IntersectionObserverEntry | undefined;
+        let bestRatio = 0;
 
-        if (!visible) return;
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio > bestRatio) {
+            bestRatio = entry.intersectionRatio;
+            bestEntry = entry;
+          }
+        }
 
-        const nextIndex = Number(
-          (visible.target as HTMLElement).getAttribute('data-index') ?? 0
-        );
-
-        // Avoid thrashing state updates
-        if (rafId) cancelAnimationFrame(rafId);
-        rafId = requestAnimationFrame(() => setActiveIndex(nextIndex));
+        if (bestEntry) {
+          const nextIndex = Number(
+            (bestEntry.target as HTMLElement).getAttribute('data-index') ?? 0
+          );
+          updateActiveIndex(nextIndex);
+        }
       },
       {
-        // Center band – makes active feel intentional, not jumpy
         root: null,
-        rootMargin: '-40% 0px -45% 0px',
-        threshold: [0.15, 0.25, 0.4, 0.6, 0.8],
+        rootMargin: '-30% 0px -50% 0px',
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
       }
     );
 
     nodes.forEach((n) => obs.observe(n));
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
+      if (timeoutId) clearTimeout(timeoutId);
       obs.disconnect();
     };
   }, [sorted.length]);
 
   return (
     <div ref={containerRef} className="relative w-full font-sans">
-      <div ref={contentRef} className="relative mx-auto max-w-6xl pt-10">
+      <div ref={contentRef} className="relative mx-auto max-w-6xl pt-6">
         {/* Rail (base + animated fill) */}
         <div
           style={{ height: `${height}px` }}
@@ -111,50 +136,52 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               ref={(el) => {
                 itemRefs.current[index] = el;
               }}
-              className="relative pb-10 pl-10 md:pl-14"
+              className="relative pb-6 pl-10 md:pl-14"
             >
               <div className="absolute top-2 left-2.5 md:left-4.5">
                 <div
-                  className={`relative rounded-full transition-transform duration-300 ${isActive ? 'h-4 w-4' : 'h-3.5 w-3.5'} `}
+                  className={cn(
+                    'relative rounded-full transition-all duration-500 ease-out',
+                    isActive ? 'h-4 w-4' : 'h-3.5 w-3.5'
+                  )}
                 >
                   {/* core dot */}
                   <div
-                    className={`absolute inset-0 rounded-full transition-transform duration-300 ${
+                    className={cn(
+                      'absolute inset-0 rounded-full transition-all duration-500 ease-out',
                       isActive
                         ? 'bg-primary opacity-100'
                         : 'bg-primary/40 dark:bg-primary/35 opacity-70'
-                    } `}
+                    )}
                   />
 
                   {/* glow */}
                   <div
-                    className={`absolute inset-0 rounded-full blur-sm transition-opacity duration-300 ${
-                      isActive
-                        ? 'bg-primary opacity-90'
-                        : 'bg-primary opacity-10'
-                    } `}
+                    className={cn(
+                      'bg-primary absolute inset-0 rounded-full blur-sm transition-opacity duration-500 ease-out',
+                      isActive ? 'opacity-90' : 'opacity-10'
+                    )}
                   />
 
                   {/* active ring */}
                   <div
-                    className={`ring-primary/20 absolute inset-0 rounded-full ring-4 transition-opacity duration-300 ${isActive ? 'opacity-100' : 'opacity-0'} `}
+                    className={cn(
+                      'ring-primary/20 absolute inset-0 rounded-full ring-4 transition-opacity duration-500 ease-out',
+                      isActive ? 'opacity-100' : 'opacity-0'
+                    )}
                   />
                 </div>
               </div>
 
-              {/* Card hover lift on desktop */}
-              <div
-                className={
-                  'rounded-2xl border border-black/5 bg-black/2 p-4 transition-transform duration-200 dark:border-white/10 dark:bg-white/3'
-                }
-              >
-                {/* Date/title */}
-                <h3 className="text-muted-foreground mb-3 text-sm font-semibold tracking-wide">
+              {/* Card */}
+              <div className="rounded-2xl border border-black/5 bg-black/2 p-4 transition-transform duration-200 dark:border-white/10 dark:bg-white/3">
+                {/* Date */}
+                <p className="text-muted-foreground mb-2 text-xs font-medium tracking-wide">
                   {item.title}
-                </h3>
+                </p>
 
                 {/* Entry content */}
-                <div className="space-y-2">{item.content}</div>
+                <div>{item.content}</div>
               </div>
             </div>
           );

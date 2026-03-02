@@ -1,5 +1,6 @@
 import { SectionContainer } from '@components/ui/custom-container';
 import { Skeleton } from '@components/ui/skeleton';
+import { ContentSkeleton } from '@components/ui/content-skeleton';
 
 const TechnicalLedgerSkeleton = () => {
   return (
@@ -22,30 +23,7 @@ const TechnicalLedgerSkeleton = () => {
       </SectionContainer>
 
       {/* Content */}
-      <div className="flex flex-col gap-4 p-4">
-        {/* Paragraphs */}
-        {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="flex flex-col gap-2">
-            <Skeleton className="h-6 w-48" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-            <Skeleton className="h-4 w-4/5" />
-          </div>
-        ))}
-
-        {/* Code block skeleton */}
-        <Skeleton className="h-40 w-full rounded-lg" />
-
-        {/* More paragraphs */}
-        {Array.from({ length: 2 }).map((_, i) => (
-          <div key={i} className="flex flex-col gap-2">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-3/4" />
-          </div>
-        ))}
-      </div>
+      <ContentSkeleton paragraphCount={4} hasCodeBlock />
     </div>
   );
 };

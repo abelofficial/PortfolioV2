@@ -135,7 +135,7 @@ const SummariesList = ({
                     </div>
 
                     {/* Tags and Chapter Progress Row */}
-                    <div className="flex items-end justify-between gap-2">
+                    <div className="flex items-center justify-between gap-2">
                       {/* Tags */}
                       <div className="flex flex-1 flex-wrap gap-2">
                         {summary.tags?.length > 0 &&

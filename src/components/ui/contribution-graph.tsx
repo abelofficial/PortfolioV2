@@ -377,7 +377,10 @@ export const ContributionGraphCalendar = ({
 
   return (
     <div
-      className={cn('max-w-full overflow-x-auto overflow-y-hidden', className)}
+      className={cn(
+        'scrollbar-none max-w-full overflow-x-auto overflow-y-hidden',
+        className
+      )}
       {...props}
     >
       <svg

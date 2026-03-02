@@ -4,16 +4,9 @@ import {
   allTechnicalLedgersQuery,
   technicalLedgerPageQuery,
 } from '@/lib/queries';
-import {
-  TechnicalLedger,
-  TechnicalLedgerForPrompt,
-  TechnicalLedgerPage,
-} from '@/types';
+import { TechnicalLedgerForPrompt, TechnicalLedgerPage } from '@/types';
 import { embedAndSeedChunksToVectorDb } from '@/scripts/seed';
-import {
-  TechnicalLedgerPageSeedChunk,
-  TechnicalLedgerPromptNoteSeedChunk,
-} from '@/scripts/types';
+import { TechnicalLedgerPromptNoteSeedChunk } from '@/scripts/types';
 
 async function seed() {
   console.log('🚀 Starting Technical Ledger seed process...');
@@ -22,7 +15,6 @@ async function seed() {
     // 1. Fetch the data from DatoCMS
     const {
       allTechnicalLedgers,
-      technicalLedgersPage,
     }: {
       allTechnicalLedgers: TechnicalLedgerForPrompt[];
       technicalLedgersPage: TechnicalLedgerPage;
@@ -50,30 +42,6 @@ async function seed() {
     process.exit(1);
   }
 }
-
-const getLedgersPageSeedData = (
-  ledgersList: TechnicalLedgerForPrompt[],
-  page: TechnicalLedgerPage
-): TechnicalLedgerPageSeedChunk[] => {
-  const categories = `[${new Set(ledgersList.map((ledger) => ledger.category))
-    .values()
-    .map((category) => category + ', ')}]`;
-
-  const titles = ledgersList.map((ledger) => `- ${ledger.title}\n`);
-
-  return ledgersList.map((ledger) => ({
-    metadata: {
-      id: page.id,
-      type: 'technical-ledger-page',
-    },
-    text: `[Type]: Page\n
-    [Page Title]: ${page.title}\n 
-    [Page Description]: [${page.description}]\n
-    [Categories]: ${categories}\n
-    [Ledgers Count]: ${ledgersList.length}\n
-    [Ledgers Titles]: [${titles}]`,
-  }));
-};
 
 const getLedgersPromptNotesSeedData = (
   note: TechnicalLedgerForPrompt

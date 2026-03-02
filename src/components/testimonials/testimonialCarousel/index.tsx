@@ -8,8 +8,8 @@ import {
   CarouselItem,
 } from '@components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
-import { CardContent, CardFooter } from '@components/ui/card';
 import { SectionContainer } from '@components/ui/custom-container';
+import { Quote } from 'lucide-react';
 
 export interface TestimonialCarouselProps {
   allTestimonials: Testimonial[];
@@ -31,30 +31,35 @@ const TestimonialCarousel = ({
       onMouseEnter={plugin.current.stop}
       onMouseLeave={plugin.current.reset}
     >
-      <CarouselContent className="gap-3">
+      <CarouselContent className="items-stretch gap-3">
         {allTestimonials.map((testimonial) => (
-          <CarouselItem key={testimonial.id}>
+          <CarouselItem key={testimonial.id} className="flex">
             <SectionContainer
               disablePattern
-              className="bg-black/3 dark:bg-white/3"
+              className="flex h-full flex-1 bg-black/3 dark:bg-white/3"
             >
-              <CardContent className="m-0 max-w-3xl self-center px-4 pt-2 pb-4">
-                <blockquote className="text-foreground/90 text-center text-[15px] leading-relaxed italic md:text-base">
-                  <span className="text-primary/70">&ldquo;</span>
-                  {testimonial.text}
-                  <span className="text-primary/70">&rdquo;</span>
-                </blockquote>
-              </CardContent>
+              <div className="flex max-w-2xl flex-1 flex-col items-center justify-center gap-4 self-center px-4 py-4">
+                {/* Quote icon */}
+                <Quote className="text-primary/40 h-6 w-6 rotate-180" />
 
-              <CardFooter className="flex justify-center pb-6">
-                <p className="text-muted-foreground text-sm">
-                  <span className="font-medium">{testimonial.name}</span>{' '}
-                  <span className="text-primary font-semibold">
+                {/* Testimonial text */}
+                <blockquote className="text-foreground/90 text-center text-xs leading-relaxed md:text-sm">
+                  {testimonial.text}
+                </blockquote>
+
+                {/* Author info */}
+                <div className="flex flex-col items-center gap-0.5">
+                  <p className="text-foreground text-xs font-semibold">
+                    {testimonial.name}
+                  </p>
+                  <p className="text-muted-foreground text-[10px]">
                     {testimonial.workPosition} {homePage.at}{' '}
-                    {testimonial.workPlace}
-                  </span>
-                </p>
-              </CardFooter>
+                    <span className="text-primary-light font-medium">
+                      {testimonial.workPlace}
+                    </span>
+                  </p>
+                </div>
+              </div>
             </SectionContainer>
           </CarouselItem>
         ))}

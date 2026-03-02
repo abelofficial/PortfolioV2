@@ -12,6 +12,7 @@ import languages from '@/utils/languages';
 const Toolbar = () => {
   const pathname = usePathname();
   const { locale } = useParams();
+
   const isHomePageChecker = () =>
     languages.some(
       (lang) =>
@@ -20,7 +21,7 @@ const Toolbar = () => {
 
   const getClassName = (checker: () => boolean) => {
     return cn(
-      ['size-5'],
+      ['size-4'],
       checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']
     );
   };
@@ -52,10 +53,10 @@ const Toolbar = () => {
       </DockIcon>
       <Separator orientation="vertical" />
       <DockIcon>
-        <LanguageSwitcher className="size-5" />
+        <LanguageSwitcher className="size-4" />
       </DockIcon>
       <DockIcon>
-        <AnimatedThemeToggler className="size-5" aria-label="Change theme" />
+        <AnimatedThemeToggler className="size-4" aria-label="Change theme" />
       </DockIcon>
     </Dock>
   );

@@ -186,7 +186,7 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background-color: oklch(0.7 0.2 45);
+    background-color: var(--primary-light);
     border-radius: 1rem;
     box-shadow:
       0 1px 3px 0 rgb(0 0 0 / 0.1),
@@ -195,7 +195,16 @@
 
   .custom-scrollbar {
     scrollbar-width: thin;
-    scrollbar-color: oklch(0.7 0.2 45) transparent;
+    scrollbar-color: var(--primary-light) transparent;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }
 
