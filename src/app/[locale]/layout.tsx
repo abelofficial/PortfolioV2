@@ -1,27 +1,16 @@
 import '../globals.css';
 import { ThemeProvider } from 'next-themes';
-import { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
 import languages from '@/utils/languages';
 import {
-  MainPageContainer,
   MultiSectionLayout,
   SidebarContainer,
 } from '@components/ui/custom-container';
 import Toolbar from '@components/toolbar';
 import ChatAI from '@components/chatAI';
 import { AnimatedPageContent } from '@components/ui/animated-page-content';
-import { Suspense } from 'react';
-import ProfileSkeleton from '@components/profile/skeleton';
-import Profile from '@components/profile';
-import TechStackSkeleton from '@components/techStack/skeleton';
-import TechStack from '@components/techStack';
-import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
-import ExperienceTimeline from '@components/experienceTimeline';
-import TestimonialsSkeleton from '@components/testimonials/skeleton';
-import Testimonials from '@components/testimonials';
 import Footer from '@components/footer';
 import { FullChatBoxData } from '@/types';
 import { datoCMS } from '@services/datoCMS';

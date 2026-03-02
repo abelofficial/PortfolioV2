@@ -1,7 +1,6 @@
 import { CardContent, CardHeader } from '@components/ui/card';
 import { getGithubContributions } from '@services/githubFetch';
 import { SectionContainer } from '@components/ui/custom-container';
-import Image from 'next/image';
 import ContributionCalendar from '@components/profile/contributionCalendar';
 import React from 'react';
 import { ContactInfo, HomePage } from '@/types';
