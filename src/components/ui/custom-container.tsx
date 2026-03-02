@@ -17,7 +17,7 @@ export const SidebarContainer = ({ children }: SidebarContainerProps) => {
           'xl:mask-[radial-gradient(400px_circle_at_center,white,transparent)]'
         )}
       />
-      <div className="relative flex w-full max-w-4xl flex-col items-center gap-5 px-5 pb-5">
+      <div className="relative flex w-full max-w-4xl flex-col items-center gap-3 px-3 pb-3 xl:gap-5 xl:px-5 xl:pb-5">
         {children}
       </div>
     </div>
