@@ -64,7 +64,7 @@ const Profile = async ({ locale }: ProfileProps) => {
                 target="_blank"
                 rel="noreferrer"
                 href={contact.address}
-                className="group text-muted-foreground hover:text-primary-light inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/5 px-2 py-1 text-sm transition hover:bg-black/10 md:text-base dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10"
+                className="group text-muted-foreground hover:text-primary-light inline-flex items-center gap-2 rounded-full border border-black/10 bg-transparent px-2 py-1 text-sm transition md:text-base dark:border-white/10"
               >
                 <SRCImage
                   usePlaceholder

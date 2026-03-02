@@ -14,14 +14,15 @@ const TimelineCard = ({ data }: TimelineCardProps) => {
       </div>
 
       {/* Title and Place */}
-      <div className="flex flex-wrap items-center gap-1">
-        <p className="text-primary-light text-xs font-semibold">{data.title}</p>
-        <span className="text-muted-foreground text-[10px]">|</span>
-        <span className="text-muted-foreground text-[10px]">{data.place}</span>
+      <div className="flex flex-col items-start gap-1.5">
+        <span className="text-primary-light text-sm font-semibold">
+          {data.title}
+        </span>
+        <span className="text-muted-foreground text-xs">{data.place}</span>
       </div>
 
       {/* Content bullets */}
-      <ul className="text-muted-foreground space-y-1 text-xs leading-relaxed">
+      <ul className="text-foreground/80 space-y-1.5 text-sm leading-relaxed">
         {data.content.split('*').map((content, index) =>
           content.trim() ? (
             <li key={data.id + index} className="flex gap-2">
