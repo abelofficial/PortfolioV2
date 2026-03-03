@@ -28,7 +28,7 @@ const CodeBlock = async ({ code, language }: CodeBlockProps) => {
       </div>
 
       <div
-        className="shiki-container overflow-x-auto bg-[#24292e] p-4 text-sm leading-relaxed"
+        className="shiki-container overflow-x-auto bg-[#24292e] p-4 text-xs leading-relaxed"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>

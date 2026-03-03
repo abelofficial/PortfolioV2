@@ -246,11 +246,23 @@ export interface HomePage {
   months: string;
   totalContributionLabel: string;
   techStackTitle: string;
+  footer: string;
+  footerTagline: string;
+  footerConnectLabel: string;
+  footerBuiltWithLabel: string;
   chatBox: ChatBoxInfo;
   _seoMetaTags: TitleMetaLinkTag[];
   avatar: {
     responsiveImage: ResponsiveImageType;
   };
+}
+
+export interface FooterData {
+  name: string;
+  footer: string;
+  footerTagline: string;
+  footerConnectLabel: string;
+  footerBuiltWithLabel: string;
 }
 
 export interface ChatBoxInfo {

@@ -114,13 +114,15 @@ const SummariesList = ({
                           >
                             {summary.category}
                           </Badge>
-                          <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary size-4 shrink-0 opacity-0 transition-transform group-hover:opacity-100" />
                         </div>
 
                         {/* Title */}
-                        <h2 className="group-hover:text-primary line-clamp-2 text-base leading-snug font-bold transition-colors md:text-sm">
-                          {summary.title}
-                        </h2>
+                        <div className="flex items-center gap-1">
+                          <h2 className="group-hover:text-primary line-clamp-2 text-base leading-snug font-bold transition-colors md:text-sm">
+                            {summary.title}
+                          </h2>
+                          <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary size-4 shrink-0 opacity-0 transition-transform group-hover:opacity-100" />
+                        </div>
 
                         {/* Author */}
                         <p className="text-muted-foreground text-xs font-medium">
