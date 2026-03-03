@@ -35,9 +35,9 @@ const TechStack = async ({ locale }: TechStackProps) => {
           {allTechstacks.map((techStack) => (
             <div
               key={techStack.id}
-              className="group flex w-[110px] flex-none flex-col items-center justify-center gap-2 sm:w-[130px] xl:w-[150px]"
+              className="group flex w-15.5 flex-none flex-col items-center justify-center gap-2 sm:w-25"
             >
-              <div className="relative h-10 w-10 transition-transform duration-300 group-hover:scale-110 sm:h-12 sm:w-12 lg:h-14 lg:w-14">
+              <div className="relative h-8 w-8 transition-transform duration-300 group-hover:scale-110 sm:h-10 sm:w-10">
                 <Image
                   src={techStack.icon.url}
                   fill

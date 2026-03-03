@@ -134,6 +134,9 @@ export const homePageQuery = `
         aiTypingIndicator
         techStackTitle
         footer
+        footerTagline
+        footerConnectLabel
+        footerBuiltWithLabel
         chatInputPlaceholder
         avatar {
             url
@@ -168,6 +171,16 @@ export const testimonialsQuery = `
         workPlace
         workPosition
     }     
+`;
+
+export const footerQuery = `
+    homePage(locale: $locale) {
+        name
+        footer
+        footerTagline
+        footerConnectLabel
+        footerBuiltWithLabel
+    }
 `;
 
 export const workExperienceQuery = `

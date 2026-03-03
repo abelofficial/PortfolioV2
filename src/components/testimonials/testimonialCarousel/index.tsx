@@ -52,7 +52,7 @@ const TestimonialCarousel = ({
                   <p className="text-foreground text-xs font-semibold">
                     {testimonial.name}
                   </p>
-                  <p className="text-muted-foreground text-[10px]">
+                  <p className="text-muted-foreground text-xs">
                     {testimonial.workPosition} {homePage.at}{' '}
                     <span className="text-primary-light font-medium">
                       {testimonial.workPlace}

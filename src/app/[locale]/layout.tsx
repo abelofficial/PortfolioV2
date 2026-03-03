@@ -72,7 +72,7 @@ export default async function RootLayout({
           >
             <AnimatedPageContent>
               {children}
-              <Footer />
+              <Footer locale={locale} />
             </AnimatedPageContent>
           </MultiSectionLayout>
         </ThemeProvider>
