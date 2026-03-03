@@ -21,7 +21,7 @@ const Toolbar = () => {
 
   const getClassName = (checker: () => boolean) => {
     return cn(
-      ['size-4'],
+      ['size-8'],
       checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']
     );
   };

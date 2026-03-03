@@ -1,11 +1,12 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useCallback } from 'react';
 import { Sparkles } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { UIMessage } from '@ai-sdk/react';
 import TypingDots from '@components/chatAI/TypingDots';
+import { useChatContext } from '@components/chatAI/ChatContext';
 
 export interface ChatMessagesProps {
   ref?: React.Ref<HTMLDivElement>;
@@ -14,6 +15,18 @@ export interface ChatMessagesProps {
 }
 
 const ChatMessages = memo(({ ref, messages, isLoading }: ChatMessagesProps) => {
+  const { closeChat } = useChatContext();
+  const router = useRouter();
+
+  const handleLinkClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      closeChat();
+      router.push(href);
+    },
+    [closeChat, router]
+  );
+
   return (
     <div className="relative min-h-0 flex-1">
       <div className="from-card pointer-events-none absolute top-0 left-0 z-10 h-8 w-full bg-linear-to-b to-transparent" />
@@ -48,12 +61,15 @@ const ChatMessages = memo(({ ref, messages, isLoading }: ChatMessagesProps) => {
                     >
                       <ReactMarkdown
                         components={{
-                          a: ({ ...props }) => (
-                            <Link
+                          a: ({ href, children, ...props }) => (
+                            <a
                               {...props}
-                              href={props.href?.toString() || '#'}
-                              className="text-primary hover:underline"
-                            />
+                              href={href?.toString() || '#'}
+                              onClick={(e) => handleLinkClick(e, href || '#')}
+                              className="text-primary cursor-pointer hover:underline"
+                            >
+                              {children}
+                            </a>
                           ),
                         }}
                       >

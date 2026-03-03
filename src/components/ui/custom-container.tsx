@@ -112,7 +112,7 @@ export const SectionContainer = ({
       )}
       <div className="flex justify-between">
         {title && <h2 className="text-sm font-bold">{title}</h2>}
-        {title && headerAction}
+        {headerAction}
       </div>
       {children}
     </Card>
