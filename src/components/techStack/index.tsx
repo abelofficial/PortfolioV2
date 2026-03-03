@@ -31,7 +31,7 @@ const TechStack = async ({ locale }: TechStackProps) => {
       <div className="/* ✨ center-focus fade */ relative mt-2 rounded-2xl border border-black/5 bg-black/2 mask-[linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] px-4 py-6 [-webkit-mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] dark:border-white/10 dark:bg-white/3">
         <div className="pointer-events-none absolute inset-y-0 left-1/2 z-10 hidden w-[35%] -translate-x-1/2 bg-linear-to-r from-transparent via-white/20 to-transparent blur-2xl max-lg:block dark:via-white/10" />
 
-        <Marquee pauseOnHover className="[--duration:28s] [--gap:3rem]">
+        <Marquee pauseOnHover className="[--duration:40s] [--gap:3rem]">
           {allTechstacks.map((techStack) => (
             <div
               key={techStack.id}
