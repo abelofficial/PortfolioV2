@@ -20,10 +20,7 @@ const Toolbar = () => {
     );
 
   const getClassName = (checker: () => boolean) => {
-    return cn(
-      ['size-8'],
-      checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']
-    );
+    return cn(checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']);
   };
 
   return (

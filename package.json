@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next build && next start",
+    "start": "next start",
+    "buildAndStart": "next build && next start",
     "lint": "eslint",
     "seedLedgers": "tsx src/scripts/seedLedgers.ts",
     "seedLedgers:debug": "tsx --inspect-brk src/scripts/seedLedgers.ts",
