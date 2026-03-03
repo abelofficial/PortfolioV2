@@ -19,6 +19,7 @@
   "dependencies": {
     "@ai-sdk/openai": "^3.0.36",
     "@ai-sdk/react": "^3.0.106",
+    "@lottiefiles/dotlottie-react": "^0.18.3",
     "@upstash/ratelimit": "^2.0.8",
     "@upstash/redis": "^1.36.3",
     "@upstash/vector": "^1.2.2",
