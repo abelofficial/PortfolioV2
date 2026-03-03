@@ -33,6 +33,17 @@ const Footer = async ({ locale }: FooterProps) => {
       <div className="relative z-10 mx-auto max-w-4xl px-6 py-12 md:py-16">
         {/* Main Footer Content */}
         <div className="flex flex-col items-center gap-8">
+          {/* Tagline & Built With */}
+          <div className="flex flex-col items-center gap-3 text-center">
+            <p className="text-muted-foreground text-sm">
+              {homePage.footerTagline}
+            </p>
+            <p className="text-muted-foreground/60 text-xs">
+              {homePage.footerBuiltWithLabel}
+            </p>
+          </div>
+          <Separator className="w-full max-w-md bg-black/10 dark:bg-white/10" />
+
           {/* Connect Section */}
           <div className="flex flex-col items-center gap-4">
             <p className="text-muted-foreground/70 text-xs font-medium tracking-[0.25em] uppercase">
@@ -56,18 +67,6 @@ const Footer = async ({ locale }: FooterProps) => {
                 </a>
               ))}
             </div>
-          </div>
-
-          <Separator className="w-full max-w-md bg-black/10 dark:bg-white/10" />
-
-          {/* Tagline & Built With */}
-          <div className="flex flex-col items-center gap-3 text-center">
-            <p className="text-muted-foreground text-sm">
-              {homePage.footerTagline}
-            </p>
-            <p className="text-muted-foreground/60 text-xs">
-              {homePage.footerBuiltWithLabel}
-            </p>
           </div>
 
           {/* Copyright */}
