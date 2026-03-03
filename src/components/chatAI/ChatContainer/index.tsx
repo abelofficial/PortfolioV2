@@ -20,6 +20,7 @@ import ChatMessages from '@components/chatAI/ChatMessages';
 import ChatInput from '@components/chatAI/ChatInput';
 import ChatSuggestions from '@components/chatAI/ChatSuggestions';
 import { getChatBoxInfoFromPath } from '@/utils/chatBoxUtils';
+import { ChatContext } from '@components/chatAI/ChatContext';
 
 export interface ChatContainerProps {
   chatBoxData: FullChatBoxData;
@@ -112,6 +113,10 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
     setTimeout(() => inputRef.current?.focus(), 50);
   };
 
+  const closeChat = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
   const currentSuggestion =
     chatBoxInfo.questions[currentSuggestionIndex]?.singleQuestion;
 
@@ -121,7 +126,7 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
   }
 
   return (
-    <>
+    <ChatContext.Provider value={{ closeChat }}>
       <ChatToggleButton
         isOpen={isOpen}
         onToggle={() => setIsOpen((v) => !v)}
@@ -148,7 +153,7 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
               ) : null
             }
           >
-            <div className="flex h-full min-h-0 flex-col">
+            <div className="flex h-full min-h-0 flex-col pt-4">
               <div className="px-4 pt-3 pb-2">
                 <p className="text-muted-foreground/80 text-xs">
                   {chatBoxInfo.hint}
@@ -272,7 +277,7 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </ChatContext.Provider>
   );
 };
 
