@@ -2,7 +2,7 @@
 
 import { memo } from 'react';
 import { Sparkles } from 'lucide-react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import OptimizedLottie from '@components/ui/optimized-lottie';
 
 export interface ChatSuggestionsProps {
   questions: { singleQuestion: string }[];
@@ -18,7 +18,7 @@ const ChatSuggestions = memo(
           <Sparkles size={14} />
           {suggestionLabel}
         </div>
-        <DotLottieReact
+        <OptimizedLottie
           src="/anima-bot.lottie"
           loop
           autoplay

@@ -12,6 +12,7 @@ export interface CurrentlyReadingBook {
   slugId: string;
   title: string;
   author: string;
+  excerpt: string;
   category: string;
   bookImage: {
     responsiveImage: ResponsiveImageType;
@@ -73,7 +74,7 @@ const CurrentlyReadingSection = ({
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         {displayBooks.map((book, index) => {
           const publishedCount = book.chapters.filter(
             (c) => c.isPublished
@@ -113,13 +114,17 @@ const CurrentlyReadingSection = ({
                   </div>
 
                   {/* Content */}
-                  <div className="flex min-w-0 flex-1 flex-col justify-between gap-2">
+                  <div className="flex min-w-0 flex-1 flex-col justify-between gap-5">
                     <div>
                       <h3 className="group-hover:text-primary line-clamp-2 text-sm font-semibold transition-colors">
                         {book.title}
                       </h3>
                       <p className="text-muted-foreground text-xs">
                         {book.author}
+                      </p>
+                      {/* Excerpt */}
+                      <p className="text-muted-foreground line-clamp-4 text-xs leading-relaxed">
+                        {book.excerpt}
                       </p>
                     </div>
 
