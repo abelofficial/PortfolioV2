@@ -34,7 +34,34 @@ const WelcomeSection = ({
             {subtitle}
           </p>
         </div>
-
+        {stats && (
+          <div className="flex items-center justify-center gap-6">
+            <div className="flex flex-col items-center gap-0.5">
+              <span className="text-lg font-semibold">
+                {stats.technicalNotes}
+              </span>
+              <span className="text-muted-foreground text-xs">
+                {stats.technicalNotesLabel}
+              </span>
+            </div>
+            <div className="bg-border h-8 w-px" />
+            <div className="flex flex-col items-center gap-0.5">
+              <span className="text-lg font-semibold">
+                {stats.bookSummaries}
+              </span>
+              <span className="text-muted-foreground text-xs">
+                {stats.bookSummariesLabel}
+              </span>
+            </div>
+            <div className="bg-border h-8 w-px" />
+            <div className="flex flex-col items-center gap-0.5">
+              <span className="text-lg font-semibold">{stats.publicRepos}</span>
+              <span className="text-muted-foreground text-xs">
+                {stats.publicReposLabel}
+              </span>
+            </div>
+          </div>
+        )}
         <div className="flex flex-col items-center gap-4">
           {aboutLinkLabel && aboutLinkUrl && (
             <Link
@@ -44,37 +71,6 @@ const WelcomeSection = ({
               {aboutLinkLabel}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
-          )}
-
-          {stats && (
-            <div className="flex items-center justify-center gap-6">
-              <div className="flex flex-col items-center gap-0.5">
-                <span className="text-lg font-semibold">
-                  {stats.publicRepos}
-                </span>
-                <span className="text-muted-foreground text-xs">
-                  {stats.publicReposLabel}
-                </span>
-              </div>
-              <div className="bg-border h-8 w-px" />
-              <div className="flex flex-col items-center gap-0.5">
-                <span className="text-lg font-semibold">
-                  {stats.technicalNotes}
-                </span>
-                <span className="text-muted-foreground text-xs">
-                  {stats.technicalNotesLabel}
-                </span>
-              </div>
-              <div className="bg-border h-8 w-px" />
-              <div className="flex flex-col items-center gap-0.5">
-                <span className="text-lg font-semibold">
-                  {stats.bookSummaries}
-                </span>
-                <span className="text-muted-foreground text-xs">
-                  {stats.bookSummariesLabel}
-                </span>
-              </div>
-            </div>
           )}
         </div>
       </CardContent>
