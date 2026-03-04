@@ -63,15 +63,16 @@ const LandingContent = async ({ locale }: LandingContentProps) => {
       <WelcomeSection
         title={landingPage.welcomeTitle}
         subtitle={landingPage.welcomeSubtitle}
-      />
-
-      <CurrentlyReadingSection
-        locale={locale}
-        title={landingPage.currentlyReadingTitle}
-        description={landingPage.currentlyReadingDescription}
-        viewAllLabel={landingPage.viewAllLabel}
-        chaptersLabel={landingPage.chaptersLabel}
-        books={allBookSummaries}
+        aboutLinkLabel={landingPage.aboutLinkLabel}
+        aboutLinkUrl={`/${locale}/about`}
+        stats={{
+          publicRepos: visibleRepositories.length,
+          technicalNotes: allTechnicalLedgers.length,
+          bookSummaries: allBookSummaries.length,
+          publicReposLabel: landingPage.publicReposLabel,
+          technicalNotesLabel: landingPage.technicalNotesLabel,
+          bookSummariesLabel: landingPage.bookSummariesLabel,
+        }}
       />
 
       <LatestFindingsSection
@@ -81,6 +82,15 @@ const LandingContent = async ({ locale }: LandingContentProps) => {
         viewAllLabel={landingPage.viewAllLabel}
         minReadLabel="min"
         ledgers={allTechnicalLedgers}
+      />
+
+      <CurrentlyReadingSection
+        locale={locale}
+        title={landingPage.currentlyReadingTitle}
+        description={landingPage.currentlyReadingDescription}
+        viewAllLabel={landingPage.viewAllLabel}
+        chaptersLabel={landingPage.chaptersLabel}
+        books={allBookSummaries}
       />
 
       <CurrentlyWorkingOnSection

@@ -490,6 +490,10 @@ export interface LandingPage {
   id: string;
   welcomeTitle: string;
   welcomeSubtitle: string;
+  aboutLinkLabel: string;
+  publicReposLabel: string;
+  technicalNotesLabel: string;
+  bookSummariesLabel: string;
   currentlyReadingTitle: string;
   currentlyReadingDescription: string;
   latestFindingsTitle: string;

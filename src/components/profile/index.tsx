@@ -1,7 +1,5 @@
 import { CardContent, CardHeader } from '@components/ui/card';
-import { getGithubContributions } from '@services/githubFetch';
 import { SectionContainer } from '@components/ui/custom-container';
-import ContributionCalendar from '@components/profile/contributionCalendar';
 import React from 'react';
 import { ContactInfo, HomePage } from '@/types';
 import { datoCMS } from '@services/datoCMS';
@@ -21,8 +19,6 @@ const Profile = async ({ locale }: ProfileProps) => {
     query: getCombinedQuery([homePageQuery, contactsQuery]),
     variables: { locale: locale },
   });
-
-  const contributions = await getGithubContributions('abelofficial');
 
   return (
     <SectionContainer disablePattern>
@@ -76,15 +72,6 @@ const Profile = async ({ locale }: ProfileProps) => {
               </a>
             ))}
           </div>
-        </div>
-
-        <div className="mt-8 w-full opacity-95 md:mt-10 dark:opacity-90">
-          <Separator className="w-full bg-black/10 dark:bg-white/10" />
-          <ContributionCalendar
-            data={contributions.contributionsByDate}
-            totalContributions={contributions.totalContributions}
-            label={homePage.totalContributionLabel}
-          />
         </div>
       </CardContent>
     </SectionContainer>

@@ -490,6 +490,10 @@ export const landingPageQuery = `
         id
         welcomeTitle
         welcomeSubtitle
+        aboutLinkLabel
+        publicReposLabel
+        technicalNotesLabel
+        bookSummariesLabel
         currentlyReadingTitle
         currentlyReadingDescription
         latestFindingsTitle
