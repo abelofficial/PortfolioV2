@@ -15,6 +15,14 @@ import Footer from '@components/footer';
 import { FullChatBoxData } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, fullChatBoxQuery } from '@/lib/queries';
+import type { Viewport } from 'next';
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -59,7 +67,7 @@ export default async function RootLayout({
           <MultiSectionLayout
             sidebar={
               <SidebarContainer>
-                <div className="py-auto flex w-full flex-col gap-4 xl:h-full">
+                <div className="flex w-full max-w-4xl flex-col gap-3 px-3 pb-3 xl:gap-5 xl:px-5 xl:pb-5">
                   <div className="shrink-0">
                     <Toolbar />
                   </div>

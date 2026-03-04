@@ -171,6 +171,7 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
                   ref={messagesEndRef}
                   messages={messages}
                   isLoading={isLoading}
+                  locale={locale}
                 />
               )}
 
@@ -199,13 +200,13 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 18 }}
-            className="bg-background/80 fixed inset-0 z-100 flex items-end justify-center overflow-hidden overscroll-contain p-4 backdrop-blur-md xl:hidden"
+            className="bg-background/80 max-h-lvh/50 fixed inset-0 z-100 flex items-end justify-center overflow-hidden overscroll-contain p-4 backdrop-blur-md xl:hidden"
             style={{
               height: '100dvh',
               paddingBottom: 'env(safe-area-inset-bottom)',
             }}
           >
-            <div className="bg-card flex h-full w-full max-w-2xl flex-col overflow-hidden rounded-2xl shadow-2xl">
+            <div className="bg-card flex h-full w-full flex-col overflow-hidden rounded-2xl shadow-2xl">
               <SectionContainer
                 disablePattern
                 fullHeight
@@ -251,11 +252,11 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
                       ref={messagesEndRef}
                       messages={messages}
                       isLoading={isLoading}
+                      locale={locale}
                     />
                   )}
 
                   <ChatInput
-                    ref={inputRef}
                     input={input}
                     onInputChange={setInput}
                     onSubmit={handleFormSubmit}

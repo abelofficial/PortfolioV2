@@ -1,7 +1,6 @@
 'use client';
 
-import { X } from 'lucide-react';
-import OptimizedLottie from '@components/ui/optimized-lottie';
+import { MessageCircle, X } from 'lucide-react';
 
 export interface ChatToggleButtonProps {
   isOpen: boolean;
@@ -16,28 +15,24 @@ const ChatToggleButton = ({
 }: ChatToggleButtonProps) => {
   return (
     <div className="fixed right-3 bottom-3 z-50 xl:hidden">
-      {isOpen ? (
-        <button
-          onClick={onToggle}
-          className="bg-primary-light flex items-center gap-2 rounded-xl px-3 py-2 shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
-          aria-label={label}
-        >
+      <button
+        onClick={onToggle}
+        className="bg-primary-light flex items-center gap-2 rounded-xl px-3 py-2 shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
+        aria-label={label}
+      >
+        {isOpen ? (
           <X size={20} />
-        </button>
-      ) : (
-        <button
-          onClick={onToggle}
-          className="flex items-center justify-center overflow-hidden transition hover:scale-[1.02] active:scale-[0.98]"
-          aria-label={label}
-        >
-          <OptimizedLottie
-            src="/anima-bot.lottie"
-            loop
-            autoplay
-            className="h-30 w-25"
-          />
-        </button>
-      )}
+        ) : (
+          <>
+            <span className="flex items-center gap-1 text-base font-semibold text-neutral-800">
+              <MessageCircle size={15} className="text-neutral-900" />
+              <span className="text-sm font-semibold text-neutral-800">
+                {label}✨
+              </span>
+            </span>
+          </>
+        )}
+      </button>
     </div>
   );
 };

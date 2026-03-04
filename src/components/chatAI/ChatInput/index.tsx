@@ -26,7 +26,7 @@ const ChatInput = ({
   onSuggestionClick,
 }: ChatInputProps) => {
   return (
-    <div className="bg-card/60 shrink-0 border-t border-black/10 px-4 py-3 backdrop-blur dark:border-white/10">
+    <div className="bg-card/60 shrink-0 border-t border-black/10 px-3 py-2 backdrop-blur dark:border-white/10">
       {showSuggestion && currentSuggestion && (
         <div className="pb-2">
           <button
@@ -51,7 +51,7 @@ const ChatInput = ({
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={placeholder}
-            className="placeholder:text-muted-foreground/70 flex-1 bg-transparent text-sm outline-none"
+            className="placeholder:text-muted-foreground/70 flex-1 touch-manipulation bg-transparent text-base outline-none md:text-sm"
           />
 
           <button
