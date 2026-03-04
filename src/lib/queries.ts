@@ -539,6 +539,7 @@ export const currentlyReadingBooksQuery = `
         slugId
         title
         author
+        excerpt
         bookImage {
           responsiveImage(imgixParams: { fit: crop, w: 80, h: 120, auto: format }) {
             alt

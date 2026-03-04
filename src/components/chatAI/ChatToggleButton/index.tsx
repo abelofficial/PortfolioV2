@@ -1,7 +1,7 @@
 'use client';
 
 import { X } from 'lucide-react';
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import OptimizedLottie from '@components/ui/optimized-lottie';
 
 export interface ChatToggleButtonProps {
   isOpen: boolean;
@@ -30,7 +30,7 @@ const ChatToggleButton = ({
           className="flex items-center justify-center overflow-hidden transition hover:scale-[1.02] active:scale-[0.98]"
           aria-label={label}
         >
-          <DotLottieReact
+          <OptimizedLottie
             src="/anima-bot.lottie"
             loop
             autoplay

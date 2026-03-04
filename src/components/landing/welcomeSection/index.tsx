@@ -26,7 +26,7 @@ const WelcomeSection = ({
   stats,
 }: WelcomeSectionProps) => {
   return (
-    <SectionContainer disablePattern>
+    <SectionContainer>
       <CardContent className="flex flex-col items-center gap-6 py-8 text-center md:py-12">
         <div className="flex flex-col items-center gap-4">
           <h1 className="text-2xl font-bold md:text-4xl">{title}</h1>
