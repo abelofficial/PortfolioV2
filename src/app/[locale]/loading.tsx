@@ -1,9 +1,10 @@
 import { MainPageContainer } from '@components/ui/custom-container';
+import LandingSkeleton from '@components/landing/skeleton';
 
 const Loading = () => {
   return (
     <MainPageContainer>
-      <div>{/* Loading... */}</div>
+      <LandingSkeleton />
     </MainPageContainer>
   );
 };

@@ -3,6 +3,7 @@ import {
   ContributionData,
   ContributionLevel,
   GithubGraphQLResponse,
+  GithubRepository,
 } from '@/types';
 
 const GITHUB_API_URL = 'https://api.github.com';
@@ -77,4 +78,26 @@ export const getGithubContributions = async (
       }))
     ),
   };
+};
+
+export const getGithubRepositories = async (
+  username: string,
+  limit: number = 6
+): Promise<GithubRepository[]> => {
+  const response = await fetch(
+    `${GITHUB_API_URL}/users/${username}/repos?sort=pushed&direction=desc&per_page=${limit}&type=public`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.ACCOUNT_GITHUB_TOKEN}`,
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 3600 }, // Cache for 1 hour
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`GitHub API Error: ${response.statusText}`);
+  }
+
+  return response.json();
 };

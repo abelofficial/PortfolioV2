@@ -462,3 +462,54 @@ export interface ContributionDay {
   count: number;
   level: number;
 }
+
+export interface GithubRepository {
+  id: number;
+  name: string;
+  full_name: string;
+  description: string | null;
+  html_url: string;
+  homepage: string | null;
+  language: string | null;
+  stargazers_count: number;
+  forks_count: number;
+  watchers_count: number;
+  open_issues_count: number;
+  topics: string[];
+  pushed_at: string;
+  updated_at: string;
+  created_at: string;
+  visibility: string;
+}
+
+export interface LandingPageData {
+  landingPage: LandingPage;
+}
+
+export interface LandingPage {
+  id: string;
+  welcomeTitle: string;
+  welcomeSubtitle: string;
+  currentlyReadingTitle: string;
+  currentlyReadingDescription: string;
+  latestFindingsTitle: string;
+  latestFindingsDescription: string;
+  currentlyWorkingOnTitle: string;
+  currentlyWorkingOnDescription: string;
+  viewAllLabel: string;
+  viewProjectLabel: string;
+  chaptersLabel: string;
+  starsLabel: string;
+  forksLabel: string;
+  updatedLabel: string;
+  hiddenPublicRepositories: string;
+  languageColors: LanguageColor[];
+  _seoMetaTags: TitleMetaLinkTag[];
+}
+
+export interface LanguageColor {
+  language: string;
+  color: {
+    hex: string;
+  };
+}
