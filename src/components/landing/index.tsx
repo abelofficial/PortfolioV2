@@ -60,49 +60,57 @@ const LandingContent = async ({ locale }: LandingContentProps) => {
 
   return (
     <div className="flex flex-col gap-6">
-      <WelcomeSection
-        title={landingPage.welcomeTitle}
-        subtitle={landingPage.welcomeSubtitle}
-        aboutLinkLabel={landingPage.aboutLinkLabel}
-        aboutLinkUrl={`/${locale}/about`}
-        stats={{
-          publicRepos: visibleRepositories.length,
-          technicalNotes: allTechnicalLedgers.length,
-          bookSummaries: allBookSummaries.length,
-          publicReposLabel: landingPage.publicReposLabel,
-          technicalNotesLabel: landingPage.technicalNotesLabel,
-          bookSummariesLabel: landingPage.bookSummariesLabel,
-        }}
-      />
+      <div id="welcome">
+        <WelcomeSection
+          title={landingPage.welcomeTitle}
+          subtitle={landingPage.welcomeSubtitle}
+          aboutLinkLabel={landingPage.aboutLinkLabel}
+          aboutLinkUrl={`/${locale}/about`}
+          stats={{
+            publicRepos: visibleRepositories.length,
+            technicalNotes: allTechnicalLedgers.length,
+            bookSummaries: allBookSummaries.length,
+            publicReposLabel: landingPage.publicReposLabel,
+            technicalNotesLabel: landingPage.technicalNotesLabel,
+            bookSummariesLabel: landingPage.bookSummariesLabel,
+          }}
+        />
+      </div>
 
-      <LatestFindingsSection
-        locale={locale}
-        title={landingPage.latestFindingsTitle}
-        description={landingPage.latestFindingsDescription}
-        viewAllLabel={landingPage.viewAllLabel}
-        minReadLabel="min"
-        ledgers={allTechnicalLedgers}
-      />
+      <div id="latest-findings">
+        <LatestFindingsSection
+          locale={locale}
+          title={landingPage.latestFindingsTitle}
+          description={landingPage.latestFindingsDescription}
+          viewAllLabel={landingPage.viewAllLabel}
+          minReadLabel="min"
+          ledgers={allTechnicalLedgers}
+        />
+      </div>
 
-      <CurrentlyReadingSection
-        locale={locale}
-        title={landingPage.currentlyReadingTitle}
-        description={landingPage.currentlyReadingDescription}
-        viewAllLabel={landingPage.viewAllLabel}
-        chaptersLabel={landingPage.chaptersLabel}
-        books={allBookSummaries}
-      />
+      <div id="currently-reading">
+        <CurrentlyReadingSection
+          locale={locale}
+          title={landingPage.currentlyReadingTitle}
+          description={landingPage.currentlyReadingDescription}
+          viewAllLabel={landingPage.viewAllLabel}
+          chaptersLabel={landingPage.chaptersLabel}
+          books={allBookSummaries}
+        />
+      </div>
 
-      <CurrentlyWorkingOnSection
-        title={landingPage.currentlyWorkingOnTitle}
-        description={landingPage.currentlyWorkingOnDescription}
-        viewProjectLabel={landingPage.viewProjectLabel}
-        starsLabel={landingPage.starsLabel}
-        forksLabel={landingPage.forksLabel}
-        updatedLabel={landingPage.updatedLabel}
-        languageColors={landingPage.languageColors}
-        repositories={visibleRepositories}
-      />
+      <div id="currently-working-on">
+        <CurrentlyWorkingOnSection
+          title={landingPage.currentlyWorkingOnTitle}
+          description={landingPage.currentlyWorkingOnDescription}
+          viewProjectLabel={landingPage.viewProjectLabel}
+          starsLabel={landingPage.starsLabel}
+          forksLabel={landingPage.forksLabel}
+          updatedLabel={landingPage.updatedLabel}
+          languageColors={landingPage.languageColors}
+          repositories={visibleRepositories}
+        />
+      </div>
     </div>
   );
 };

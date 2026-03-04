@@ -216,6 +216,13 @@ const getLandingPageSeedChunk = (
     })
     .join('\n');
 
+  const landingSectionLinks = {
+    welcome: `${BASE_URL}/en#welcome`,
+    latestFindings: `${BASE_URL}/en#latest-findings`,
+    currentlyReading: `${BASE_URL}/en#currently-reading`,
+    currentlyWorkingOn: `${BASE_URL}/en#currently-working-on`,
+  };
+
   const text = `[Type]: Landing Page
 [Page Title]: ${landingPage.welcomeTitle}
 [Page Description]: ${landingPage.welcomeSubtitle}
@@ -237,6 +244,12 @@ ${latestLedgersList || '  - No technical ledgers yet'}
 [Currently Working On - GitHub Projects]:
 Active open-source projects and repositories:
 ${repositoriesList || '  - No public repositories'}
+
+[Sections & Full Links]:
+- Welcome: fullLink => ${landingSectionLinks.welcome}
+- Latest Findings: fullLink => ${landingSectionLinks.latestFindings}
+- Currently Reading: fullLink => ${landingSectionLinks.currentlyReading}
+- Currently Working On: fullLink => ${landingSectionLinks.currentlyWorkingOn}
 
 [Statistics]:
 - Total Public Repositories: ${repositories.length}
@@ -279,6 +292,13 @@ const getAboutPageSeedChunk = (
     )
     .join('\n');
 
+  const sectionLinks = {
+    profile: `${BASE_URL}/en/about#profile`,
+    tech: `${BASE_URL}/en/about#tech`,
+    experience: `${BASE_URL}/en/about#experience`,
+    testimonials: `${BASE_URL}/en/about#testimonials`,
+  };
+
   const text = `[Type]: About Page
 [Page Title]: About ${homePage.name}
 [Job Title]: ${homePage.jobTitle}
@@ -297,11 +317,10 @@ ${techStackList || '  - No tech stack listed'}
 ${testimonialsList || '  - No testimonials yet'}
 
 [Sections Available]:
-- Profile: Personal information and introduction
-- Tech Stack: Technologies and tools Abel uses
-- Work Experience: Professional experience timeline
-- Education: Educational background
-- Testimonials: What colleagues say about working with Abel
+- Profile: ${sectionLinks.profile}
+- Tech Stack: ${sectionLinks.tech}
+- Work Experience: ${sectionLinks.experience}
+- Testimonials: ${sectionLinks.testimonials}
 
 [Contact]:
 ${homePage.connect}
@@ -344,6 +363,11 @@ const getTechnicalLedgersPageSeedChunk = (
     )
     .join('\n');
 
+  const technicalLedgersSectionLinks = {
+    filters: `${BASE_URL}/en/technical-ledgers#filters`,
+    list: `${BASE_URL}/en/technical-ledgers#ledger-list`,
+  };
+
   const text = `[Type]: Technical Ledgers List Page
 [Page Title]: ${technicalLedgersPage.title}
 [Page Description]: ${technicalLedgersPage.description}
@@ -360,6 +384,10 @@ ${categorySummary || '  - No categories yet'}
 
 [All Technical Ledgers]:
 ${ledgersList || '  - No technical ledgers yet'}
+
+[Sections & Deep Links]:
+- Filters: ${technicalLedgersSectionLinks.filters}
+- Ledger List: ${technicalLedgersSectionLinks.list}
 
 [Statistics]:
 - Total Technical Notes: ${ledgers.length}
@@ -421,6 +449,11 @@ const getBookSummariesPageSeedChunk = (
       })
       .join('\n');
 
+  const bookSummariesSectionLinks = {
+    filters: `${BASE_URL}/en/book-summaries#filters`,
+    list: `${BASE_URL}/en/book-summaries#book-list`,
+  };
+
   const text = `[Type]: Book Summaries List Page
 [Page Title]: ${bookSummaryPage.title}
 [Page Description]: ${bookSummaryPage.description}
@@ -442,6 +475,10 @@ ${formatBookList(finishedBooks) || '  - No finished books yet'}
 
 [Not Started]:
 ${formatBookList(notStartedBooks) || '  - No books waiting to start'}
+
+[Sections & Deep Links]:
+- Filters: ${bookSummariesSectionLinks.filters}
+- Book List: ${bookSummariesSectionLinks.list}
 
 [Statistics]:
 - Total Book Summaries: ${books.length}
