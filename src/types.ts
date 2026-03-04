@@ -295,6 +295,13 @@ export interface FullChatBoxData {
       }[];
     };
   };
+  landingPage: {
+    chatBox: {
+      questions: {
+        singleQuestion: string;
+      }[];
+    };
+  };
   allBookSummaries: BookSummaryChatBox[];
 }
 

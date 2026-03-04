@@ -12,7 +12,9 @@
     "seedLedgers:debug": "tsx --inspect-brk src/scripts/seedLedgers.ts",
     "seedBookSummaries": "tsx src/scripts/seedBookSummaries.ts",
     "seedBookSummaries:debug": "tsx --inspect-brk src/scripts/seedBookSummaries.ts",
-    "seedAll": "tsx src/scripts/seedLedgers.ts && tsx src/scripts/seedBookSummaries.ts && tsx src/scripts/seedProfile.ts",
+    "seedPages": "tsx src/scripts/seedPages.ts",
+    "seedPages:debug": "tsx --inspect-brk src/scripts/seedPages.ts",
+    "seedAll": "tsx src/scripts/seedLedgers.ts && tsx src/scripts/seedBookSummaries.ts && tsx src/scripts/seedProfile.ts && tsx src/scripts/seedPages.ts",
     "seedProfile": "tsx src/scripts/seedProfile.ts",
     "prepare": "husky"
   },
@@ -42,14 +44,12 @@
     "next": "16.1.6",
     "next-themes": "^0.4.6",
     "openai": "^6.25.0",
-    "posthog-js": "^1.356.1",
     "radix-ui": "^1.4.3",
     "react": "19.2.4",
     "react-datocms": "^8.0.0",
     "react-dom": "19.2.4",
     "react-markdown": "^10.1.0",
-    "shiki": "^4.0.0",
-    "tailwind-merge": "^3.5.0"
+    "shiki": "^4.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^20.4.2",
@@ -67,6 +67,7 @@
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "shadcn": "^3.8.5",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.1",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",

@@ -15,6 +15,7 @@ export const getChatBoxInfoFromPath = (
     allTechnicalLedgers,
     technicalLedgersPage,
     bookSummaryPage,
+    landingPage,
     allBookSummaries,
   } = chatBoxData;
 
@@ -30,6 +31,14 @@ export const getChatBoxInfoFromPath = (
 
   // Path pattern: /{locale}/page-type/{slugId}
   const pathSegments = pathname.split('/').filter(Boolean);
+
+  // Check for landing page (root path, e.g., /en)
+  if (pathSegments.length === 1 && landingPage?.chatBox?.questions) {
+    return {
+      ...baseInfo,
+      questions: landingPage.chatBox.questions,
+    };
+  }
 
   // Check for about page - use same questions as home page
   if (pathSegments.length >= 2 && pathSegments[1] === 'about') {

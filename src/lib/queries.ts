@@ -98,6 +98,13 @@ export const fullChatBoxQuery = `
             }
         }
     }
+    landingPage(locale: $locale) { 
+      chatBox{
+        questions{
+          singleQuestion
+        }
+      }
+    }
     allBookSummaries(locale: $locale) {
         slugId
         chatBox{
