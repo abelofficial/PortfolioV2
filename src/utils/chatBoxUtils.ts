@@ -31,6 +31,11 @@ export const getChatBoxInfoFromPath = (
   // Path pattern: /{locale}/page-type/{slugId}
   const pathSegments = pathname.split('/').filter(Boolean);
 
+  // Check for about page - use same questions as home page
+  if (pathSegments.length >= 2 && pathSegments[1] === 'about') {
+    return baseInfo;
+  }
+
   // Check for technical ledgers routes
   if (pathSegments.length >= 2 && pathSegments[1] === 'technical-ledgers') {
     // Specific technical ledger page (e.g., /en/technical-ledgers/my-slug)

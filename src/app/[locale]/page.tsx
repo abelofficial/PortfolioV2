@@ -1,24 +1,18 @@
 import { Suspense } from 'react';
 import { MainPageContainer } from '@components/ui/custom-container';
-import TechStack from '@components/techStack';
-import Profile from '@components/profile';
-import Testimonials from '@components/testimonials';
+import LandingContent from '@components/landing';
+import LandingSkeleton from '@components/landing/skeleton';
+import { datoCMS } from '@services/datoCMS';
 import {
   getCombinedQuery,
-  homePageQuery,
+  landingPageQuery,
   siteMetaTagsQuery,
 } from '@/lib/queries';
-import { HomePage } from '@/types';
-import { datoCMS } from '@services/datoCMS';
+import { LandingPage } from '@/types';
 import { Metadata } from 'next';
 import getMetadataFromDatoCMS, {
   SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
-import ExperienceTimeline from '@components/experienceTimeline';
-import ProfileSkeleton from '@components/profile/skeleton';
-import TechStackSkeleton from '@components/techStack/skeleton';
-import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
-import TestimonialsSkeleton from '@components/testimonials/skeleton';
 
 export async function generateMetadata({
   params,
@@ -26,13 +20,13 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
-  const data: { homePage: HomePage } & SiteMetaTags = await datoCMS({
-    query: getCombinedQuery([homePageQuery, siteMetaTagsQuery]),
+  const data: { landingPage: LandingPage } & SiteMetaTags = await datoCMS({
+    query: getCombinedQuery([landingPageQuery, siteMetaTagsQuery]),
     variables: { locale: locale },
   });
 
   return getMetadataFromDatoCMS(
-    data.homePage._seoMetaTags,
+    data.landingPage._seoMetaTags,
     data._site.faviconMetaTags
   );
 }
@@ -42,28 +36,9 @@ const Home = async ({ params }: { params: Promise<{ locale: string }> }) => {
 
   return (
     <MainPageContainer>
-      <div id="profile" className="scroll-mt-24">
-        <Suspense fallback={<ProfileSkeleton />}>
-          <Profile locale={locale} />
-        </Suspense>
-      </div>
-
-      <div id="tech" className="scroll-mt-24">
-        <Suspense fallback={<TechStackSkeleton />}>
-          <TechStack locale={locale} />
-        </Suspense>
-      </div>
-
-      <div id="experience" className="scroll-mt-24">
-        <Suspense fallback={<ExperienceTimelineSkeleton />}>
-          <ExperienceTimeline locale={locale} />
-        </Suspense>
-      </div>
-      <div id="testimonials" className="scroll-mt-24">
-        <Suspense fallback={<TestimonialsSkeleton />}>
-          <Testimonials locale={locale} />
-        </Suspense>
-      </div>
+      <Suspense fallback={<LandingSkeleton />}>
+        <LandingContent locale={locale} />
+      </Suspense>
     </MainPageContainer>
   );
 };

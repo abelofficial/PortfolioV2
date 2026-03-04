@@ -484,3 +484,79 @@ export const bookSummaryQuery = `
           }
     }
 `;
+
+export const landingPageQuery = `
+    landingPage(locale: $locale) {
+        id
+        welcomeTitle
+        welcomeSubtitle
+        aboutLinkLabel
+        publicReposLabel
+        technicalNotesLabel
+        bookSummariesLabel
+        currentlyReadingTitle
+        currentlyReadingDescription
+        latestFindingsTitle
+        latestFindingsDescription
+        currentlyWorkingOnTitle
+        currentlyWorkingOnDescription
+        viewAllLabel
+        viewProjectLabel
+        chaptersLabel
+        starsLabel
+        forksLabel
+        updatedLabel
+        hiddenPublicRepositories
+        languageColors{
+          language
+          color{
+            hex
+          }
+        }
+        _seoMetaTags {
+            tag
+            attributes
+            content
+        }
+    }
+`;
+
+export const latestTechnicalLedgersQuery = `
+    allTechnicalLedgers(locale: $locale, first: 3, orderBy: date_DESC) {
+        id
+        slugId
+        title
+        excerpt
+        date
+        category
+        readMinutes
+    }
+`;
+
+export const currentlyReadingBooksQuery = `
+    allBookSummaries(locale: $locale) {
+        id
+        slugId
+        title
+        author
+        bookImage {
+          responsiveImage(imgixParams: { fit: crop, w: 80, h: 120, auto: format }) {
+            alt
+            aspectRatio
+            base64
+            bgColor
+            height
+            sizes
+            src
+            srcSet
+            title
+            webpSrcSet
+            width
+          }
+        }
+        category
+        chapters {
+          isPublished
+        }
+    }
+`;

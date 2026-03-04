@@ -2,7 +2,12 @@
 import Link from 'next/link';
 import { Dock, DockIcon } from '@components/ui/dock';
 import { Separator } from '@components/ui/separator';
-import { UserRoundPen, NotebookTextIcon, LucidePencil } from 'lucide-react';
+import {
+  UserRoundPen,
+  NotebookTextIcon,
+  LucidePencil,
+  Home,
+} from 'lucide-react';
 import { AnimatedThemeToggler } from '@components/ui/animated-theme-toggler';
 import { useParams, usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -19,15 +24,21 @@ const Toolbar = () => {
         pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
     );
 
+  const isAboutPageChecker = () => pathname.includes('/about');
+
   const getClassName = (checker: () => boolean) => {
-    return cn(checker() ? ['stroke-primary'] : ['hover:stroke-primary-light']);
+    return cn(
+      checker()
+        ? ['stroke-primary size-5']
+        : ['hover:stroke-primary-light size-5']
+    );
   };
 
   return (
     <Dock direction="middle" className="bg-card flex w-full justify-around p-0">
       <DockIcon>
         <Link href={`/${locale}`} aria-label="Go to home">
-          <UserRoundPen className={getClassName(isHomePageChecker)} />
+          <Home className={getClassName(isHomePageChecker)} />
         </Link>
       </DockIcon>
       <DockIcon>
@@ -46,6 +57,11 @@ const Toolbar = () => {
               pathname.includes('/technical-ledgers')
             )}
           />
+        </Link>
+      </DockIcon>
+      <DockIcon>
+        <Link href={`/${locale}/about`} aria-label="Go to about">
+          <UserRoundPen className={getClassName(isAboutPageChecker)} />
         </Link>
       </DockIcon>
       <Separator orientation="vertical" />
