@@ -153,12 +153,10 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
               ) : null
             }
           >
-            <div className="flex h-full min-h-0 flex-col pt-4">
-              <div className="px-4 pt-3 pb-2">
-                <p className="text-muted-foreground/80 text-xs">
-                  {chatBoxInfo.hint}
-                </p>
-              </div>
+            <div className="flex h-full min-h-0 flex-col">
+              <p className="text-muted-foreground/80 text-xs">
+                {chatBoxInfo.hint}
+              </p>
 
               {messages.length === 0 ? (
                 <div className="custom-scrollbar min-h-0 flex-1 overflow-y-auto px-4">
@@ -236,11 +234,9 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
                 }
               >
                 <div className="flex h-full min-h-0 flex-col">
-                  <div className="px-4 pt-3 pb-2">
-                    <p className="text-muted-foreground/80 text-xs">
-                      {chatBoxInfo.hint}
-                    </p>
-                  </div>
+                  <p className="text-muted-foreground/80 text-xs">
+                    {chatBoxInfo.hint}
+                  </p>
 
                   {messages.length === 0 ? (
                     <div className="custom-scrollbar min-h-0 flex-1 overflow-y-auto px-4">

@@ -12,7 +12,9 @@
     "seedLedgers:debug": "tsx --inspect-brk src/scripts/seedLedgers.ts",
     "seedBookSummaries": "tsx src/scripts/seedBookSummaries.ts",
     "seedBookSummaries:debug": "tsx --inspect-brk src/scripts/seedBookSummaries.ts",
-    "seedAll": "tsx src/scripts/seedLedgers.ts && tsx src/scripts/seedBookSummaries.ts && tsx src/scripts/seedProfile.ts",
+    "seedPages": "tsx src/scripts/seedPages.ts",
+    "seedPages:debug": "tsx --inspect-brk src/scripts/seedPages.ts",
+    "seedAll": "tsx src/scripts/seedLedgers.ts && tsx src/scripts/seedBookSummaries.ts && tsx src/scripts/seedProfile.ts && tsx src/scripts/seedPages.ts",
     "seedProfile": "tsx src/scripts/seedProfile.ts",
     "prepare": "husky"
   },
@@ -50,7 +52,6 @@
     "shiki": "^4.0.0"
   },
   "devDependencies": {
-    "tailwind-merge": "^3.5.0",
     "@commitlint/cli": "^20.4.2",
     "@commitlint/config-conventional": "^20.4.2",
     "@tailwindcss/postcss": "^4.2.1",
@@ -66,6 +67,7 @@
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "shadcn": "^3.8.5",
+    "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.1",
     "tsconfig-paths": "^4.2.0",
     "tsx": "^4.21.0",

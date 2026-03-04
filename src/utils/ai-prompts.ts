@@ -107,16 +107,34 @@ ${context.text}
 }
 
 /**
+ * Get a human-readable label for a page type
+ */
+function getPageTypeLabel(pageType: string): string {
+  switch (pageType) {
+    case 'landing':
+      return 'Landing/Home Page';
+    case 'about':
+      return 'About Page';
+    case 'technical-ledgers-list':
+      return 'Technical Ledgers Overview';
+    case 'book-summaries-list':
+      return 'Book Summaries Overview';
+    default:
+      return pageType;
+  }
+}
+
+/**
  * Format a page context
  */
 function formatPage(context: PageContext, index: number): string {
+  const pageTypeLabel = getPageTypeLabel(context.pageType);
+
   return normalizeWhitespace(`
-Page ${index}
+Page ${index}: ${pageTypeLabel}
 Title: ${context.pageTitle}
-Type: ${context.pageType}
 ${context.fullLink ? `Link: ${context.fullLink}` : ''}
 
-Content:
 ${context.text}
   `);
 }
@@ -191,7 +209,7 @@ function getTypeLabel(type: string): string {
     case 'profile':
       return 'Profile & Experience';
     case 'page':
-      return 'Pages';
+      return 'Website Pages & Content';
     default:
       return 'Other Results';
   }
