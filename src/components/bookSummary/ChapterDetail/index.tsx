@@ -9,6 +9,7 @@ import {
   bookSummaryQuery,
 } from '@/lib/queries';
 import { notFound, redirect } from 'next/navigation';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 interface ChapterDetailProps {
   locale: string;
@@ -21,6 +22,7 @@ const ChapterDetail = async ({
   bookSlug,
   chapterSlug,
 }: ChapterDetailProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     bookSummary,
     bookSummaryPage,
@@ -29,7 +31,7 @@ const ChapterDetail = async ({
     bookSummaryPage: BookSummariesPage;
   } = await datoCMS({
     query: getCombinedQueryWithSlug([bookSummaryQuery, bookSummariesPageQuery]),
-    variables: { locale, slug: bookSlug },
+    variables: { locale: datoLocale, slug: bookSlug },
   });
 
   if (!bookSummary) {

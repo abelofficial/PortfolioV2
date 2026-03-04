@@ -6,18 +6,20 @@ import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, contactsQuery, homePageQuery } from '@/lib/queries';
 import { Separator } from '@components/ui/separator';
 import { SRCImage } from 'react-datocms';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface ProfileProps {
   locale: string;
 }
 
 const Profile = async ({ locale }: ProfileProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     allContacts,
     homePage,
   }: { allContacts: ContactInfo[]; homePage: HomePage } = await datoCMS({
     query: getCombinedQuery([homePageQuery, contactsQuery]),
-    variables: { locale: locale },
+    variables: { locale: datoLocale },
   });
 
   return (

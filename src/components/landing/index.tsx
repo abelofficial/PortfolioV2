@@ -15,6 +15,7 @@ import LatestFindingsSection, {
   LatestLedger,
 } from '@components/landing/latestFindings';
 import CurrentlyWorkingOnSection from '@components/landing/currentlyWorkingOn';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface LandingContentProps {
   locale: string;
@@ -27,13 +28,14 @@ interface LandingPageQueryResponse {
 }
 
 const LandingContent = async ({ locale }: LandingContentProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const data: LandingPageQueryResponse = await datoCMS({
     query: getCombinedQuery([
       landingPageQuery,
       latestTechnicalLedgersQuery,
       currentlyReadingBooksQuery,
     ]),
-    variables: { locale },
+    variables: { locale: datoLocale },
   });
 
   // Fetch GitHub repositories

@@ -2,7 +2,6 @@
 
 import { memo } from 'react';
 import { Sparkles } from 'lucide-react';
-import OptimizedLottie from '@components/ui/optimized-lottie';
 
 export interface ChatSuggestionsProps {
   questions: { singleQuestion: string }[];
@@ -18,12 +17,6 @@ const ChatSuggestions = memo(
           <Sparkles size={14} />
           {suggestionLabel}
         </div>
-        <OptimizedLottie
-          src="/anima-bot.lottie"
-          loop
-          autoplay
-          className="mx-auto h-45 w-50"
-        />
         <div className="grid grid-cols-1 gap-2">
           {questions.slice(0, 6).map((q, i) => (
             <button

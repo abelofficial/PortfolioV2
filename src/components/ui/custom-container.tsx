@@ -10,16 +10,14 @@ export interface SidebarContainerProps {
 
 export const SidebarContainer = ({ children }: SidebarContainerProps) => {
   return (
-    <div className="relative flex w-full justify-center md:min-h-full">
+    <div className="relative flex h-full w-full justify-center xl:h-full">
       <DotPattern
         className={cn(
           'mask-[radial-gradient(300px_circle_at_top_right,white,transparent)]',
           'xl:mask-[radial-gradient(400px_circle_at_center,white,transparent)]'
         )}
       />
-      <div className="relative flex w-full max-w-4xl flex-col items-center gap-3 px-3 pb-3 xl:gap-5 xl:px-5 xl:pb-5">
-        {children}
-      </div>
+      <>{children}</>
     </div>
   );
 };
@@ -55,11 +53,11 @@ export const MultiSectionLayout = ({
   children,
 }: MultiSectionLayoutProps) => {
   return (
-    <main className="flex h-screen w-screen flex-col xl:flex-row-reverse">
-      <section className="h-fit w-full xl:h-full xl:w-1/3 xl:overflow-hidden">
+    <main className="grid min-h-svh w-full grid-cols-1 grid-rows-[auto_1fr] xl:grid-cols-[1fr_minmax(320px,33.333%)] xl:grid-rows-1">
+      <section className="order-1 w-full xl:order-2 xl:h-svh xl:overflow-hidden">
         {sidebar}
       </section>
-      <section className="xl:custom-scrollbar bg-secondary h-fit flex-1 xl:h-full xl:overflow-y-auto">
+      <section className="custom-scrollbar bg-secondary order-2 min-h-0 w-full xl:order-1 xl:h-svh xl:overflow-y-auto">
         {children}
       </section>
     </main>

@@ -25,6 +25,7 @@ import {
   manualUIMessageStreamResponse,
   UNKNOWN_IP_RESPONSE,
 } from '@/utils/chatAPIUtils';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 const MAX_MESSAGES_MEMORY = 5;
 
@@ -128,11 +129,12 @@ export async function POST(req: Request) {
   const { messages }: { messages: UIMessage[] } = await req.json();
   const lastUserMessage = messages[messages.length - 1];
   const locale = getLocale(lastUserMessage.metadata);
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const currentPath = getCurrentPath(lastUserMessage.metadata);
 
   const { prompt }: { prompt: Prompt } = await datoCMS({
     query: getCombinedQuery([promptQuery]),
-    variables: { locale },
+    variables: { locale: datoLocale },
   });
 
   // Parse whitelist: comma-separated IPs, trimmed

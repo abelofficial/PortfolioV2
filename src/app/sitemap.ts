@@ -31,30 +31,28 @@ const sitemapQuery = `
 `;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const locales = languages.map((lang) => lang.code);
-
   // Static pages for each locale
-  const staticPages: MetadataRoute.Sitemap = locales.flatMap((locale) => [
+  const staticPages: MetadataRoute.Sitemap = languages.flatMap((lang) => [
     {
-      url: `${BASE_URL}/${locale}`,
+      url: `${BASE_URL}/${lang.language}`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
-      url: `${BASE_URL}/${locale}/about`,
+      url: `${BASE_URL}/${lang.language}/about`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.9,
     },
     {
-      url: `${BASE_URL}/${locale}/book-summaries`,
+      url: `${BASE_URL}/${lang.language}/book-summaries`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
     },
     {
-      url: `${BASE_URL}/${locale}/technical-ledgers`,
+      url: `${BASE_URL}/${lang.language}/technical-ledgers`,
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
@@ -64,19 +62,19 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Dynamic pages from CMS
   const dynamicPages: MetadataRoute.Sitemap = [];
 
-  for (const locale of locales) {
+  for (const lang of languages) {
     const data: {
       allBookSummaries: BookSummaryItem[];
       allTechnicalLedgers: SitemapItem[];
     } = await datoCMS({
       query: sitemapQuery,
-      variables: { locale },
+      variables: { locale: lang.code },
     });
 
     // Book summaries
     for (const book of data.allBookSummaries) {
       dynamicPages.push({
-        url: `${BASE_URL}/${locale}/book-summaries/${book.slugId}`,
+        url: `${BASE_URL}/${lang.language}/book-summaries/${book.slugId}`,
         lastModified: book._updatedAt ? new Date(book._updatedAt) : new Date(),
         changeFrequency: 'monthly',
         priority: 0.7,
@@ -86,7 +84,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       if (book.chapters) {
         for (const chapter of book.chapters) {
           dynamicPages.push({
-            url: `${BASE_URL}/${locale}/book-summaries/${book.slugId}/chapter/${chapter.slugId}`,
+            url: `${BASE_URL}/${lang.language}/book-summaries/${book.slugId}/chapter/${chapter.slugId}`,
             lastModified: chapter._updatedAt
               ? new Date(chapter._updatedAt)
               : new Date(),
@@ -100,7 +98,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Technical ledgers
     for (const ledger of data.allTechnicalLedgers) {
       dynamicPages.push({
-        url: `${BASE_URL}/${locale}/technical-ledgers/${ledger.slugId}`,
+        url: `${BASE_URL}/${lang.language}/technical-ledgers/${ledger.slugId}`,
         lastModified: ledger._updatedAt
           ? new Date(ledger._updatedAt)
           : new Date(),

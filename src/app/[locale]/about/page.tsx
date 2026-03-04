@@ -19,6 +19,7 @@ import ProfileSkeleton from '@components/profile/skeleton';
 import TechStackSkeleton from '@components/techStack/skeleton';
 import ExperienceTimelineSkeleton from '@components/experienceTimeline/skeleton';
 import TestimonialsSkeleton from '@components/testimonials/skeleton';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export async function generateMetadata({
   params,
@@ -26,9 +27,10 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const data: { homePage: HomePage } & SiteMetaTags = await datoCMS({
     query: getCombinedQuery([homePageQuery, siteMetaTagsQuery]),
-    variables: { locale: locale },
+    variables: { locale: datoLocale },
   });
 
   return getMetadataFromDatoCMS(

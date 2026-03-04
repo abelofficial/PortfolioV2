@@ -13,6 +13,7 @@ import getMetadataFromDatoCMS, {
   SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
 import TechnicalLedgersListSkeleton from '@components/technicalLedgersList/skeleton';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export async function generateMetadata({
   params,
@@ -20,11 +21,12 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
 
   const data: { technicalLedgersPage: TechnicalLedgerPage } & SiteMetaTags =
     await datoCMS({
       query: getCombinedQuery([technicalLedgerPageQuery, siteMetaTagsQuery]),
-      variables: { locale: locale },
+      variables: { locale: datoLocale },
     });
 
   return getMetadataFromDatoCMS(
