@@ -6,11 +6,13 @@ import {
 } from '@/lib/queries';
 import { TechnicalLedger, TechnicalLedgerPage } from '@/types';
 import FilteredLedgersList from '@components/technicalLedgersList/filteredLedgersList';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface TechnicalLedgersListProps {
   locale: string;
 }
 const TechnicalLedgersList = async ({ locale }: TechnicalLedgersListProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     allTechnicalLedgers,
     technicalLedgersPage,
@@ -22,7 +24,7 @@ const TechnicalLedgersList = async ({ locale }: TechnicalLedgersListProps) => {
       allTechnicalLedgersQuery,
       technicalLedgerPageQuery,
     ]),
-    variables: { locale },
+    variables: { locale: datoLocale },
   });
 
   return (

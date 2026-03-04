@@ -13,6 +13,7 @@ import ChapterDetailSkeleton from '@components/bookSummary/ChapterDetail/skeleto
 import getMetadataFromDatoCMS, {
   SiteMetaTags,
 } from '@/utils/getMetadataFromSEOConfig';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export async function generateMetadata({
   params,
@@ -20,10 +21,11 @@ export async function generateMetadata({
   params: Promise<{ locale: string; slug: string; chapterSlug: string }>;
 }): Promise<Metadata> {
   const { locale, slug, chapterSlug } = await params;
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
 
   const data: { bookSummary: BookSummary } & SiteMetaTags = await datoCMS({
     query: getCombinedQueryWithSlug([bookSummaryQuery, siteMetaTagsQuery]),
-    variables: { locale, slug },
+    variables: { locale: datoLocale, slug },
   });
   const chapter = data.bookSummary?.chapters?.find(
     (c) => c.slugId === chapterSlug

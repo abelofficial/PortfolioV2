@@ -6,12 +6,14 @@ import {
 } from '@/lib/queries';
 import { BookSummariesPage, BookSummary } from '@/types';
 import FilteredSummariesList from '@components/bookSummariesList/filteredSummariesList';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface BookSummariesListProps {
   locale: string;
 }
 
 const BookSummariesList = async ({ locale }: BookSummariesListProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     bookSummaryPage,
     allBookSummaries: bookSummariesList,
@@ -20,7 +22,7 @@ const BookSummariesList = async ({ locale }: BookSummariesListProps) => {
     allBookSummaries: BookSummary[];
   } = await datoCMS({
     query: getCombinedQuery([bookSummariesPageQuery, allBookSummaries]),
-    variables: { locale },
+    variables: { locale: datoLocale },
   });
 
   return (

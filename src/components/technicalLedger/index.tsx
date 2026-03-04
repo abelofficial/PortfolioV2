@@ -8,6 +8,7 @@ import {
   technicalLedgersQuery,
 } from '@/lib/queries';
 import { notFound } from 'next/navigation';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 interface TechnicalNotePageProps {
   locale: string;
@@ -15,6 +16,7 @@ interface TechnicalNotePageProps {
 }
 
 const TechnicalLedger = async ({ locale, slug }: TechnicalNotePageProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     technicalLedger,
     technicalLedgersPage,
@@ -26,7 +28,7 @@ const TechnicalLedger = async ({ locale, slug }: TechnicalNotePageProps) => {
       technicalLedgersQuery,
       technicalLedgerPageQuery,
     ]),
-    variables: { locale, slug },
+    variables: { locale: datoLocale, slug },
   });
 
   if (!technicalLedger) {

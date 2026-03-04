@@ -5,18 +5,20 @@ import { ContactInfo, FooterData } from '@/types';
 import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, footerQuery, contactsQuery } from '@/lib/queries';
 import { SRCImage } from 'react-datocms';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface FooterProps {
   locale: string;
 }
 
 const Footer = async ({ locale }: FooterProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     allContacts,
     homePage,
   }: { allContacts: ContactInfo[]; homePage: FooterData } = await datoCMS({
     query: getCombinedQuery([footerQuery, contactsQuery]),
-    variables: { locale: locale },
+    variables: { locale: datoLocale },
   });
 
   const currentYear = new Date().getFullYear();

@@ -8,16 +8,18 @@ import {
 import { SectionContainer } from '@components/ui/custom-container';
 import Timeline from '../timeline';
 import TimelineCard from '../timeline/timelineCard';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface WorkProps {
   locale: string;
 }
 
 const Work = async ({ locale }: WorkProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const { allWorks, homePage }: { allWorks: Experience[]; homePage: HomePage } =
     await datoCMS({
       query: getCombinedQuery([workExperienceQuery, homePageQuery]),
-      variables: { locale: locale },
+      variables: { locale: datoLocale },
     });
 
   const data: TimelineEntry[] = allWorks.reverse().map((experience) => ({

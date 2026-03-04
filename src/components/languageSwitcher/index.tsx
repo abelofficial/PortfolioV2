@@ -23,25 +23,25 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
   const pathSegments = pathname?.split('/');
   const currentLocale = pathSegments[1];
 
-  const getRedirectPath = (newLocale: string): string => {
+  const getRedirectPath = (newLanguage: string): string => {
     // Check if on technical ledgers detail page (more than 3 segments: /locale/technical-ledgers/slug)
     if (pathSegments[2] === 'technical-ledgers' && pathSegments?.length > 3) {
-      return `/${newLocale}/technical-ledgers`;
+      return `/${newLanguage}/technical-ledgers`;
     }
 
     // Check if on book summaries detail page or chapter page
     // Detail: /locale/book-summaries/slug (4 segments)
     // Chapter: /locale/book-summaries/slug/chapter/chapterSlug (6 segments)
     if (pathSegments[2] === 'book-summaries' && pathSegments?.length > 3) {
-      return `/${newLocale}/book-summaries`;
+      return `/${newLanguage}/book-summaries`;
     }
 
     // Default: replace locale in current path
-    return pathname.replace(`/${locale}`, `/${newLocale}`);
+    return pathname.replace(`/${locale}`, `/${newLanguage}`);
   };
 
-  const handleLocaleChange = async (newLocale: string) => {
-    const path = getRedirectPath(newLocale);
+  const handleLocaleChange = async (newLanguage: string) => {
+    const path = getRedirectPath(newLanguage);
     router.push(path);
   };
 
@@ -59,15 +59,15 @@ export function LanguageSwitcher({ className }: LanguageSwitcherProps) {
       <DropdownMenuContent align="end" className="w-40">
         {languages.map((lang) => (
           <DropdownMenuItem
-            key={lang.code}
+            key={lang.language}
             className="flex cursor-pointer items-center justify-between"
-            onClick={() => handleLocaleChange(lang.code)}
+            onClick={() => handleLocaleChange(lang.language)}
           >
             <span className="font-geist flex items-center gap-2">
               <span>{lang.flag}</span>
               {lang.label}
             </span>
-            {currentLocale === lang.code && (
+            {currentLocale === lang.language && (
               <Check className="size-4 opacity-50" />
             )}
           </DropdownMenuItem>

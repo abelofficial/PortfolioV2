@@ -8,18 +8,20 @@ import {
 import Image from 'next/image';
 import { SectionContainer } from '@components/ui/custom-container';
 import { Marquee } from '@components/ui/marquee';
+import { getCodeFromLanguage } from '@/utils/languages';
 
 export interface TechStackProps {
   locale: string;
 }
 
 const TechStack = async ({ locale }: TechStackProps) => {
+  const datoLocale = getCodeFromLanguage(locale) ?? 'en';
   const {
     allTechstacks,
     homePage,
   }: { allTechstacks: TechnologyStack[]; homePage: HomePage } = await datoCMS({
     query: getCombinedQuery([techStacksQuery, homePageQuery]),
-    variables: { locale: locale },
+    variables: { locale: datoLocale },
   });
 
   return (

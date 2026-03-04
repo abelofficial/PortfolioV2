@@ -21,7 +21,8 @@ const Toolbar = () => {
   const isHomePageChecker = () =>
     languages.some(
       (lang) =>
-        pathname.endsWith(`/${lang.code}`) || pathname === `/${lang.code}/`
+        pathname.endsWith(`/${lang.language}`) ||
+        pathname === `/${lang.language}/`
     );
 
   const isAboutPageChecker = () => pathname.includes('/about');
