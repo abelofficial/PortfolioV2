@@ -123,7 +123,7 @@ const CurrentlyReadingSection = ({
                         {book.author}
                       </p>
                       {/* Excerpt */}
-                      <p className="text-muted-foreground line-clamp-4 text-xs leading-relaxed">
+                      <p className="text-muted-foreground line-clamp-4 text-xs leading-relaxed hyphens-auto">
                         {book.excerpt}
                       </p>
                     </div>

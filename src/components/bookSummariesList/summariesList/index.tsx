@@ -130,7 +130,7 @@ const SummariesList = ({
                         </p>
 
                         {/* Excerpt */}
-                        <p className="text-muted-foreground line-clamp-3 text-xs leading-relaxed sm:line-clamp-4">
+                        <p className="text-muted-foreground line-clamp-3 text-xs leading-relaxed hyphens-auto sm:line-clamp-4">
                           {summary.excerpt}
                         </p>
                       </div>
