@@ -88,7 +88,7 @@ const LatestFindingsSection = ({
                 </h3>
 
                 {/* Excerpt */}
-                <p className="text-muted-foreground line-clamp-4 text-xs leading-relaxed">
+                <p className="text-muted-foreground line-clamp-4 text-xs leading-relaxed hyphens-auto">
                   {ledger.excerpt}
                 </p>
 

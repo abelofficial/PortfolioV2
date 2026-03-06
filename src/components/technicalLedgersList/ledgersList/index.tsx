@@ -61,7 +61,7 @@ const LedgersList = ({
                     </h2>
 
                     {/* Excerpt */}
-                    <p className="text-muted-foreground line-clamp-5 text-justify text-xs leading-relaxed">
+                    <p className="text-muted-foreground line-clamp-5 text-xs leading-relaxed hyphens-auto">
                       {note.excerpt}
                     </p>
                   </div>

@@ -176,7 +176,6 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
               )}
 
               <ChatInput
-                ref={inputRef}
                 input={input}
                 onInputChange={setInput}
                 onSubmit={handleFormSubmit}
