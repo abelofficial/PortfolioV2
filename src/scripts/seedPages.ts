@@ -10,6 +10,7 @@ import {
   currentlyReadingBooksQuery,
   techStacksQuery,
   testimonialsQuery,
+  contactsQuery,
 } from '@/lib/queries';
 import {
   LandingPage,
@@ -19,6 +20,7 @@ import {
   GithubRepository,
   TechStack,
   Testimonial,
+  ContactInfo,
 } from '@/types';
 import { embedAndSeedChunksToVectorDb } from '@/scripts/seed';
 import { PageSeedChunk, SeedChunk } from '@/scripts/types';
@@ -58,6 +60,7 @@ interface AboutPageQueryResponse {
   homePage: HomePage;
   allTechstacks: TechStack[];
   allTestimonials: Testimonial[];
+  allContacts: ContactInfo[];
 }
 
 interface ListPagesQueryResponse {
@@ -85,6 +88,7 @@ async function seed() {
         homePageQuery,
         techStacksQuery,
         testimonialsQuery,
+        contactsQuery,
       ]),
       variables: { locale: 'en' },
     });
@@ -122,19 +126,15 @@ async function seed() {
     const seedChunks: SeedChunk[] = [];
 
     // 1. Landing Page with actual content
-    const landingPageChunk = getLandingPageSeedChunk(
-      landingData.landingPage,
-      landingData.allTechnicalLedgers,
-      landingData.allBookSummaries,
-      visibleRepositories
-    );
+    const landingPageChunk = getLandingPageSeedChunk(landingData.landingPage);
     seedChunks.push(landingPageChunk);
 
     // 2. About Page with actual content
     const aboutPageChunk = getAboutPageSeedChunk(
       aboutData.homePage,
       aboutData.allTechstacks,
-      aboutData.allTestimonials
+      aboutData.allTestimonials,
+      aboutData.allContacts
     );
     seedChunks.push(aboutPageChunk);
 
@@ -165,100 +165,27 @@ async function seed() {
 /**
  * Generate seed chunk for the Landing Page with actual content
  */
-const getLandingPageSeedChunk = (
-  landingPage: LandingPage,
-  technicalLedgers: LatestLedger[],
-  books: CurrentlyReadingBook[],
-  repositories: GithubRepository[]
-): PageSeedChunk => {
-  // Categorize books by reading status
-  const inProgressBooks = books.filter((book) => {
-    const publishedCount = book.chapters.filter((c) => c.isPublished).length;
-    return publishedCount > 0 && publishedCount < book.chapters.length;
-  });
-
-  const finishedBooks = books.filter((book) => {
-    const publishedCount = book.chapters.filter((c) => c.isPublished).length;
-    return publishedCount === book.chapters.length && book.chapters.length > 0;
-  });
-
-  // Format currently reading books
-  const currentlyReadingList = inProgressBooks
-    .map((book) => {
-      const published = book.chapters.filter((c) => c.isPublished).length;
-      const total = book.chapters.length;
-      return `  - "${book.title}" by ${book.author} (${book.category}) - ${published}/${total} chapters completed`;
-    })
-    .join('\n');
-
-  // Format finished books
-  const finishedBooksList = finishedBooks
-    .map((book) => `  - "${book.title}" by ${book.author} (${book.category})`)
-    .join('\n');
-
-  // Format latest technical ledgers
-  const latestLedgersList = technicalLedgers
-    .slice(0, 5)
-    .map(
-      (ledger) =>
-        `  - "${ledger.title}" (${ledger.category}) - ${ledger.readMinutes} min read - ${ledger.excerpt}`
-    )
-    .join('\n');
-
-  // Format GitHub repositories (currently working on)
-  const repositoriesList = repositories
-    .slice(0, 6)
-    .map((repo) => {
-      const stars =
-        repo.stargazers_count > 0 ? ` ⭐${repo.stargazers_count}` : '';
-      const lang = repo.language || 'Unknown';
-      return `  - ${repo.name} (${lang})${stars}: ${repo.description || 'No description'}`;
-    })
-    .join('\n');
-
+const getLandingPageSeedChunk = (landingPage: LandingPage): PageSeedChunk => {
   const landingSectionLinks = {
     welcome: `${BASE_URL}/en#welcome`,
     latestFindings: `${BASE_URL}/en#latest-findings`,
     currentlyReading: `${BASE_URL}/en#currently-reading`,
-    currentlyWorkingOn: `${BASE_URL}/en#currently-working-on`,
+    currentlyWorkingOn: `${BASE_URL}/en#public-projects`,
   };
 
   const text = `[Type]: Landing Page
 [Page Title]: ${landingPage.welcomeTitle}
 [Page Description]: ${landingPage.welcomeSubtitle}
 
-This is the main landing page of Abel's portfolio website. It showcases what Abel is currently working on and reading.
-
-[Currently Reading Books]:
-Abel is currently reading the following books:
-${currentlyReadingList || '  - No books currently in progress'}
-
-[Finished Book Summaries]:
-Abel has completed summaries for these books:
-${finishedBooksList || '  - No finished summaries yet'}
-
-[Latest Technical Ledgers]:
-Recent technical notes and documentation:
-${latestLedgersList || '  - No technical ledgers yet'}
-
-[Currently Working On - GitHub Projects]:
-Active open-source projects and repositories:
-${repositoriesList || '  - No public repositories'}
+This is the main landing page of Abel's personal website. It showcases what Abel is currently working on and reading.
 
 [Sections & Full Links]:
 - Welcome: fullLink => ${landingSectionLinks.welcome}
 - Latest Findings: fullLink => ${landingSectionLinks.latestFindings}
 - Currently Reading: fullLink => ${landingSectionLinks.currentlyReading}
-- Currently Working On: fullLink => ${landingSectionLinks.currentlyWorkingOn}
+- Public GitHUb projects: fullLink => ${landingSectionLinks.currentlyWorkingOn}
 
-[Statistics]:
-- Total Public Repositories: ${repositories.length}
-- Total Technical Notes: ${technicalLedgers.length}
-- Total Book Summaries: ${books.length}
-- Books In Progress: ${inProgressBooks.length}
-- Books Completed: ${finishedBooks.length}
-
-[Purpose]: This page introduces visitors to Abel's portfolio, showing real-time updates on current reading, technical writing, and coding projects.`;
+[Purpose]: This page introduces visitors to Abel's personal, showing real-time updates on current reading, technical writing, and coding projects.`;
 
   return {
     metadata: {
@@ -278,11 +205,14 @@ ${repositoriesList || '  - No public repositories'}
 const getAboutPageSeedChunk = (
   homePage: HomePage,
   techStacks: TechStack[],
-  testimonials: Testimonial[]
+  testimonials: Testimonial[],
+  contacts: ContactInfo[]
 ): PageSeedChunk => {
   // Format tech stack by category
-  const techStackList = techStacks
-    .map((tech) => `  - ${tech.name} (${tech.title})`)
+  const techStackList = techStacks.map((tech) => `  - ${tech.name}`).join('\n');
+
+  const contactList = contacts
+    .map((contact) => `  - [PlatForm]: ${contact.title} => ${contact.address}`)
     .join('\n');
 
   // Format testimonials
@@ -301,29 +231,26 @@ const getAboutPageSeedChunk = (
 
   const text = `[Type]: About Page
 [Page Title]: About ${homePage.name}
-[Job Title]: ${homePage.jobTitle}
-[Workplace]: ${homePage.workPlace}
 
-This is the about page providing detailed information about ${homePage.name}.
+This is the about page providing detailed information about Abel Sintaro.
 
 [Introduction]:
 ${homePage.intro}
 
-[Tech Stack - Technologies & Tools]:
-${homePage.techStackTitle}
+[Tech Stack - Technologies & Tools]: 
 ${techStackList || '  - No tech stack listed'}
 
-[What Colleagues Say - Testimonials]:
+[What Colleagues Say - Testimonials]: 
 ${testimonialsList || '  - No testimonials yet'}
 
-[Sections Available]:
-- Profile: ${sectionLinks.profile}
-- Tech Stack: ${sectionLinks.tech}
-- Work Experience: ${sectionLinks.experience}
-- Testimonials: ${sectionLinks.testimonials}
+[Sections FullLinks]:
+- Profile fullLink: ${sectionLinks.profile}
+- Tech Stack fullLink: ${sectionLinks.tech}
+- Work and Education Experience  fullLink: ${sectionLinks.experience}
+- Testimonials fullLink: ${sectionLinks.testimonials}
 
 [Contact]:
-${homePage.connect}
+${contactList}
 
 [Purpose]: This page provides comprehensive information about Abel's professional background, technical skills, and what colleagues say about working with him.`;
 
@@ -363,11 +290,6 @@ const getTechnicalLedgersPageSeedChunk = (
     )
     .join('\n');
 
-  const technicalLedgersSectionLinks = {
-    filters: `${BASE_URL}/en/technical-ledgers#filters`,
-    list: `${BASE_URL}/en/technical-ledgers#ledger-list`,
-  };
-
   const text = `[Type]: Technical Ledgers List Page
 [Page Title]: ${technicalLedgersPage.title}
 [Page Description]: ${technicalLedgersPage.description}
@@ -384,10 +306,6 @@ ${categorySummary || '  - No categories yet'}
 
 [All Technical Ledgers]:
 ${ledgersList || '  - No technical ledgers yet'}
-
-[Sections & Deep Links]:
-- Filters: ${technicalLedgersSectionLinks.filters}
-- Ledger List: ${technicalLedgersSectionLinks.list}
 
 [Statistics]:
 - Total Technical Notes: ${ledgers.length}
@@ -449,11 +367,6 @@ const getBookSummariesPageSeedChunk = (
       })
       .join('\n');
 
-  const bookSummariesSectionLinks = {
-    filters: `${BASE_URL}/en/book-summaries#filters`,
-    list: `${BASE_URL}/en/book-summaries#book-list`,
-  };
-
   const text = `[Type]: Book Summaries List Page
 [Page Title]: ${bookSummaryPage.title}
 [Page Description]: ${bookSummaryPage.description}
@@ -475,10 +388,6 @@ ${formatBookList(finishedBooks) || '  - No finished books yet'}
 
 [Not Started]:
 ${formatBookList(notStartedBooks) || '  - No books waiting to start'}
-
-[Sections & Deep Links]:
-- Filters: ${bookSummariesSectionLinks.filters}
-- Book List: ${bookSummariesSectionLinks.list}
 
 [Statistics]:
 - Total Book Summaries: ${books.length}
