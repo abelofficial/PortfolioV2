@@ -61,7 +61,7 @@ const LandingContent = async ({ locale }: LandingContentProps) => {
   );
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-10">
       <div id="welcome">
         <WelcomeSection
           title={landingPage.welcomeTitle}

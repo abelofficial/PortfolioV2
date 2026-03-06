@@ -1,9 +1,9 @@
 'use client';
 
-import { Send, Sparkles } from 'lucide-react';
+import { Send, User2Icon } from 'lucide-react';
+import { Textarea } from '@components/ui/textarea';
 
 export interface ChatInputProps {
-  ref?: React.Ref<HTMLInputElement>;
   input: string;
   onInputChange: (value: string) => void;
   onSubmit: (e?: React.FormEvent) => void;
@@ -15,7 +15,6 @@ export interface ChatInputProps {
 }
 
 const ChatInput = ({
-  ref,
   input,
   onInputChange,
   onSubmit,
@@ -33,9 +32,9 @@ const ChatInput = ({
             type="button"
             disabled={!isReady}
             onClick={onSuggestionClick}
-            className="group text-primary/80 hover:border-primary/30 hover:bg-primary/5 hover:text-primary inline-flex max-w-full items-center gap-2 rounded-full border border-black/10 bg-black/2 px-3 py-1 text-[11px] font-semibold tracking-wide transition-transform disabled:opacity-50 dark:border-white/10 dark:bg-white/3"
+            className="group text-primary/80 hover:border-primary/30 hover:bg-primary/5 hover:text-primary inline-flex max-w-full items-center gap-1 rounded-full border border-black/10 bg-black/2 px-3 py-1 text-[11px] font-semibold tracking-wide transition-transform disabled:opacity-50 dark:border-white/10 dark:bg-white/3"
           >
-            <Sparkles
+            <User2Icon
               size={12}
               className="transition-transform group-hover:rotate-12"
             />
@@ -45,15 +44,13 @@ const ChatInput = ({
       )}
 
       <form onSubmit={onSubmit}>
-        <div className="focus-within:border-primary/40 focus-within:bg-primary/5 flex items-center gap-2 rounded-xl border border-black/10 bg-black/2 px-3 py-2 transition-colors dark:border-white/10 dark:bg-white/3 dark:focus-within:bg-white/4">
-          <input
-            ref={ref}
+        <div className="flex items-center gap-2">
+          <Textarea
             value={input}
             onChange={(e) => onInputChange(e.target.value)}
             placeholder={placeholder}
-            className="placeholder:text-muted-foreground/70 flex-1 touch-manipulation bg-transparent text-base outline-none md:text-sm"
+            className="placeholder:text-muted-foreground/70 flex-1 touch-manipulation placeholder:text-xs"
           />
-
           <button
             type="submit"
             disabled={!input.trim() || !isReady}
