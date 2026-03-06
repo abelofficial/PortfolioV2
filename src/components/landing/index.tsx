@@ -101,7 +101,7 @@ const LandingContent = async ({ locale }: LandingContentProps) => {
         />
       </div>
 
-      <div id="currently-working-on">
+      <div id="public-projects">
         <CurrentlyWorkingOnSection
           title={landingPage.currentlyWorkingOnTitle}
           description={landingPage.currentlyWorkingOnDescription}
