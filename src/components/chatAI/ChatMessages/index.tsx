@@ -1,7 +1,12 @@
 'use client';
 
-import { memo, useCallback } from 'react';
-import { Bot, User2Icon, ArrowUpRight } from 'lucide-react';
+import React, { memo, useCallback } from 'react';
+import {
+  Bot,
+  User2Icon,
+  ArrowUpRight,
+  LucideCornerUpRight,
+} from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { useRouter } from 'next/navigation';
 import { UIMessage } from '@ai-sdk/react';
@@ -72,24 +77,44 @@ const ChatMessages = memo(
                           components={{
                             h3: ({ children, ...props }) => (
                               <h3
-                                className="py-2 text-sm hyphens-auto whitespace-pre-wrap"
+                                className="py-2 text-sm font-semibold hyphens-auto"
                                 {...props}
                               >
                                 {children}
                               </h3>
                             ),
-                            li: ({ children, ...props }) => (
-                              <li
-                                className="pb-1 text-xs leading-relaxed wrap-break-word hyphens-auto whitespace-pre-wrap"
-                                {...props}
-                              >
-                                <span className="text-primary mr-1">•</span>
-                                {children}
-                              </li>
-                            ),
+                            li: ({ children, ...props }) => {
+                              const hasNestedList = React.Children.toArray(
+                                children
+                              ).some(
+                                (child: unknown) =>
+                                  React.isValidElement(child) &&
+                                  (child.type === 'ul' || child.type === 'ol')
+                              );
+
+                              return (
+                                <li
+                                  className="my-1 text-xs leading-relaxed wrap-break-word hyphens-auto"
+                                  {...props}
+                                >
+                                  {hasNestedList ? (
+                                    <LucideCornerUpRight
+                                      size={14}
+                                      className="text-primary m-0 inline p-0"
+                                    />
+                                  ) : (
+                                    <span className="text-primary mr-1 ml-3">
+                                      •
+                                    </span>
+                                  )}
+                                  {children}
+                                </li>
+                              );
+                            },
+
                             p: ({ children, ...props }) => (
                               <p
-                                className="pb-2 text-xs leading-relaxed wrap-break-word hyphens-auto whitespace-pre-wrap"
+                                className="my-2 inline text-xs leading-relaxed wrap-break-word hyphens-auto whitespace-pre-wrap"
                                 {...props}
                               >
                                 {children}
