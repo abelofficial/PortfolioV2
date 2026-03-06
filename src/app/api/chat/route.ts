@@ -177,7 +177,7 @@ export async function POST(req: Request) {
     mapMetadataToPromptContext(match.metadata as Record<string, unknown>)
   );
 
-  // Boost results that match the current page by moving them to the top
+  /* // Boost results that match the current page by moving them to the top
   if (currentPath) {
     const baseUrl = process.env.BASE_URL || '';
     const fullCurrentUrl = baseUrl + currentPath;
@@ -193,7 +193,7 @@ export async function POST(req: Request) {
       if (!aMatches && bMatches) return 1;
       return 0;
     });
-  }
+  }*/
 
   // Limit to top 5 after reranking
   context = context.slice(0, 5);
