@@ -141,14 +141,14 @@ const Timeline = ({ data }: { data: TimelineEntry[] }) => {
               <div className="absolute top-2 left-2.5 md:left-4.5">
                 <div
                   className={cn(
-                    'relative rounded-full transition-all duration-500 ease-out',
+                    'relative rounded-full transition-transform duration-500 ease-out',
                     isActive ? 'h-4 w-4' : 'h-3.5 w-3.5'
                   )}
                 >
                   {/* core dot */}
                   <div
                     className={cn(
-                      'absolute inset-0 rounded-full transition-all duration-500 ease-out',
+                      'absolute inset-0 rounded-full transition-transform duration-500 ease-out',
                       isActive
                         ? 'bg-primary opacity-100'
                         : 'bg-primary/40 dark:bg-primary/35 opacity-70'

@@ -140,7 +140,7 @@ const CurrentlyReadingSection = ({
                       </div>
                       <div className="bg-muted h-1 w-full overflow-hidden rounded-full">
                         <div
-                          className="bg-primary h-full rounded-full transition-all"
+                          className="bg-primary h-full rounded-full transition-transform"
                           style={{ width: `${progress}%` }}
                         />
                       </div>
@@ -148,7 +148,7 @@ const CurrentlyReadingSection = ({
                   </div>
 
                   {/* Arrow indicator */}
-                  <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary absolute top-2 right-2 size-3 opacity-0 transition-all group-hover:opacity-100" />
+                  <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary absolute top-2 right-2 size-3 opacity-0 transition-transform group-hover:opacity-100" />
                 </motion.article>
               </Link>
             </motion.div>
