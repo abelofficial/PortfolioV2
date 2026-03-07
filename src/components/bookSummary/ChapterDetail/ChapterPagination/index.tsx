@@ -37,7 +37,7 @@ const ChapterPagination = ({
             href={`/${locale}/book-summaries/${bookSlugId}`}
             className={cn(
               'group flex items-center gap-1.5 rounded-full border px-3 py-1.5',
-              'border-primary dark:border-primary-light bg-transparent transition-all',
+              'border-primary dark:border-primary-light bg-transparent transition-transform',
               'hover:bg-primary/10 dark:hover:bg-primary-light/10'
             )}
           >
@@ -51,7 +51,7 @@ const ChapterPagination = ({
             href={`/${locale}/book-summaries/${bookSlugId}/chapter/${prevChapter.slugId}`}
             className={cn(
               'group flex items-center gap-1.5 rounded-full border px-3 py-1.5',
-              'border-primary dark:border-primary-light bg-transparent transition-all',
+              'border-primary dark:border-primary-light bg-transparent transition-transform',
               'hover:bg-primary/10 dark:hover:bg-primary-light/10'
             )}
           >
@@ -67,7 +67,7 @@ const ChapterPagination = ({
           href={`/${locale}/book-summaries/${bookSlugId}`}
           className={cn(
             'group flex shrink-0 items-center gap-1.5 rounded-full px-2.5 py-1',
-            'text-muted-foreground transition-all',
+            'text-muted-foreground transition-transform',
             'hover:bg-accent/50 hover:text-foreground'
           )}
         >
@@ -84,7 +84,7 @@ const ChapterPagination = ({
               href={`/${locale}/book-summaries/${bookSlugId}/chapter/${nextChapter.slugId}`}
               className={cn(
                 'group flex items-center gap-1.5 rounded-full border px-3 py-1.5',
-                'border-primary dark:border-primary-light bg-transparent transition-all',
+                'border-primary dark:border-primary-light bg-transparent transition-transform',
                 'hover:bg-primary/10 dark:hover:bg-primary-light/10'
               )}
             >
@@ -111,7 +111,7 @@ const ChapterPagination = ({
             href={`/${locale}/book-summaries/${bookSlugId}`}
             className={cn(
               'group flex items-center gap-1.5 rounded-full border px-3 py-1.5',
-              'border-primary dark:border-primary-light bg-transparent transition-all',
+              'border-primary dark:border-primary-light bg-transparent transition-transform',
               'hover:bg-primary/10 dark:hover:bg-primary-light/10'
             )}
           >

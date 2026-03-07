@@ -99,7 +99,7 @@ const CurrentlyWorkingOnSection = ({
                       {repo.name}
                     </h3>
                   </div>
-                  <ExternalLink className="text-muted-foreground/60 group-hover:text-primary size-4 shrink-0 opacity-0 transition-all group-hover:opacity-100" />
+                  <ExternalLink className="text-muted-foreground/60 group-hover:text-primary transition-atransform size-4 shrink-0 opacity-0 group-hover:opacity-100" />
                 </div>
 
                 {/* Description */}

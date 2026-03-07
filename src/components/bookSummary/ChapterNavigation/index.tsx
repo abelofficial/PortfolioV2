@@ -83,7 +83,7 @@ const ChapterNavigation = ({
                 href={`/${locale}/book-summaries/${bookSlugId}/chapter/${chapter.slugId}`}
                 className={cn(
                   'group flex items-center justify-between gap-3 rounded-lg border p-3',
-                  'border-primary/30 bg-transparent transition-all',
+                  'border-primary/30 bg-transparent transition-transform',
                   'hover:border-primary hover:bg-accent/50 hover:shadow-sm'
                 )}
               >
@@ -95,7 +95,7 @@ const ChapterNavigation = ({
                     {chapter.title}
                   </span>
                 </div>
-                <ChevronRight className="text-muted-foreground group-hover:text-primary size-4 shrink-0 transition-all group-hover:translate-x-0.5" />
+                <ChevronRight className="text-muted-foreground group-hover:text-primary size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
               </Link>
             ) : (
               <div

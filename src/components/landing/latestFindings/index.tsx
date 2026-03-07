@@ -80,7 +80,7 @@ const LatestFindingsSection = ({
                 )}
               >
                 {/* Arrow indicator */}
-                <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary absolute top-3 right-3 size-4 opacity-0 transition-all group-hover:opacity-100" />
+                <ArrowUpRight className="text-muted-foreground/60 group-hover:text-primary absolute top-3 right-3 size-4 opacity-0 transition-transform group-hover:opacity-100" />
 
                 {/* Title */}
                 <h3 className="group-hover:text-primary pr-6 text-sm font-semibold transition-colors">

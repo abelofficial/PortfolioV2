@@ -58,7 +58,7 @@ const Footer = async ({ locale }: FooterProps) => {
                   target="_blank"
                   rel="noreferrer"
                   href={contact.address}
-                  className="group text-muted-foreground hover:text-primary inline-flex items-center gap-2 rounded-full border border-black/10 bg-transparent px-3 py-1.5 text-sm transition-all hover:border-black/20 dark:border-white/10 dark:hover:border-white/20"
+                  className="group text-muted-foreground hover:text-primary inline-flex items-center gap-2 rounded-full border border-black/10 bg-transparent px-3 py-1.5 text-sm transition-transform hover:border-black/20 dark:border-white/10 dark:hover:border-white/20"
                 >
                   <SRCImage
                     usePlaceholder
