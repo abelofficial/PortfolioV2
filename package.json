@@ -37,7 +37,7 @@
     "framer-motion": "^12.35.1",
     "graphql": "^16.13.1",
     "graphql-request": "^7.4.0",
-    "lucide-react": "^0.575.0",
+    "lucide-react": "^0.577.0",
     "micromark": "^4.0.2",
     "micromark-extension-gfm": "^3.0.0",
     "motion": "^12.35.1",
