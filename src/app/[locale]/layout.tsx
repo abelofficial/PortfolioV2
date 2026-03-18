@@ -17,13 +17,6 @@ import { datoCMS } from '@services/datoCMS';
 import { getCombinedQuery, fullChatBoxQuery } from '@/lib/queries';
 import type { Viewport } from 'next';
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
-};
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
