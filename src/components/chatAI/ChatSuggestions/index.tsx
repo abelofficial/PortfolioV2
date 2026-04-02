@@ -2,6 +2,7 @@
 
 import { memo } from 'react';
 import { Sparkles } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export interface ChatSuggestionsProps {
   questions: { singleQuestion: string }[];
@@ -19,13 +20,14 @@ const ChatSuggestions = memo(
         </div>
         <div className="grid grid-cols-1 gap-2">
           {questions.slice(0, 6).map((q, i) => (
-            <button
+            <Button
               key={i}
+              variant="outline"
               onClick={() => onSuggestionClick(q.singleQuestion)}
-              className="text-foreground/90 hover:border-primary/30 hover:bg-primary/20 dark:hover:bg-primary/20 rounded-xl border border-black/10 bg-black/2 p-3 pt-2 text-left text-xs dark:border-white/10 dark:bg-white/3 dark:text-white/90"
+              className="text-foreground/90 hover:border-primary/30 hover:bg-primary/20 dark:hover:bg-primary/20 h-auto justify-start rounded-xl border border-black/10 bg-black/2 p-3 pt-2 text-left text-xs whitespace-normal dark:border-white/10 dark:bg-white/3 dark:text-white/90"
             >
               {q.singleQuestion}
-            </button>
+            </Button>
           ))}
         </div>
       </div>

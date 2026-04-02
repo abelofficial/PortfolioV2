@@ -1,6 +1,7 @@
 'use client';
 
 import { MessageCircle, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export interface ChatToggleButtonProps {
   isOpen: boolean;
@@ -15,7 +16,7 @@ const ChatToggleButton = ({
 }: ChatToggleButtonProps) => {
   return (
     <div className="fixed right-3 bottom-3 z-50 xl:hidden">
-      <button
+      <Button
         onClick={onToggle}
         className="bg-primary-light flex items-center gap-2 rounded-xl px-3 py-2 shadow-lg transition hover:scale-[1.02] active:scale-[0.98]"
         aria-label={label}
@@ -32,7 +33,7 @@ const ChatToggleButton = ({
             </span>
           </>
         )}
-      </button>
+      </Button>
     </div>
   );
 };
