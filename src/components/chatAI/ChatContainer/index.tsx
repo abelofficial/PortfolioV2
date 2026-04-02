@@ -11,16 +11,18 @@ import React, {
   useMemo,
 } from 'react';
 import { usePathname } from 'next/navigation';
-import { SectionContainer } from '@components/ui/custom-container';
+import { SectionContainer } from '@/components/ui/custom-container';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Button } from '@/components/ui/button';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Trash2 } from 'lucide-react';
 import { FullChatBoxData } from '@/types';
-import ChatToggleButton from '@components/chatAI/ChatToggleButton';
-import ChatMessages from '@components/chatAI/ChatMessages';
-import ChatInput from '@components/chatAI/ChatInput';
-import ChatSuggestions from '@components/chatAI/ChatSuggestions';
+import ChatToggleButton from '@/components/chatAI/ChatToggleButton';
+import ChatMessages from '@/components/chatAI/ChatMessages';
+import ChatInput from '@/components/chatAI/ChatInput';
+import ChatSuggestions from '@/components/chatAI/ChatSuggestions';
 import { getChatBoxInfoFromPath } from '@/utils/chatBoxUtils';
-import { ChatContext } from '@components/chatAI/ChatContext';
+import { ChatContext } from '@/components/chatAI/ChatContext';
 
 export interface ChatContainerProps {
   chatBoxData: FullChatBoxData;
@@ -142,14 +144,16 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
             title={chatBoxInfo.chatTitle}
             headerAction={
               messages.length > 0 ? (
-                <button
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
                   onClick={clearChat}
-                  className="text-muted-foreground rounded-md p-1 transition-colors hover:text-red-500"
+                  className="text-muted-foreground hover:text-destructive"
                   title="Clear chat"
                   aria-label="Clear chat"
                 >
                   <Trash2 size={18} />
-                </button>
+                </Button>
               ) : null
             }
           >
@@ -159,13 +163,13 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
               </p>
 
               {messages.length === 0 ? (
-                <div className="custom-scrollbar min-h-0 flex-1 overflow-y-auto px-4">
+                <ScrollArea className="min-h-0 flex-1 px-4">
                   <ChatSuggestions
                     questions={chatBoxInfo.questions}
                     suggestionLabel={chatBoxInfo.suggestionLabel}
                     onSuggestionClick={handleSuggestionClick}
                   />
-                </div>
+                </ScrollArea>
               ) : (
                 <ChatMessages
                   ref={messagesEndRef}
@@ -211,25 +215,29 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
                 fullHeight
                 title={chatBoxInfo.chatTitle}
                 headerAction={
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2">
                     {messages.length > 0 && (
-                      <button
+                      <Button
+                        variant="ghost"
+                        size="icon-sm"
                         onClick={clearChat}
-                        className="text-muted-foreground rounded-md p-1 transition-colors hover:text-red-500"
+                        className="text-muted-foreground hover:text-destructive"
                         title="Clear chat"
                         aria-label="Clear chat"
                       >
                         <Trash2 size={18} />
-                      </button>
+                      </Button>
                     )}
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon-sm"
                       onClick={() => setIsOpen(false)}
-                      className="text-muted-foreground hover:text-foreground rounded-md p-1 transition-colors"
+                      className="text-muted-foreground hover:text-foreground"
                       aria-label="Close chat"
                       title="Close"
                     >
                       <X size={20} />
-                    </button>
+                    </Button>
                   </div>
                 }
               >
@@ -239,13 +247,13 @@ const ChatContainer = ({ chatBoxData, locale }: ChatContainerProps) => {
                   </p>
 
                   {messages.length === 0 ? (
-                    <div className="custom-scrollbar min-h-0 flex-1 overflow-y-auto px-4">
+                    <ScrollArea className="min-h-0 flex-1 px-4">
                       <ChatSuggestions
                         questions={chatBoxInfo.questions}
                         suggestionLabel={chatBoxInfo.suggestionLabel}
                         onSuggestionClick={handleSuggestionClick}
                       />
-                    </div>
+                    </ScrollArea>
                   ) : (
                     <ChatMessages
                       ref={messagesEndRef}
