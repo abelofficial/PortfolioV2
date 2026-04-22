@@ -112,16 +112,12 @@ async function seed() {
     }
 
     // Filter hidden repositories
-    const hiddenRepoNames = landingData.landingPage.hiddenPublicRepositories
+    const _hiddenRepoNames = landingData.landingPage.hiddenPublicRepositories
       ? landingData.landingPage.hiddenPublicRepositories
           .split(',')
           .map((name) => name.trim().toLowerCase())
           .filter(Boolean)
       : [];
-
-    const visibleRepositories = repositories.filter(
-      (repo) => !hiddenRepoNames.includes(repo.name.toLowerCase())
-    );
 
     const seedChunks: SeedChunk[] = [];
 

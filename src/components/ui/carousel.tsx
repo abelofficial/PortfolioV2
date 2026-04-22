@@ -95,11 +95,14 @@ function Carousel({
 
   React.useEffect(() => {
     if (!api) return;
-    onSelect(api);
     api.on('reInit', onSelect);
     api.on('select', onSelect);
 
+    // Set initial scroll state without calling setState synchronously
+    const timer = setTimeout(() => onSelect(api), 0);
+
     return () => {
+      clearTimeout(timer);
       api?.off('select', onSelect);
     };
   }, [api, onSelect]);
