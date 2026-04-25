@@ -49,8 +49,8 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       datocms-structured-text-utils:
-        specifier: ^5.1.7
-        version: 5.1.7
+        specifier: ^5.1.9
+        version: 5.1.9
       embla-carousel-autoplay:
         specifier: ^8.6.0
         version: 8.6.0(embla-carousel@8.6.0)
@@ -67,8 +67,8 @@ importers:
         specifier: ^7.4.0
         version: 7.4.0(graphql@16.13.2)
       lucide-react:
-        specifier: ^1.8.0
-        version: 1.8.0(react@19.2.5)
+        specifier: ^1.11.0
+        version: 1.11.0(react@19.2.5)
       micromark:
         specifier: ^4.0.2
         version: 4.0.2
@@ -146,8 +146,8 @@ importers:
         specifier: 3.8.3
         version: 3.8.3
       prettier-plugin-tailwindcss:
-        specifier: ^0.7.2
-        version: 0.7.2(prettier@3.8.3)
+        specifier: ^0.7.3
+        version: 0.7.3(prettier@3.8.3)
       shadcn:
         specifier: ^4.4.0
         version: 4.4.0(@types/node@25.6.0)(typescript@6.0.3)
@@ -2486,8 +2486,8 @@ packages:
   datocms-structured-text-generic-html-renderer@5.1.7:
     resolution: {integrity: sha512-Oz76ylvBCnOMQqq0C6qrZsZXeplotHuNbV+ctiaTcf8jI7bIX+suL1vjvBpP8905dlNt37bJloX7c4g9A2m4lA==}
 
-  datocms-structured-text-utils@5.1.7:
-    resolution: {integrity: sha512-026bnrFQwKG/V9gUoLgGvOI5+hVJSzSpxTrb7MmjpV5ScZ0XTIjorhe34Ew3V7BJz/8zWpdRqiY+UB82dnRD8g==}
+  datocms-structured-text-utils@5.1.9:
+    resolution: {integrity: sha512-mhvw8vTKF++IWszM5N9oMJidegI+6hYkYuy7WlqYEuGQfxyX1Ejh91NlP5+dqt8+NPOY/sM6i7EGT2GXJ6vN9g==}
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
@@ -3596,8 +3596,8 @@ packages:
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
 
-  lucide-react@1.8.0:
-    resolution: {integrity: sha512-WuvlsjngSk7TnTBJ1hsCy3ql9V9VOdcPkd3PKcSmM34vJD8KG6molxz7m7zbYFgICwsanQWmJ13JlYs4Zp7Arw==}
+  lucide-react@1.11.0:
+    resolution: {integrity: sha512-UOhjdztXCgdBReRcIhsvz2siIBogfv/lhJEIViCpLt924dO+GDms9T7DNoucI23s6kEPpe988m5N0D2ajnzb2g==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
@@ -4045,8 +4045,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier-plugin-tailwindcss@0.7.2:
-    resolution: {integrity: sha512-LkphyK3Fw+q2HdMOoiEHWf93fNtYJwfamoKPl7UwtjFQdei/iIBoX11G6j706FzN3ymX9mPVi97qIY8328vdnA==}
+  prettier-plugin-tailwindcss@0.7.3:
+    resolution: {integrity: sha512-lckXaWWdo2ZVXoMoUO3WIBiz9hVY+YBEh1gYyMFfrWP9WZW/wpFXQKizHx7WrFQFMkcG0bGShdpp531X1n+qpg==}
     engines: {node: '>=20.19'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -7153,9 +7153,9 @@ snapshots:
 
   datocms-structured-text-generic-html-renderer@5.1.7:
     dependencies:
-      datocms-structured-text-utils: 5.1.7
+      datocms-structured-text-utils: 5.1.9
 
-  datocms-structured-text-utils@5.1.7:
+  datocms-structured-text-utils@5.1.9:
     dependencies:
       array-flatten: 3.0.0
 
@@ -8401,7 +8401,7 @@ snapshots:
     dependencies:
       yallist: 3.1.1
 
-  lucide-react@1.8.0(react@19.2.5):
+  lucide-react@1.11.0(react@19.2.5):
     dependencies:
       react: 19.2.5
 
@@ -9017,7 +9017,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier-plugin-tailwindcss@0.7.2(prettier@3.8.3):
+  prettier-plugin-tailwindcss@0.7.3(prettier@3.8.3):
     dependencies:
       prettier: 3.8.3
 
@@ -9130,7 +9130,7 @@ snapshots:
       '@datocms/content-link': 0.3.20
       datocms-listen: 1.0.2(graphql@16.13.2)
       datocms-structured-text-generic-html-renderer: 5.1.7
-      datocms-structured-text-utils: 5.1.7
+      datocms-structured-text-utils: 5.1.9
       react: 19.2.5
       react-intersection-observer: 9.16.0(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       react-string-replace: 1.1.1
