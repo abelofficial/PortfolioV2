@@ -16,3 +16,10 @@ updates:
         update-types:
           - "patch"
           - "minor"
+    ignore:
+      # @typescript-eslint (via eslint-config-next) does not yet support
+      # TypeScript 7; a major bump breaks the lint step. Hold at 6.x until
+      # the lint toolchain adds TS 7 support.
+      - dependency-name: "typescript"
+        update-types:
+          - "version-update:semver-major"
