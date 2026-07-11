@@ -210,13 +210,12 @@ export async function POST(req: Request) {
 
   const modelMessages = await convertToModelMessages(trimmed);
 
-  modelMessages.push({
-    role: 'system',
-    content: contextText + currentPageContext,
-  });
+  // The AI SDK no longer allows `system` role messages inside `messages`;
+  // the retrieved context and page hint are folded into the system
+  // instructions instead.
   const result = streamText({
     model: openai('gpt-4o-mini'),
-    system: systemPrompt,
+    system: `${systemPrompt}\n\n${contextText}${currentPageContext}`,
     messages: modelMessages,
     maxOutputTokens: 400,
   });
